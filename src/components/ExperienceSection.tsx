@@ -1,5 +1,6 @@
 import { Fragment } from "react/jsx-runtime";
 import { getDurationInYearsMonths, getDurationText } from "../utils/helper";
+import { canadaFlagIcon, ukFlagIcon } from "./Icons";
 
 export const fundamentalXRIcon = (
   <a href="https://www.fundamentalxr.com/" target="_blank">
@@ -27,6 +28,7 @@ export const ExperienceSection = () => {
             companyName: "fundamental XR",
             companyIcon: fundamentalXRIcon,
             companyLocation: "London, United Kingdom",
+            locationFlag: ukFlagIcon,
             positions: [
                 {
                     positionName: "Software Engineer",
@@ -58,6 +60,7 @@ export const ExperienceSection = () => {
             companyName: "Toronto Western Hospital",
             companyIcon: torontoWesternIcon,
             companyLocation: "Toronto, Ontario, Canada",
+            locationFlag: canadaFlagIcon,
             positions: [
                 {
                     positionName: "Research Assistant",
@@ -75,6 +78,7 @@ export const ExperienceSection = () => {
             companyName: "Y Country Camp",
             companyIcon: yCountryCampIcon,
             companyLocation: "Montreal, Quebec, Canada",
+            locationFlag: canadaFlagIcon,
             positions: [
                 {
                     positionName: "Lifeguard/Coach",
@@ -102,9 +106,9 @@ export const ExperienceSection = () => {
 
             <div className="mt-10 flex flex-col w-full space-y-6">
 
-                {experiences.map(({ companyName, companyIcon, companyLocation, positions }) => (
+                {experiences.map(({ companyName, companyIcon, companyLocation, locationFlag, positions }) => (
 
-                    <ExperiencePanel companyName={companyName} companyIcon={companyIcon} companyLocation={companyLocation} positions={positions} />
+                    <ExperiencePanel companyName={companyName} companyIcon={companyIcon} companyLocation={companyLocation} locationFlag={locationFlag} positions={positions} />
 
                 ))}
 
@@ -127,10 +131,11 @@ type ExperiencePanelProps = {
     companyName: string,
     companyIcon: any,
     companyLocation: string,
+    locationFlag: any,
     positions: PositionProps[],
 }
 
-export const ExperiencePanel = ({ companyName, companyIcon, companyLocation, positions }: ExperiencePanelProps) => {
+export const ExperiencePanel = ({ companyName, companyIcon, companyLocation, locationFlag, positions }: ExperiencePanelProps) => {
 
     // do I need to show total experience period
     const showTotalDuration = positions.length > 1;
@@ -152,10 +157,16 @@ export const ExperiencePanel = ({ companyName, companyIcon, companyLocation, pos
                     
                     {showTotalDuration && (<p className="font-text text-sm text-zinc-400 group-hover:text-zinc-200 transition">[ {durationText} ]</p>)}
 
-                    <p className="font-text text-sm text-zinc-400 group-hover:text-zinc-200 transition">{companyLocation.toUpperCase()}</p>
+                    <div className="flex flex-row items-center space-x-3">
+                        <p className="font-text text-sm text-zinc-400 group-hover:text-zinc-200 transition">{companyLocation.toUpperCase()}</p>
+                        <div className="opacity-40 group-hover:opacity-100 transition">
+                            {locationFlag}
+                        </div>
+                    </div>
+                    
                 </div>
 
-                <div className="flex items-center">
+                <div className="flex items-center opacity-60 group-hover:opacity-100 transition">
                     {companyIcon}
                 </div>
             </div>
