@@ -2,6 +2,10 @@ import { Fragment, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import healthTrackerImage from '/images/health_tracker.png'
 import insideShapesImage from '/images/inside_shape.png';
+import intersectionPointImage from '/images/intersection_points.png';
+import customGizmoImage from '/images/custom_gizmos.png';
+
+
 import { GoArrowUpRight } from "react-icons/go";
 
 
@@ -20,13 +24,27 @@ export const PostsSection = () => {
         },
         {
             title: "Inside Shapes",
-            description: "An exploration into algorithms to determine if a point is inside of different shapes.\n" + 
-            "Built an algorithm to check if a point is inside of a 2D polygon of arbitrary shape and size. This is a well known problem in computer graphics and my approach solves this using a ray cast algorithm." + 
-            "This works by checking the number of intersections between a ray in one direction and the boundaries of our shape, giving efficient and accurate results.\n" + 
-            "Also built a method to check if a point is inside of a cuboid using vector projections in 3D space (via the dot product).",
+            description: "An exploration into algorithms to determine if a point is inside of different shapes.\n" +
+                "Built an algorithm to check if a point is inside of a 2D polygon of arbitrary shape and size. This is a well known problem in computer graphics and my approach solves this using a ray cast algorithm." +
+                "This works by checking the number of intersections between a ray in one direction and the boundaries of our shape, giving efficient and accurate results.\n" +
+                "Also built a method to check if a point is inside of a cuboid using vector projections in 3D space (via the dot product).",
             publishDate: new Date(2023, 5, 5),
             blogLink: "https://medium.com/@markomeara98/check-inside-shapes-in-unity-99253fd3d815",
             image: insideShapesImage,
+        },
+        {
+            title: "Intersection Points",
+            description: "Algorithms to calculate intersection points with different shapes.\n",
+            publishDate: new Date(2023, 2, 5),
+            blogLink: "https://medium.com/@markomeara98/calculating-intersection-points-in-unity-cf010c155491",
+            image: intersectionPointImage,
+        },
+        {
+            title: "Custom Gizmo Shapes",
+            description: "Creating custom gizmo shapes in Unity.\n",
+            publishDate: new Date(2023, 4, 18),
+            blogLink: "https://medium.com/@markomeara98/custom-gizmo-shapes-in-unity-8357c254d809",
+            image: customGizmoImage,
         },
     ];
 
@@ -41,7 +59,7 @@ export const PostsSection = () => {
                 Blog posts on topics that I have interest in.
             </p>
 
-            <div className="mt-10 flex flex-col w-full space-y-5">
+            <div className="mt-10 flex flex-col w-full">
 
                 {blogPosts.map(({ title, description, publishDate, blogLink, image }) => (
                     <BlogPostPanel title={title} description={description} publishDate={publishDate} blogLink={blogLink} image={image} />
@@ -70,20 +88,22 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
 
 
     return (
-        <div className="p-2">
+        <div>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="group flex flex-row justify-between items-center border-b-2 border-b-zinc-500 p-2 w-full rounded">
-                <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition mb-2 font-text">{title}</h3>
+                className="group flex flex-row justify-between items-center p-2 py-4 w-full rounded">
+                <div className="border-b-2 border-b-zinc-500 flex flex-row justify-between items-center w-full py-2">
 
-                <div className="flex flex-row items-center space-x-3">
-                    <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Published: {formattedDate}</p>
-                    <button
-                        className="p-1 text-zinc-500 group-hover:text-zinc-300 transition">
-                        {isOpen ? <FaChevronUp /> : <FaChevronDown />}
-                    </button>
+                    <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition mb-2 font-text">{title}</h3>
+
+                    <div className="flex flex-row items-center space-x-3">
+                        <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Published: {formattedDate}</p>
+                        <button
+                            className="p-1 text-zinc-500 group-hover:text-zinc-300 transition">
+                            {isOpen ? <FaChevronUp /> : <FaChevronDown />}
+                        </button>
+                    </div>
                 </div>
-
             </button>
 
             {isOpen && (
@@ -122,9 +142,9 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
                     >
                         <div className="flex flex-row space-x-1 items-center hover:text-purple-300 transition">
                             <p>Read more</p>
-                            <GoArrowUpRight size={25}/>
+                            <GoArrowUpRight size={25} />
                         </div>
-                        
+
                     </a>
                 </div>
             )}

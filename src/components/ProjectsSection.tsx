@@ -48,7 +48,7 @@ export const ProjectsSection = () => {
                 Projects that I have built in my spare time.
             </p>
 
-            <div className="mt-10 flex flex-col w-full space-y-5">
+            <div className="mt-10 flex flex-col w-full">
 
                 {projects.map(({ title, description, projectLink, startDate, image, techUsed }) => (
 
@@ -81,20 +81,21 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, image
     const formattedDate = startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
 
     return (
-        <div className="p-2">
+        <div>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="group flex flex-row justify-between items-center border-b-2 border-b-zinc-500 p-2 w-full rounded">
-                <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition mb-2 font-text">{title}</h3>
+                className="group flex flex-row justify-between items-center p-2 py-4 w-full rounded">
+                <div className="border-b-2 border-b-zinc-500 flex flex-row justify-between items-center w-full py-2">
+                    <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition mb-2 font-text">{title}</h3>
 
-                <div className="flex flex-row items-center space-x-3">
-                    <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Started: {formattedDate}</p>
-                    <button
-                        className="p-1 text-zinc-500 group-hover:text-zinc-300 transition">
-                        {isOpen ? <FaChevronUp /> : <FaChevronDown />}
-                    </button>
+                    <div className="flex flex-row items-center space-x-3">
+                        <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Started: {formattedDate}</p>
+                        <button
+                            className="p-1 text-zinc-500 group-hover:text-zinc-300 transition">
+                            {isOpen ? <FaChevronUp /> : <FaChevronDown />}
+                        </button>
+                    </div>
                 </div>
-
             </button>
 
             {isOpen && (
