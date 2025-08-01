@@ -61,8 +61,8 @@ export const PostsSection = () => {
 
             <div className="mt-10 flex flex-col w-full">
 
-                {blogPosts.map(({ title, description, publishDate, blogLink, image }) => (
-                    <BlogPostPanel title={title} description={description} publishDate={publishDate} blogLink={blogLink} image={image} />
+                {blogPosts.map(({ title, description, publishDate, blogLink, image }, index) => (
+                    <BlogPostPanel title={title} description={description} publishDate={publishDate} blogLink={blogLink} image={image} index={index} />
                 ))}
 
             </div>
@@ -78,9 +78,10 @@ type BlogPostPanelProps = {
     publishDate: Date,
     blogLink: string,
     image: any,
+    index: number,
 }
 
-export const BlogPostPanel = ({ title, description, publishDate, blogLink, image }: BlogPostPanelProps) => {
+export const BlogPostPanel = ({ title, description, publishDate, blogLink, image, index }: BlogPostPanelProps) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -94,8 +95,10 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
                 className="group flex flex-row justify-between items-center p-2 py-4 w-full rounded">
                 <div className="border-b-2 border-b-zinc-500 flex flex-row justify-between items-center w-full py-2">
 
-                    <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition mb-2 font-text">{title}</h3>
-
+                    <div className="flex flex-row items-center space-x-6">
+                        <div className="px-2.5 py-1 text-sm bg-zinc-900 group-hover:bg-zinc-700 font-bold font-text text-zinc-400 group-hover:text-zinc-300 rounded transition">{index + 1}</div>
+                        <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition font-text">{title}</h3>
+                    </div>
                     <div className="flex flex-row items-center space-x-3">
                         <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Published: {formattedDate}</p>
                         <button

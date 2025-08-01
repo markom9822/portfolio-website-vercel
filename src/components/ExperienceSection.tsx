@@ -166,7 +166,7 @@ export const ExperiencePanel = ({ companyName, companyIcon, companyLocation, loc
                     
                 </div>
 
-                <div className="flex items-center">
+                <div className="flex items-center opacity-60 group-hover:opacity-100 transition">
                     {companyIcon}
                 </div>
             </div>

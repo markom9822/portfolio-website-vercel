@@ -50,9 +50,10 @@ export const ProjectsSection = () => {
 
             <div className="mt-10 flex flex-col w-full">
 
-                {projects.map(({ title, description, projectLink, startDate, image, techUsed }) => (
+                {projects.map(({ title, description, projectLink, startDate, image, techUsed }, index) => (
 
-                    <ProjectPanel title={title} description={description} projectLink={projectLink} startDate={startDate} image={image} techUsed={techUsed} />
+                    <ProjectPanel title={title} description={description} projectLink={projectLink}
+                     startDate={startDate} image={image} techUsed={techUsed} index={index}/>
 
                 ))}
 
@@ -71,10 +72,11 @@ type ProjectPanelProps = {
     startDate: Date,
     image: any,
     techUsed: ReactElement[],
+    index: number
 
 }
 
-export const ProjectPanel = ({ title, description, projectLink, startDate, image, techUsed }: ProjectPanelProps) => {
+export const ProjectPanel = ({ title, description, projectLink, startDate, image, techUsed, index }: ProjectPanelProps) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -86,7 +88,11 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, image
                 onClick={() => setIsOpen(!isOpen)}
                 className="group flex flex-row justify-between items-center p-2 py-4 w-full rounded">
                 <div className="border-b-2 border-b-zinc-500 flex flex-row justify-between items-center w-full py-2">
-                    <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition mb-2 font-text">{title}</h3>
+
+                    <div className="flex flex-row items-center space-x-6">
+                        <div className="px-2.5 py-1 text-sm bg-zinc-900 group-hover:bg-zinc-700 font-bold font-text text-zinc-400 group-hover:text-zinc-300 rounded transition">{index + 1}</div>
+                        <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition font-text">{title}</h3>
+                    </div>
 
                     <div className="flex flex-row items-center space-x-3">
                         <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Started: {formattedDate}</p>
