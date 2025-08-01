@@ -1,8 +1,8 @@
 import { cppIcon, csIcon, pythonIcon, reactIcon, typescriptIcon, unityIcon } from './Icons';
+import { motion, stagger } from "motion/react"
 
 
 export const AboutSection = () => {
-
 
     const skills = [
         {
@@ -37,16 +37,46 @@ export const AboutSection = () => {
         },
     ];
 
+    const containerVariant = {
+        hidden: {},
+        show: {
+            transition: {
+                delayChildren: stagger(0.1)
+            }
+        }
+    }
+
+    const itemVariant = {
+        hidden: { opacity: 0, y: 10 },
+        show: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.4 },
+        },
+    };
+
     const maxExperienceLevel = Math.max(...skills.map(skill => skill.experience));
 
     return (
-        <div className="space-y-7 w-full">
+        <motion.div
+            initial='hidden'
+            animate='show'
+            variants={containerVariant}
+            className="space-y-7 w-full">
 
-            <h2 className="text-4xl font-bold font-text">
+            <motion.h2
+                className="text-4xl font-bold font-text"
+                variants={itemVariant}
+                animate={{transition: {ease: "easeOut"}}}
+                >
                 about me
-            </h2>
+            </motion.h2>
 
-            <p className="text-lg text-zinc-400 font-text">
+            <motion.p
+                className="text-lg text-zinc-400 font-text"
+                variants={itemVariant}
+                animate={{transition: {ease: "easeOut"}}}
+            >
                 I am a Software Engineer from Dublin, Ireland living in London.
                 <br />
                 <br />
@@ -56,9 +86,13 @@ export const AboutSection = () => {
                 <br />
                 <br />
                 Here you will find out more about me, my skills, my experience and some of my projects I've been working on in my spare time.
-            </p>
+            </motion.p>
 
-            <div className='w-full'>
+            <motion.div
+                className='w-full'
+                variants={itemVariant}
+                animate={{transition: {ease: "easeOut"}}}
+            >
                 <h2 className="text-2xl font-bold font-text mb-6">
                     skills
                 </h2>
@@ -77,8 +111,8 @@ export const AboutSection = () => {
                     ))}
 
                 </div>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     )
 }
 
@@ -100,15 +134,16 @@ export const SkillPanel = ({ title, experience, maxExperienceLevel, icon }: Skil
             className="p-4"
         >
             <div className='flex flex-row space-x-3'>
-               {icon}
+                {icon}
 
                 <div className='flex flex-col w-full'>
                     <div className='flex flex-row justify-between'>
                         <h3 className="text-lg font-semibold text-zinc-200 mb-2 font-text">{title}</h3>
                         <h3 className="text-base text-zinc-200 mb-2 font-text">{experienceText}</h3>
                     </div>
-                    <div className="h-2.5">
-                            <div className="bg-[#9e75f0] h-2.5 rounded" style={{ width: experienceWidth }}></div>
+                    <div className="h-2.5 relative">
+                        <div className="bg-[#9e75f0] h-2.5 rounded relative z-10" style={{ width: experienceWidth }}></div>
+                        <div className="bg-zinc-800 h-2.5 rounded absolute bottom-0 left-0 z-0" style={{ width: "100%" }}></div>
                     </div>
                 </div>
             </div>
