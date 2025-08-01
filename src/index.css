@@ -143,12 +143,24 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "LeckerliOne Regular";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/fonts/leckerli-one-v21-latin-regular.woff2") format("woff2");
+  font-display: swap;
+}
+
 .font-martian {
   font-family: "Martian Mono", monospace;
 }
 
 .font-title {
   font-family: "PTSerif-Bold", serif;
+}
+
+.font-fancy {
+  font-family: "LeckerliOne Regular", sans-serif;
 }
 
 body {
