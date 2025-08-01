@@ -19,6 +19,7 @@ import { ProjectsSection } from './components/ProjectsSection';
 import { PostsSection } from './components/PostsSection';
 import { EducationSection } from './components/EducationSection'
 import { ReachOutSection } from './components/ReachOutSection';
+import LoaderScreen from './components/LoadingScreen';
 
 export function App() {
 
