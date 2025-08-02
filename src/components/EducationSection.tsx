@@ -1,6 +1,7 @@
 import { Fragment } from "react/jsx-runtime";
 import iclLogo from '/images/icl_logo.png'
 import ucdLogo from '/images/ucd_logo.png'
+import { motion, stagger } from "motion/react"
 
 
 export const EducationSection = () => {
@@ -22,26 +23,59 @@ export const EducationSection = () => {
         },
     ];
 
+    const containerVariant = {
+        hidden: {},
+        show: {
+            transition: {
+                delayChildren: stagger(0.1)
+            }
+        }
+    }
+
+    const itemVariant = {
+        hidden: { opacity: 0, y: 10 },
+        show: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.4 },
+        },
+    };
+
+
     return (
-        <div className="space-y-4">
+        <motion.div
+            className="space-y-4 w-full"
+            initial='hidden'
+            animate='show'
+            variants={containerVariant}>
 
-            <h2 className="text-4xl font-bold font-text">
+            <motion.h2
+                className="text-4xl font-bold font-text"
+                variants={itemVariant}
+                animate={{ transition: { ease: "easeOut" } }}>
+
                 education
-            </h2>
+            </motion.h2>
 
-            <p className="text-lg text-zinc-400 font-text">
-                My education
-            </p>
+            <motion.p
+                className="text-lg text-zinc-400 font-text"
+                variants={itemVariant}
+                animate={{ transition: { ease: "easeOut" } }}>
+                My education.
+            </motion.p>
 
-            <div className="mt-10 flex flex-col w-full space-y-6">
+            <motion.div
+                className="mt-10 flex flex-col w-full space-y-6"
+                variants={itemVariant}
+                animate={{ transition: { ease: "easeOut" } }}>
 
                 {educations.map(({ title, subtitle, content, icon }) => (
 
                     <EducationPanel title={title} subtitle={subtitle} content={content} icon={icon} />
                 ))}
 
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     )
 }
 

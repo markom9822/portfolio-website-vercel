@@ -6,7 +6,9 @@ import { GrProjects } from "react-icons/gr";
 import { IoSchoolOutline } from "react-icons/io5";
 import { MdOutlineLocalPostOffice } from "react-icons/md";
 import { SiMinutemailer } from "react-icons/si";
-import { BsInfoCircle  } from "react-icons/bs";
+import { BsInfoCircle } from "react-icons/bs";
+
+import { motion } from "motion/react"
 
 import {
   githubIcon,
@@ -26,7 +28,7 @@ export function App() {
 
   const tabs = [
     { label: "about", Icon: BsInfoCircle },
-    { label: "experience", Icon: LuBriefcaseBusiness},
+    { label: "experience", Icon: LuBriefcaseBusiness },
     { label: "projects", Icon: GrProjects },
     { label: "education", Icon: IoSchoolOutline },
     { label: "posts", Icon: MdOutlineLocalPostOffice },
@@ -51,7 +53,6 @@ export function App() {
       default:
         return null;
     }
-
   }
 
 
@@ -61,33 +62,44 @@ export function App() {
 
         <div className='flex flex-col items-center space-y-6'>
 
-          <img 
-          src={profilePic}
-          loading='eager'
-          fetchPriority='high'
-          className='rounded-full w-32 h-32 object-cover shadow'/>
+          <motion.img
+            src={profilePic}
+            loading='eager'
+            fetchPriority='high'
+            draggable={false}
+            className='rounded-full w-32 h-32 object-cover shadow'
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          />
 
-          <div className='text-center space-y-3'>
+          <motion.div
+            className='text-center space-y-3'
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ y: 0, opacity: 1, transition: { type: 'spring', stiffness: 200, damping: 25 } }}
+          >
             <h2 className='text-2xl text-zinc-300 font-bold font-text'>
               Mark O Meara
             </h2>
-            <p className='text-base text-zinc-400 font-text italic'>
-              Software Engineer
+            <p className='text-base text-zinc-400 font-text'>
+              [ Software Engineer ]
             </p>
-          </div>
+          </motion.div>
 
           <nav className='flex flex-col w-full space-y-2 relative z-0'>
             {tabs.map(({ label, Icon }) => (
 
-              <div 
-              key={label}
-              className='relative z-0'>
+              <div
+                key={label}
+                className='relative z-0'>
 
                 {activeTab === label && (
-                    <div
-                      className="absolute inset-0 bg-white/10 rounded z-[-1]"
-                    />
-                  )}
+                  <motion.div
+                    layoutId="highlight"
+                    className="absolute inset-0 bg-white/10 rounded z-[-1]"
+                    transition={{ type: "spring", stiffness: 500, damping: 40 }}
+                  />
+                )}
                 <button
                   onClick={() => setActiveTab(label)}
                   className={`flex text-base items-center space-x-5 px-4 py-2 w-full rounded duration-200 cursor-pointer ${activeTab === label
@@ -103,28 +115,35 @@ export function App() {
           </nav>
         </div>
 
-        <div className='flex justify-center space-x-5 pt-6 border-t border-zinc-700 text-zinc-400'>
+        <motion.div
+          className='flex justify-center space-x-5 pt-6 border-t border-zinc-700 text-zinc-400'
+          initial="hidden"
+          animate="visible">
 
-          <a
+          <motion.a
             href="https://github.com/markom9822"
             target="_blank"
             rel="noreferrer"
             className="transition-colors hover:text-white"
             aria-label="Github"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ y: 0, opacity: 1, transition: { type: 'spring', stiffness: 200, damping: 30 } }}
           >
             {githubIcon}
-          </a>
+          </motion.a>
 
-          <a
+          <motion.a
             href="https://www.linkedin.com/in/marko-meara/"
             target="_blank"
             rel="noreferrer"
             className="transition-colors hover:text-white"
             aria-label="LinkedIn"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ y: 0, opacity: 1, transition: { type: 'spring', stiffness: 200, damping: 30 } }}
           >
             {linkedinIcon}
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
       </aside>
 
       <main className="flex-1 h-screen overflow-y-auto p-6 md:p-10 
@@ -135,7 +154,7 @@ export function App() {
         overflow-scroll">
         {handleContentsSection(activeTab)}
       </main>
-      
+
     </div>
 
   )

@@ -4,7 +4,8 @@ import { GoArrowUpRight } from "react-icons/go";
 import { codemirrorIcon, electronIcon, expoIcon, figmaIcon, githubIcon, gitIcon, jotaiIcon, markdownIcon, reactIcon, tailwindCSSIcon, typescriptIcon, viteIcon } from "./Icons";
 import markNoteImage from '/images/MarkNote_app_cover.png'
 import rugbyRadarImage from '/images/Rugby_Radar_Poster.jpg'
-import portfolioWebsiteImage from '/images/portfolio_website_cover.png'
+import portfolioWebsiteImage from '/images/portfolio_website_cover.png';
+import { motion, stagger } from "motion/react"
 
 
 export const ProjectsSection = () => {
@@ -37,29 +38,62 @@ export const ProjectsSection = () => {
         },
     ];
 
+    const containerVariant = {
+        hidden: {},
+        show: {
+            transition: {
+                delayChildren: stagger(0.1)
+            }
+        }
+    }
+
+    const itemVariant = {
+        hidden: { opacity: 0, y: 10 },
+        show: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.4 },
+        },
+    };
+
     return (
-        <div className="space-y-4">
+        <motion.div
+            className="space-y-4 w-full"
+            initial='hidden'
+            animate='show'
+            variants={containerVariant}>
 
-            <h2 className="text-4xl font-bold font-text">
+            <motion.h2
+                className="text-4xl font-bold font-text"
+                variants={itemVariant}
+                animate={{ transition: { ease: "easeOut" } }}>
+
                 projects
-            </h2>
+            </motion.h2>
 
-            <p className="text-lg text-zinc-400 font-text">
+            <motion.p
+                className="text-lg text-zinc-400 font-text"
+                variants={itemVariant}
+                animate={{ transition: { ease: "easeOut" } }}>
                 Projects that I have built in my spare time.
-            </p>
+            </motion.p>
 
-            <div className="mt-10 flex flex-col w-full">
+            <motion.div
+                className="mt-10 flex flex-col w-full"
+                initial='hidden'
+                animate='show'
+                variants={containerVariant}>
 
                 {projects.map(({ title, description, projectLink, startDate, image, techUsed }, index) => (
 
                     <ProjectPanel title={title} description={description} projectLink={projectLink}
-                     startDate={startDate} image={image} techUsed={techUsed} index={index}/>
+                        startDate={startDate} image={image} techUsed={techUsed} index={index} />
 
                 ))}
 
-            </div>
+            </motion.div>
 
-        </div>
+        </motion.div>
     )
 }
 
@@ -78,12 +112,23 @@ type ProjectPanelProps = {
 
 export const ProjectPanel = ({ title, description, projectLink, startDate, image, techUsed, index }: ProjectPanelProps) => {
 
+    const panelVariant = {
+        hidden: { opacity: 0, y: 10 },
+        show: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.4 },
+        },
+    };
+
     const [isOpen, setIsOpen] = useState(false);
 
     const formattedDate = startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
 
     return (
-        <div>
+        <motion.div
+            variants={panelVariant}
+            animate={{ transition: { ease: "easeOut" } }}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="group flex flex-row justify-between items-center p-2 py-4 w-full rounded">
@@ -162,7 +207,7 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, image
                 </div>
             )}
 
-        </div>
+        </motion.div>
     )
 }
 

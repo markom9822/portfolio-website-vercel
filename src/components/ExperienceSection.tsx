@@ -1,24 +1,25 @@
 import { Fragment } from "react/jsx-runtime";
 import { getDurationInYearsMonths, getDurationText } from "../utils/helper";
 import { canadaFlagIcon, ukFlagIcon } from "./Icons";
+import { motion, stagger } from "motion/react"
 
 export const fundamentalXRIcon = (
-  <a href="https://www.fundamentalxr.com/" target="_blank">
-    <img title="fundamental XR" width="70" height="70" style={{ borderRadius: '5px' }} src="https://media.licdn.com/dms/image/v2/D4E0BAQErgOdEMxhblQ/company-logo_100_100/B4EZhbLsnvGoAQ-/0/1753876450155/fundamentalxr_logo?e=1756944000&amp;v=beta&amp;t=uiFf15VZzO_rZqm5FJTnbHnSsYlVrJz1UkHqs1UxO8Q">
-    </img>
-  </a>
+    <a href="https://www.fundamentalxr.com/" target="_blank">
+        <img title="fundamental XR" width="70" height="70" style={{ borderRadius: '5px' }} src="https://media.licdn.com/dms/image/v2/D4E0BAQErgOdEMxhblQ/company-logo_100_100/B4EZhbLsnvGoAQ-/0/1753876450155/fundamentalxr_logo?e=1756944000&amp;v=beta&amp;t=uiFf15VZzO_rZqm5FJTnbHnSsYlVrJz1UkHqs1UxO8Q">
+        </img>
+    </a>
 )
 
 export const torontoWesternIcon = (
-  <a href="https://www.uhn.ca/OurHospitals/TWH" target="_blank">
-    <img title="Toronto Western Hospital" width="70" height="70" style={{ borderRadius: '5px' }} src="https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/64x64/d16277a55a092dba9723d56f2303b455"></img>
-  </a>
+    <a href="https://www.uhn.ca/OurHospitals/TWH" target="_blank">
+        <img title="Toronto Western Hospital" width="70" height="70" style={{ borderRadius: '5px' }} src="https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/64x64/d16277a55a092dba9723d56f2303b455"></img>
+    </a>
 )
 
 export const yCountryCampIcon = (
-  <a href="https://ycountrycamp.com/" target="_blank">
-    <img title="Y Country Camp" width="70" height="70" style={{ borderRadius: '5px' }} src="https://raisedays-storage.s3.ca-central-1.amazonaws.com/public/00d892f1-61d2-432d-9ca9-40d2f3a1490f.jpeg"></img>
-  </a>
+    <a href="https://ycountrycamp.com/" target="_blank">
+        <img title="Y Country Camp" width="70" height="70" style={{ borderRadius: '5px' }} src="https://raisedays-storage.s3.ca-central-1.amazonaws.com/public/00d892f1-61d2-432d-9ca9-40d2f3a1490f.jpeg"></img>
+    </a>
 )
 
 export const ExperienceSection = () => {
@@ -93,18 +94,50 @@ export const ExperienceSection = () => {
         },
     ];
 
+    const containerVariant = {
+        hidden: {},
+        show: {
+            transition: {
+                delayChildren: stagger(0.1)
+            }
+        }
+    }
+
+    const itemVariant = {
+        hidden: { opacity: 0, y: 10 },
+        show: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.4 },
+        },
+    };
+
     return (
-        <div className="space-y-4">
+        <motion.div
+            className="space-y-4 w-full"
+            initial='hidden'
+            animate='show'
+            variants={containerVariant}>
 
-            <h2 className="text-4xl font-bold font-text">
+            <motion.h2
+                className="text-4xl font-bold font-text"
+                variants={itemVariant}
+                animate={{ transition: { ease: "easeOut" } }}>
                 experience
-            </h2>
+            </motion.h2>
 
-            <p className="text-lg text-zinc-400 font-text">
+            <motion.p
+                className="text-lg text-zinc-400 font-text"
+                variants={itemVariant}
+                animate={{ transition: { ease: "easeOut" } }}>
+
                 My experience to date.
-            </p>
+            </motion.p>
 
-            <div className="mt-10 flex flex-col w-full space-y-6">
+            <motion.div
+                className="mt-10 flex flex-col w-full space-y-6"
+                variants={itemVariant}
+                animate={{ transition: { ease: "easeOut" } }}>
 
                 {experiences.map(({ companyName, companyIcon, companyLocation, locationFlag, positions }) => (
 
@@ -112,8 +145,8 @@ export const ExperienceSection = () => {
 
                 ))}
 
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     )
 }
 
@@ -142,8 +175,7 @@ export const ExperiencePanel = ({ companyName, companyIcon, companyLocation, loc
 
     var durationText = '';
 
-    if(showTotalDuration)
-    {
+    if (showTotalDuration) {
         const positionDuration = getDurationInYearsMonths(positions[positions.length - 1].positionStartDate, positions[0].positionEndDate);
         durationText = getDurationText(positionDuration.years, positionDuration.months);
     }
@@ -154,7 +186,7 @@ export const ExperiencePanel = ({ companyName, companyIcon, companyLocation, loc
             <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-col mb-4 group-hover:translate-x-1 transition space-y-1">
                     <h2 className="text-2xl text-zinc-300 font-text mb-1 group-hover:text-zinc-100 transition">{companyName}</h2>
-                    
+
                     {showTotalDuration && (<p className="font-text text-sm text-zinc-400 group-hover:text-zinc-200 transition">[ {durationText} ]</p>)}
 
                     <div className="flex flex-row items-center space-x-3">
@@ -163,7 +195,7 @@ export const ExperiencePanel = ({ companyName, companyIcon, companyLocation, loc
                             {locationFlag}
                         </div>
                     </div>
-                    
+
                 </div>
 
                 <div className="flex items-center opacity-60 group-hover:opacity-100 transition">

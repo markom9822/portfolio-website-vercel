@@ -4,8 +4,7 @@ import healthTrackerImage from '/images/health_tracker.png'
 import insideShapesImage from '/images/inside_shape.png';
 import intersectionPointImage from '/images/intersection_points.png';
 import customGizmoImage from '/images/custom_gizmos.png';
-
-
+import { motion, stagger } from "motion/react"
 import { GoArrowUpRight } from "react-icons/go";
 
 
@@ -48,25 +47,57 @@ export const PostsSection = () => {
         },
     ];
 
+    const containerVariant = {
+        hidden: {},
+        show: {
+            transition: {
+                delayChildren: stagger(0.1)
+            }
+        }
+    }
+
+    const itemVariant = {
+        hidden: { opacity: 0, y: 10 },
+        show: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.4 },
+        },
+    };
+
     return (
-        <div className="space-y-4">
+        <motion.div
+            className="space-y-4 w-full"
+            initial='hidden'
+            animate='show'
+            variants={containerVariant}>
 
-            <h2 className="text-4xl font-bold font-text">
+            <motion.h2
+                className="text-4xl font-bold font-text"
+                variants={itemVariant}
+                animate={{ transition: { ease: "easeOut" } }}>
                 posts
-            </h2>
+            </motion.h2>
 
-            <p className="text-lg text-zinc-400 font-text">
+            <motion.p
+                className="text-lg text-zinc-400 font-text"
+                variants={itemVariant}
+                animate={{ transition: { ease: "easeOut" } }}>
                 Blog posts on topics that I have interest in.
-            </p>
+            </motion.p>
 
-            <div className="mt-10 flex flex-col w-full">
+            <motion.div
+                className="mt-10 flex flex-col w-full"
+                initial='hidden'
+                animate='show'
+                variants={containerVariant}>
 
                 {blogPosts.map(({ title, description, publishDate, blogLink, image }, index) => (
                     <BlogPostPanel title={title} description={description} publishDate={publishDate} blogLink={blogLink} image={image} index={index} />
                 ))}
 
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     )
 }
 
@@ -87,9 +118,19 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
 
     const formattedDate = publishDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
 
+    const panelVariant = {
+        hidden: { opacity: 0, y: 10 },
+        show: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.4 },
+        },
+    };
 
     return (
-        <div>
+        <motion.div
+            variants={panelVariant}
+            animate={{ transition: { ease: "easeOut" } }}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="group flex flex-row justify-between items-center p-2 py-4 w-full rounded">
@@ -152,6 +193,6 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
                 </div>
             )}
 
-        </div>
+        </motion.div>
     )
 }
