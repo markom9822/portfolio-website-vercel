@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import profilePic from '/images/profile_photo_small.png'
 import './App.css'
 import { LuBriefcaseBusiness } from "react-icons/lu";
@@ -21,10 +21,13 @@ import { ProjectsSection } from './components/ProjectsSection';
 import { PostsSection } from './components/PostsSection';
 import { EducationSection } from './components/EducationSection'
 import { ReachOutSection } from './components/ReachOutSection';
+import LoaderScreen from './components/LoadingScreen';
 
 export function App() {
 
   const [activeTab, setActiveTab] = useState("about");
+  const [isLoading, setIsLoading] = useState(true);
+
 
   const tabs = [
     { label: "about", Icon: BsInfoCircle },
@@ -54,6 +57,13 @@ export function App() {
         return null;
     }
   }
+
+  useEffect(() => {
+
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
+
+  }, []);
 
   const renderDesktop = () => {
 
@@ -160,12 +170,39 @@ export function App() {
     )
   }
 
+  const renderFullScreenLoader = () => {
+
+    return (
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#111",
+          zIndex: 9999,
+        }}
+      >
+        <LoaderScreen
+          size={150}
+          fullscreen={true}
+          tagline="mark o m. portfolio"
+          includeResetStyles={true}
+        />
+      </div>
+    )
+  }
+
   return (
     <>
-    {renderDesktop()}
-    </>
+    {isLoading ? renderFullScreenLoader() : renderDesktop()}
+  </>
   )
-  
+
 }
 
 export default App
