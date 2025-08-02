@@ -61,7 +61,7 @@ export const EducationSection = () => {
                 className="text-lg text-zinc-400 font-text"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
-                My education.
+                My educational background.
             </motion.p>
 
             <motion.div
@@ -99,7 +99,7 @@ export const EducationPanel = ({ title, subtitle, content, icon }: EducationPane
                     <p className="font-text text-sm text-zinc-400 group-hover:text-zinc-200 transition">{subtitle.toUpperCase()}</p>
                 </div>
 
-                <div className="flex items-center">
+                <div className="flex items-center opacity-60 group-hover:opacity-100 transition">
                     <img
                         src={icon}
                         className='w-15 h-15' />
