@@ -128,7 +128,8 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, image
     return (
         <motion.div
             variants={panelVariant}
-            animate={{ transition: { ease: "easeOut" } }}>
+            animate={{ transition: { ease: "easeOut" } }}
+            className="w-full">
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="group flex flex-row justify-between items-center p-2 py-4 w-full rounded">
@@ -173,12 +174,12 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, image
                         <div className="w-1/3 flex items-center justify-center border-l-2 border-l-zinc-500">
                             <img
                                 src={image}
-                                className="rounded w-80" />
+                                className="rounded w-10/12" />
                         </div>
                     </div>
 
 
-                    <div className="flex flex-col space-y-2">
+                    <div className="flex flex-col space-y-2 w-full">
 
                         <h3 className="font-text text-xs text-zinc-400">TECH USED:</h3>
 
@@ -195,10 +196,10 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, image
                         href={projectLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-text"
+                        className="font-text w-full"
                         style={{ color: '#9e75f0' }}
                     >
-                        <div className="flex flex-row space-x-2 items-center hover:text-purple-300 transition my-1">
+                        <div className="flex flex-row space-x-2 items-center hover:text-purple-300 transition my-1 w-full">
                             {githubIcon}
                             <p>View on GitHub</p>
                             <GoArrowUpRight size={25} />
