@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import profilePic from '/images/profile_photo_small.png'
 import './App.css'
 import { LuBriefcaseBusiness } from "react-icons/lu";
@@ -25,8 +25,11 @@ import LoaderScreen from './components/LoadingScreen';
 
 export function App() {
 
+  const LOADER_SCREEN_DELAY: number = 1500;
+
   const [activeTab, setActiveTab] = useState("about");
   const [isLoading, setIsLoading] = useState(true);
+  const contentContainerRef = useRef<HTMLDivElement | null>(null);
 
 
   const tabs = [
@@ -60,10 +63,19 @@ export function App() {
 
   useEffect(() => {
 
-    const timer = setTimeout(() => setIsLoading(false), 1000);
+    const timer = setTimeout(() => setIsLoading(false), LOADER_SCREEN_DELAY);
     return () => clearTimeout(timer);
 
   }, []);
+
+  const handleTabButtonPressed = (labelName: string) => {
+
+    setActiveTab(labelName)
+    if(contentContainerRef.current)
+    {
+      contentContainerRef.current.scrollTop = 0;
+    }
+  }
 
   const renderDesktop = () => {
 
@@ -112,7 +124,7 @@ export function App() {
                     />
                   )}
                   <button
-                    onClick={() => setActiveTab(label)}
+                    onClick={() => handleTabButtonPressed(label)}
                     className={`flex text-base items-center space-x-5 px-4 py-2 w-full rounded duration-200 cursor-pointer ${activeTab === label
                       ? "text-white"
                       : "hover:bg-zinc-800 text-zinc-500/80"
@@ -157,7 +169,9 @@ export function App() {
           </motion.div>
         </aside>
 
-        <main className="flex-1 h-screen w-full overflow-y-auto p-6 md:p-10 
+        <main 
+        ref={contentContainerRef}
+        className="flex-1 h-screen w-full overflow-y-auto p-6 md:p-10 
         [&::-webkit-scrollbar]:[width:10px]
       [&::-webkit-scrollbar-thumb]:bg-zinc-600
         [&::-webkit-scrollbar-thumb]:rounded-xs
@@ -199,8 +213,8 @@ export function App() {
 
   return (
     <>
-    {isLoading ? renderFullScreenLoader() : renderDesktop()}
-  </>
+      {isLoading ? renderFullScreenLoader() : renderDesktop()}
+    </>
   )
 
 }
