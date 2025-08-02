@@ -18,7 +18,7 @@ jobs:
       - name: Setuo Node
         uses: actions/setup-node@v2
         with: 
-         node-version: 16.18
+         node-version: 18.18
       - name: Install Dependancies
         run: npm ci
       - name: Run tests
