@@ -11,6 +11,7 @@ import { InputField } from '../ui/InputField';
 import { TextAreaField } from '../ui/TextAreaField';
 import { FaArrowLeft } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
+import { formatDateToDDMMYYYY } from '../utils/helper';
 
 
 
@@ -50,6 +51,8 @@ export const AdminProjects = () => {
 
     const [currentProjectTitle, setCurrentProjectTitle] = useState("");
     const [currentProjectDesc, setCurrentProjectDesc] = useState("");
+    const [currentProjectUrl, setCurrentProjectUrl] = useState("");
+    const [currentProjectStartDate, setCurrentProjectStartDate] = useState("");
 
 
     const navigate = useNavigate();
@@ -62,9 +65,11 @@ export const AdminProjects = () => {
 
         setCurrentProjectTitle('')
         setCurrentProjectDesc('')
+        setCurrentProjectUrl('')
+        setCurrentProjectStartDate('')
     }
 
-    const handlePressEditProject = (projectTitle: string, projectDesc: string) => {
+    const handlePressEditProject = (projectTitle: string, projectDesc: string, projectUrl: string, projectStartDate: string) => {
 
         setProjectPanelTitle('Edit Project')
         setActionButtonName('Save Changes')
@@ -72,6 +77,8 @@ export const AdminProjects = () => {
 
         setCurrentProjectTitle(projectTitle)
         setCurrentProjectDesc(projectDesc)
+        setCurrentProjectUrl(projectUrl)
+        setCurrentProjectStartDate(projectStartDate)
     }
 
     const handlePressDeleteProject = (projectTitle: string) => {
@@ -109,7 +116,7 @@ export const AdminProjects = () => {
 
                                 <AdminProjectPanel title={title} description={description} projectLink={projectLink}
                                     startDate={startDate} image={image} techUsed={techUsed} index={index} 
-                                    OnPressEdit={() => handlePressEditProject(title, description)}
+                                    OnPressEdit={() => handlePressEditProject(title, description, projectLink, formatDateToDDMMYYYY(startDate))}
                                     OnPressDelete={() => handlePressDeleteProject(title)} />
 
                             ))}
@@ -133,7 +140,7 @@ export const AdminProjects = () => {
 
                                     <ProjectDialogPanel panelTitle={projectPanelTitle} cancelButtonName='Cancel'
                                         actionButtonName={actionButtonName} titleValue={currentProjectTitle}
-                                        descriptionValue={currentProjectDesc} urlValue='' startDateValue=''
+                                        descriptionValue={currentProjectDesc} urlValue={currentProjectUrl} startDateValue={currentProjectStartDate}
                                         isDeleteProjectPanel={isDeletePanel} />
 
                                 </AlertDialog.Content>
@@ -268,7 +275,4 @@ export const AdminProjectPanel = ({ title, description, projectLink, startDate, 
 
         </div>
     )
-
-
-
 }

@@ -39,3 +39,12 @@ export function getDaysBetweenDates(startDate: Date, endDate: Date) {
     const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
 }
+
+export function formatDateToDDMMYYYY(date: Date) {
+
+  const day = date.getDate().toString().padStart(2, '0');        
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const year = date.getFullYear().toString();
+
+  return `${day}/${month}/${year}`;
+}
