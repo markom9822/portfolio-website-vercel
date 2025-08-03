@@ -4,8 +4,9 @@ import healthTrackerImage from '/images/health_tracker.png'
 import insideShapesImage from '/images/inside_shape.png';
 import intersectionPointImage from '/images/intersection_points.png';
 import customGizmoImage from '/images/custom_gizmos.png';
-import { motion, stagger } from "motion/react"
 import { GoArrowUpRight } from "react-icons/go";
+
+import { motion, stagger, AnimatePresence } from "motion/react"
 
 
 export const PostsSection = () => {
@@ -150,49 +151,93 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
                 </div>
             </button>
 
-            {isOpen && (
-                <div className="mt-4 w-full">
-
-                    <div className="flex flex-row w-full">
-
-                        <p className="text-sm text-zinc-400 mb-6 font-text w-2/3 p-1">
-                            {description.split('\n').map((line, index, arr) => (
-                                <Fragment key={index}>
-                                    {line}
-                                    {index < arr.length - 1 && (
-                                        <>
-                                            <br />
-                                            <br />
-                                        </>
-                                    )}
-                                </Fragment>
-                            ))}
-                        </p>
-
-                        <div className="w-1/3 flex items-center justify-center border-l-2 border-l-zinc-500">
-                            <img
-                                src={image}
-                                loading="eager"
-                                className="rounded w-70" />
-                        </div>
-                    </div>
-
-                    <a
-                        href={blogLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-text"
-                        style={{ color: '#9e75f0' }}
-                    >
-                        <div className="flex flex-row space-x-1 items-center hover:text-purple-300 transition">
-                            <p>Read more</p>
-                            <GoArrowUpRight size={25} />
-                        </div>
-
-                    </a>
-                </div>
-            )}
+            <AnimatePresence initial={false}>
+                {isOpen ? (
+                    <BlogPostInfoPanel description={description} blogLink={blogLink} image={image} />
+                ) : null}
+            </AnimatePresence>
 
         </motion.div>
     )
+}
+
+
+
+type BlogPostInfoPanelProps = {
+
+    description: string,
+    blogLink: string,
+    image: any,
+}
+
+export const BlogPostInfoPanel = ({ description, blogLink, image }: BlogPostInfoPanelProps) => {
+
+
+    const menuVariants = {
+        closed: {
+            scaleY: 0,
+            opacity: 0,
+            originY: 0,
+            transition: { duration: 0.15 }
+        },
+        open: {
+            scaleY: 1,
+            opacity: 1,
+            originY: 0,
+            transition: { duration: 0.2 }
+        },
+    };
+
+
+    return (
+        <motion.div 
+            className="mt-4 w-full"
+            initial="closed"
+            animate="open"
+            exit="closed"
+            key="modal"
+            variants={menuVariants}>
+
+            <div className="flex flex-row w-full" key="content">
+
+                <p className="text-sm text-zinc-400 mb-6 font-text w-2/3 p-1">
+                    {description.split('\n').map((line, index, arr) => (
+                        <Fragment key={index}>
+                            {line}
+                            {index < arr.length - 1 && (
+                                <>
+                                    <br />
+                                    <br />
+                                </>
+                            )}
+                        </Fragment>
+                    ))}
+                </p>
+
+                <div className="w-1/3 flex items-center justify-center border-l-2 border-l-zinc-500">
+                    <img
+                        src={image}
+                        loading="eager"
+                        className="rounded w-70" />
+                </div>
+            </div>
+
+            <a
+                href={blogLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-text"
+                key="link"
+                style={{ color: '#9e75f0' }}
+            >
+                <div className="flex flex-row space-x-1 items-center hover:text-purple-300 transition">
+                    <p>Read more</p>
+                    <GoArrowUpRight size={25} />
+                </div>
+
+            </a>
+        </motion.div>
+    )
+
+
 }

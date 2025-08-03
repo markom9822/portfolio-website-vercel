@@ -5,7 +5,7 @@ import { codemirrorIcon, electronIcon, expoIcon, figmaIcon, githubIcon, gitIcon,
 import markNoteImage from '/images/MarkNote_app_cover.png'
 import rugbyRadarImage from '/images/Rugby_Radar_Poster.jpg'
 import portfolioWebsiteImage from '/images/portfolio_website_cover.png';
-import { motion, stagger } from "motion/react"
+import { motion, stagger, AnimatePresence } from "motion/react"
 
 
 export const ProjectsSection = () => {
@@ -15,7 +15,7 @@ export const ProjectsSection = () => {
         {
             title: "This portfolio website!",
             description: "A portfolio website built from scratch using React, Vite and Tailwind CSS.",
-            projectLink: "https://github.com/markom9822/markom9822.github.io",
+            projectLink: "https://github.com/markom9822/portfolio-website-vercel",
             startDate: new Date(2025, 6, 28),
             image: portfolioWebsiteImage,
             techUsed: [reactIcon, viteIcon, typescriptIcon, tailwindCSSIcon, gitIcon, figmaIcon],
@@ -150,65 +150,104 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, image
                 </div>
             </button>
 
-            {isOpen && (
-                <div className="mt-4 w-full">
-
-                    <div className="flex flex-row w-full">
-
-                        <div className="w-2/3 p-1">
-                            <p className="text-sm text-zinc-400 mb-6 font-text">
-                                {description.split('\n').map((line, index, arr) => (
-                                    <Fragment key={index}>
-                                        {line}
-                                        {index < arr.length - 1 && (
-                                            <>
-                                                <br />
-                                                <br />
-                                            </>
-                                        )}
-                                    </Fragment>
-                                ))}
-                            </p>
-                        </div>
-
-                        <div className="w-1/3 flex items-center justify-center border-l-2 border-l-zinc-500">
-                            <img
-                                src={image}
-                                className="rounded w-10/12" />
-                        </div>
-                    </div>
-
-
-                    <div className="flex flex-col space-y-2 w-full">
-
-                        <h3 className="font-text text-xs text-zinc-400">TECH USED:</h3>
-
-                        <div className="w-2/3 flex flex-row flex-wrap space-x-1 space-y-2 mb-3 p-1">
-                            {techUsed.map((img, index) => (
-                                <div className="mx-4" key={index}>
-                                    {img}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    <a
-                        href={projectLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-text w-full"
-                        style={{ color: '#9e75f0' }}
-                    >
-                        <div className="flex flex-row space-x-2 items-center hover:text-purple-300 transition my-1 w-full">
-                            {githubIcon}
-                            <p>View on GitHub</p>
-                            <GoArrowUpRight size={25} />
-                        </div>
-                    </a>
-                </div>
-            )}
+            <AnimatePresence initial={false}>
+                {isOpen ? (
+                    <ProjectInfoPanel description={description} projectLink={projectLink} image={image} techUsed={techUsed}/>
+                ) : null}
+            </AnimatePresence>
 
         </motion.div>
+    )
+}
+
+type ProjectInfoPanelProps = {
+
+    description: string,
+    projectLink: string,
+    image: any,
+    techUsed: ReactElement[],
+}
+
+export const ProjectInfoPanel = ({ description, projectLink, image, techUsed }: ProjectInfoPanelProps) => {
+
+    const menuVariants = {
+        closed: {
+            scaleY: 0,
+            opacity: 0,
+            originY: 0,
+            transition: { duration: 0.15 }
+        },
+        open: {
+            scaleY: 1,
+            opacity: 1,
+            originY: 0,
+            transition: { duration: 0.2 }
+        },
+    };
+
+    return (
+            <motion.div 
+            className="mt-4 w-full"
+            initial="closed"
+            animate="open"
+            exit="closed"
+            key="modal"
+            variants={menuVariants}>
+
+                <div className="flex flex-row w-full" key="content">
+
+                    <div className="w-2/3 p-1">
+                        <p className="text-sm text-zinc-400 mb-6 font-text w-full">
+                            {description.split('\n').map((line, index, arr) => (
+                                <Fragment key={index}>
+                                    {line}
+                                    {index < arr.length - 1 && (
+                                        <>
+                                            <br />
+                                            <br />
+                                        </>
+                                    )}
+                                </Fragment>
+                            ))}
+                        </p>
+                    </div>
+
+                    <div className="w-1/3 flex items-center justify-center border-l-2 border-l-zinc-500">
+                        <img
+                            src={image}
+                            className="rounded w-10/12" />
+                    </div>
+                </div>
+
+
+                <div className="flex flex-col space-y-2 w-full" key="tech">
+
+                    <h3 className="font-text text-xs text-zinc-400 w-full">TECH USED:</h3>
+
+                    <div className="w-2/3 flex flex-row flex-wrap space-x-1 space-y-2 mb-3 p-1">
+                        {techUsed.map((img, index) => (
+                            <div className="mx-4" key={index}>
+                                {img}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <a
+                    href={projectLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-text w-full"
+                    key="link"
+                    style={{ color: '#9e75f0' }}
+                >
+                    <div className="flex flex-row space-x-2 items-center hover:text-purple-300 transition my-1 w-full">
+                        {githubIcon}
+                        <p>View on GitHub</p>
+                        <GoArrowUpRight size={25} />
+                    </div>
+                </a>
+            </motion.div>
     )
 }
 

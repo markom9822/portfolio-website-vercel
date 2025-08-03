@@ -10,6 +10,8 @@ export const EducationSection = () => {
         {
             title: "Imperial College London",
             subtitle: "MSc - Biomedical Engineering, Neurotechnology",
+            startDate: new Date(2021, 9, 1),
+            endDate: new Date(2022, 9, 1),
             content: "Graduated with Merit and received Department of Bioengineering Scholarship.\n" +
                 "Masters Thesis: Sensory augmentation with a third eye using Virtual Reality, published in the 2023 IEEE International Conference on Robot and Human Interactive Communication.",
             icon: iclLogo,
@@ -17,6 +19,8 @@ export const EducationSection = () => {
         {
             title: "University College Dublin",
             subtitle: "BEng - Biomedical Engineering",
+            startDate: new Date(2017, 9, 1),
+            endDate: new Date(2021, 9, 1),
             content: "First Class Honors (GPA: 3.72/4.20).\n" +
                 "Final Year Thesis: Preliminary and final technical report on sleep stage prediction from wearable sensors using machine learning coded in Python.",
             icon: ucdLogo,
@@ -69,9 +73,9 @@ export const EducationSection = () => {
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
 
-                {educations.map(({ title, subtitle, content, icon }) => (
+                {educations.map(({ title, subtitle, content, icon, startDate, endDate }) => (
 
-                    <EducationPanel title={title} subtitle={subtitle} content={content} icon={icon} />
+                    <EducationPanel title={title} subtitle={subtitle} content={content} icon={icon} startDate={startDate} endDate={endDate} />
                 ))}
 
             </motion.div>
@@ -83,11 +87,16 @@ type EducationPanelProps = {
 
     title: string,
     subtitle: string,
+    startDate: Date,
+    endDate: Date,
     content: string,
     icon: any,
 }
 
-export const EducationPanel = ({ title, subtitle, content, icon }: EducationPanelProps) => {
+export const EducationPanel = ({ title, subtitle, content, icon, startDate, endDate }: EducationPanelProps) => {
+
+    const startYear = startDate.getFullYear();
+    const endYear = endDate.getFullYear();
 
     return (
         <div
@@ -96,7 +105,7 @@ export const EducationPanel = ({ title, subtitle, content, icon }: EducationPane
             <div className="flex flex-row justify-between">
                 <div className="flex flex-col mb-5 group-hover:translate-x-1 transition">
                     <h2 className="text-2xl text-zinc-300 font-text mb-1 group-hover:text-zinc-100 transition">{title}</h2>
-                    <p className="font-text text-sm text-zinc-400 group-hover:text-zinc-200 transition">{subtitle.toUpperCase()}</p>
+                    <p className="font-text text-sm text-zinc-400 group-hover:text-zinc-200 transition">{subtitle.toUpperCase()} [ {startYear} - {endYear} ]</p>
                 </div>
 
                 <div className="flex items-center opacity-60 group-hover:opacity-100 transition">
