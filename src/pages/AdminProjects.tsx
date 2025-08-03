@@ -234,9 +234,9 @@ type AdminProjectPanelProps = {
 
 }
 
-export const AdminProjectPanel = ({ title, description, projectLink, startDate, image, techUsed, index, OnPressEdit, OnPressDelete }: AdminProjectPanelProps) => {
+export const AdminProjectPanel = ({ title, index, OnPressEdit, OnPressDelete }: AdminProjectPanelProps) => {
 
-    const formattedDate = startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+    //const formattedDate = startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
 
     return (
         <div

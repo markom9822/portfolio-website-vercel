@@ -1,11 +1,6 @@
-import { useState } from "react";
 
 
 export const AdminLogin = () => {
- 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
 
     return (
         <div className="min-h-screen bg-black flex items-center justify-center px-4 font-text">
