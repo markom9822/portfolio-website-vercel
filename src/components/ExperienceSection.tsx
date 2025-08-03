@@ -120,14 +120,14 @@ export const ExperienceSection = () => {
             variants={containerVariant}>
 
             <motion.h2
-                className="text-4xl font-bold font-text"
+                className="text-4xl font-bold font-text w-full"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
                 experience
             </motion.h2>
 
             <motion.p
-                className="text-lg text-zinc-400 font-text"
+                className="text-lg text-zinc-400 font-text w-full"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
 
@@ -203,7 +203,7 @@ export const ExperiencePanel = ({ companyName, companyIcon, companyLocation, loc
                 </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4 w-full">
                 {positions.map(({ positionName, content, positionStartDate, positionEndDate }) => (
 
                     <PositionPanel positionName={positionName} positionStartDate={positionStartDate}
