@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { AdminProjects } from "./pages/AdminProjects";
 import { AdminPosts } from "./pages/AdminPosts";
 import { AdminEducation } from "./pages/AdminEducation";
+import { AdminExperience } from "./pages/AdminExperience";
 
 
 export default function AdminApp() {
@@ -15,6 +16,7 @@ export default function AdminApp() {
             <Route path="projects" element={<AdminProjects/>}/>
             <Route path="posts" element={<AdminPosts/>}/>
             <Route path="education" element={<AdminEducation/>}/>
+            <Route path="experience" element={<AdminExperience/>}/>
 
             <Route path="*" element={<AdminLogin/>}/>
         </Routes>
