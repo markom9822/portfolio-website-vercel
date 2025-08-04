@@ -10,7 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import { formatDateToDDMMYYYY } from '../utils/helper';
 import iclLogo from '/images/icl_logo.png';
 import ucdLogo from '/images/ucd_logo.png';
-import { DateInputField } from '../ui/DateInputField';
+import { AddPanel } from '../components/AddPanel';
+import { DeleteItemPanel } from '../components/DeleteItemPanel';
 
 
 export const AdminEducation = () => {
@@ -105,7 +106,7 @@ export const AdminEducation = () => {
                         <div
                             className="mt-10 flex flex-col w-full">
 
-                            {educations.map(({ title, subtitle, startDate, endDate, content, icon }, index) => (
+                            {educations.map(({ title, subtitle, startDate, endDate, content }, index) => (
 
                                 <AdminEducationPanel title={title} subtitle={subtitle} startDate={startDate}
                                     endDate={endDate} index={index} 
@@ -125,19 +126,12 @@ export const AdminEducation = () => {
                                 </button>
                             </AlertDialog.Trigger>
 
-                            <AlertDialog.Portal>
-                                <AlertDialog.Overlay style={{ position: 'fixed', inset: 0 }} className='flex bg-zinc-700/70' />
-                                <AlertDialog.Content
-                                    style={{ position: 'fixed', top: '50%', left: '50%', padding: '25px', transform: 'translate(-50%, -50%)', }}
-                                    className='flex flex-col bg-zinc-900 rounded space-y-4 w-lg'>
-
-                                    <EducationDialogPanel panelTitle={educationPanelTitle} cancelButtonName='Cancel'
+                            <AddPanel>
+                                <EducationDialogPanel panelTitle={educationPanelTitle} cancelButtonName='Cancel'
                                         actionButtonName={actionButtonName} titleValue={currentEducationTitle}
                                         subtitleValue={currentEducationSubtitle} startDateValue={currentEducationStartDate} endDateValue={currentEducationEndDate}
                                         contentValue={currentEducationContent} isDeleteEducationPanel={isDeletePanel} />
-
-                                </AlertDialog.Content>
-                            </AlertDialog.Portal>
+                            </AddPanel>
                         </div>
 
                     </div>
@@ -165,24 +159,7 @@ export const EducationDialogPanel = ({ panelTitle, cancelButtonName, actionButto
 
     if (isDeleteEducationPanel) {
         return (
-            <>
-                <h2 className="text-3xl font-bold mb-4 text-zinc-200 font-text">{panelTitle}</h2>
-
-                <p className='font-text text-zinc-300'>Are you sure you want to delete {titleValue}?</p>
-
-                <div style={{ display: "flex", gap: 25, justifyContent: "flex-end" }}>
-                    <AlertDialog.Cancel asChild>
-                        <button className="font-text text-zinc-400 rounded hover:text-zinc-200 px-2 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 transition">
-                            {cancelButtonName}
-                        </button>
-                    </AlertDialog.Cancel>
-                    <AlertDialog.Action asChild>
-                        <button className="font-text text-red-600 rounded hover:text-red-400 px-2 duration-200 cursor-pointer border-2 border-red-500 hover:border-red-300 transition">
-                            {actionButtonName}
-                        </button>
-                    </AlertDialog.Action>
-                </div>
-            </>
+            <DeleteItemPanel panelTitle={panelTitle} itemName={titleValue} actionButtonName={actionButtonName} cancelButtonName={cancelButtonName}/>
         )
     }
 
@@ -192,7 +169,7 @@ export const EducationDialogPanel = ({ panelTitle, cancelButtonName, actionButto
 
             <InputField className='' placeholder='Education Title' type='text' value={titleValue} />
             <InputField className='' placeholder='Education subtitle' type='text' value={subtitleValue} />
-            <InputField className='' placeholder='Education start date (dd/mm/yyy)' type='text' value={endDateValue} />
+            <InputField className='' placeholder='Education start date (dd/mm/yyy)' type='text' value={startDateValue} />
             <InputField className='' placeholder='Education end date (dd/mm/yyy)' type='text' value={endDateValue} />
             <TextAreaField className='' placeholder='Education content' value={contentValue} />
 

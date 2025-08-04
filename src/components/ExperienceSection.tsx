@@ -150,7 +150,7 @@ export const ExperienceSection = () => {
     )
 }
 
-type PositionProps = {
+export type PositionProps = {
 
     positionName: string,
     positionStartDate: Date,

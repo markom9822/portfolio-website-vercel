@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, type ChangeEvent } from 'react';
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaRegEdit } from "react-icons/fa";
 import { AlertDialog } from "radix-ui";
@@ -12,6 +12,8 @@ import healthTrackerImage from '/images/health_tracker.png'
 import insideShapesImage from '/images/inside_shape.png';
 import intersectionPointImage from '/images/intersection_points.png';
 import customGizmoImage from '/images/custom_gizmos.png';
+import { AddPanel } from '../components/AddPanel';
+import { DeleteItemPanel } from '../components/DeleteItemPanel';
 
 
 export const AdminPosts = () => {
@@ -123,7 +125,7 @@ export const AdminPosts = () => {
                             {blogPosts.map(({ title, description, blogLink, publishDate, image }, index) => (
 
                                 <AdminPostPanel title={title} description={description} postLink={blogLink}
-                                    publishDate={publishDate} image={image} index={index} 
+                                    publishDate={publishDate} image={image} index={index}
                                     OnPressEdit={() => handlePressEditPost(title, description, blogLink, formatDateToDDMMYYYY(publishDate))}
                                     OnPressDelete={() => handlePressDeletePost(title)} />
 
@@ -140,19 +142,12 @@ export const AdminPosts = () => {
                                 </button>
                             </AlertDialog.Trigger>
 
-                            <AlertDialog.Portal>
-                                <AlertDialog.Overlay style={{ position: 'fixed', inset: 0 }} className='flex bg-zinc-700/70' />
-                                <AlertDialog.Content
-                                    style={{ position: 'fixed', top: '50%', left: '50%', padding: '25px', transform: 'translate(-50%, -50%)', }}
-                                    className='flex flex-col bg-zinc-900 rounded space-y-4 w-lg'>
-
-                                    <PostDialogPanel panelTitle={postPanelTitle} cancelButtonName='Cancel'
-                                        actionButtonName={actionButtonName} titleValue={currentPostTitle}
-                                        descriptionValue={currentPostDesc} urlValue={currentPostUrl} publishDateValue={currentPostPublishDate}
-                                        isDeletePostPanel={isDeletePanel} />
-
-                                </AlertDialog.Content>
-                            </AlertDialog.Portal>
+                            <AddPanel>
+                                <PostDialogPanel panelTitle={postPanelTitle} cancelButtonName='Cancel'
+                                    actionButtonName={actionButtonName} titleValue={currentPostTitle}
+                                    descriptionValue={currentPostDesc} urlValue={currentPostUrl} publishDateValue={currentPostPublishDate}
+                                    isDeletePostPanel={isDeletePanel} />
+                            </AddPanel>
                         </div>
 
                     </div>
@@ -177,26 +172,26 @@ type PostDialogPanelProps = {
 
 export const PostDialogPanel = ({ panelTitle, cancelButtonName, actionButtonName, titleValue, descriptionValue, urlValue, publishDateValue, isDeletePostPanel }: PostDialogPanelProps) => {
 
+    const [currentTitleValue, setCurrentTitleValue] = useState(titleValue);
+    const [currentLinkValue, setCurrentLinkValue] = useState(urlValue);
+    const [currentDateValue, setCurrentDateValue] = useState(publishDateValue);
+
+    const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
+        setCurrentTitleValue(event.target.value)
+    };   
+
+    const handleChangeLink = (event: ChangeEvent<HTMLInputElement>) => {
+        setCurrentLinkValue(event.target.value)
+    };
+
+    const handleChangeDate = (event: ChangeEvent<HTMLInputElement>) => {
+        setCurrentDateValue(event.target.value)
+    };
+
+
     if (isDeletePostPanel) {
         return (
-            <>
-                <h2 className="text-3xl font-bold mb-4 text-zinc-200 font-text">{panelTitle}</h2>
-
-                <p className='font-text text-zinc-300'>Are you sure you want to delete {titleValue}?</p>
-
-                <div style={{ display: "flex", gap: 25, justifyContent: "flex-end" }}>
-                    <AlertDialog.Cancel asChild>
-                        <button className="font-text text-zinc-400 rounded hover:text-zinc-200 px-2 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 transition">
-                            {cancelButtonName}
-                        </button>
-                    </AlertDialog.Cancel>
-                    <AlertDialog.Action asChild>
-                        <button className="font-text text-red-600 rounded hover:text-red-400 px-2 duration-200 cursor-pointer border-2 border-red-500 hover:border-red-300 transition">
-                            {actionButtonName}
-                        </button>
-                    </AlertDialog.Action>
-                </div>
-            </>
+            <DeleteItemPanel panelTitle={panelTitle} itemName={titleValue} actionButtonName={actionButtonName} cancelButtonName={cancelButtonName} />
         )
     }
 
@@ -204,10 +199,10 @@ export const PostDialogPanel = ({ panelTitle, cancelButtonName, actionButtonName
         <>
             <h2 className="text-3xl font-bold mb-4 text-zinc-200 font-text">{panelTitle}</h2>
 
-            <InputField className='' placeholder='Post Title' type='text' value={titleValue} />
-            <TextAreaField className='' placeholder='Post description' value={descriptionValue} />
-            <InputField className='' placeholder='Post url' type='text' value={urlValue} />
-            <InputField className='' placeholder='Post start date (dd/mm/yyy)' type='text' value={publishDateValue} />
+            <InputField className='' placeholder='Post Title' type='text' value={currentTitleValue} OnInputChanged={handleChangeTitle} />
+            <TextAreaField className='' placeholder='Post description' value={descriptionValue}/>
+            <InputField className='' placeholder='Post url' type='text' value={currentLinkValue} OnInputChanged={handleChangeLink}/>
+            <InputField className='' placeholder='Post start date (dd/mm/yyy)' type='text' value={currentDateValue} OnInputChanged={handleChangeDate} />
 
 
             <div style={{ display: "flex", gap: 25, justifyContent: "flex-end" }}>
