@@ -55,6 +55,8 @@ export const AdminProjects = () => {
     ];
 
     const [projectPanelTitle, setProjectPanelTitle] = useState("");
+    const [projectPanelDesc, setProjectPanelDesc] = useState("");
+
     const [actionButtonName, setActionButtonName] = useState("");
     const [isDeletePanel, setIsDeletePanel] = useState(false);
     const [currentPanelAction, setCurrentPanelAction] = useState("");
@@ -75,6 +77,8 @@ export const AdminProjects = () => {
 
         setCurrentPanelAction('add')
         setProjectPanelTitle('Add New Project')
+        setProjectPanelDesc('Add a new project to the portfolio database.')
+
         setActionButtonName('Add Project')
         setIsDeletePanel(false)
 
@@ -90,6 +94,8 @@ export const AdminProjects = () => {
 
         setCurrentPanelAction('update')
         setProjectPanelTitle('Edit Project')
+        setProjectPanelDesc('Edit an existing project in the portfolio database.')
+
         setActionButtonName('Save Changes')
         setIsDeletePanel(false)
 
@@ -105,6 +111,8 @@ export const AdminProjects = () => {
 
         setCurrentPanelAction('delete')
         setProjectPanelTitle('Delete Project')
+        setProjectPanelDesc('Delete this project from the portfolio database.')
+
         setActionButtonName('Delete')
         setIsDeletePanel(true)
 
@@ -198,9 +206,10 @@ export const AdminProjects = () => {
                                 </AlertDialog.Trigger>
 
                                 <AddPanel>
-                                    <ProjectDialogPanel currentPanelAction={currentPanelAction} panelTitle={projectPanelTitle} cancelButtonName='Cancel'
-                                        actionButtonName={actionButtonName} titleValue={projectForm.title} descriptionValue={projectForm.description}
-                                        urlValue={projectForm.projectLink} startDateValue={projectForm.startDate} isDeleteProjectPanel={isDeletePanel}
+                                    <ProjectDialogPanel currentPanelAction={currentPanelAction} panelTitle={projectPanelTitle} panelDesc={projectPanelDesc}
+                                        cancelButtonName='Cancel' actionButtonName={actionButtonName} titleValue={projectForm.title}
+                                        descriptionValue={projectForm.description} urlValue={projectForm.projectLink}
+                                        startDateValue={projectForm.startDate} isDeleteProjectPanel={isDeletePanel}
                                         setDialogOpen={setIsDialogOpen}
                                         createNewProject={createProjectInDatabase} updateNewProject={updateProjectInDatabase} deleteProject={deleteProjectInDatabase} />
                                 </AddPanel>
@@ -219,6 +228,8 @@ type ProjectDialogPanelProps = {
 
     currentPanelAction: string,
     panelTitle: string,
+    panelDesc: string,
+
     cancelButtonName: string,
     actionButtonName: string,
     titleValue: string,
@@ -232,8 +243,10 @@ type ProjectDialogPanelProps = {
     deleteProject: (project: ProjectFormProps) => void,
 }
 
-export const ProjectDialogPanel = ({ currentPanelAction, panelTitle, cancelButtonName, actionButtonName, titleValue,
-    descriptionValue, urlValue, startDateValue, isDeleteProjectPanel, setDialogOpen, createNewProject, updateNewProject, deleteProject }: ProjectDialogPanelProps) => {
+export const ProjectDialogPanel = ({ 
+    currentPanelAction, panelTitle, panelDesc, cancelButtonName, actionButtonName, titleValue,
+    descriptionValue, urlValue, startDateValue, isDeleteProjectPanel,
+    setDialogOpen, createNewProject, updateNewProject, deleteProject }: ProjectDialogPanelProps) => {
 
     const [currentTitleValue, setCurrentTitleValue] = useState(titleValue);
     const [currentDescValue, setCurrentDescValue] = useState(descriptionValue);
@@ -285,7 +298,7 @@ export const ProjectDialogPanel = ({ currentPanelAction, panelTitle, cancelButto
 
     if (isDeleteProjectPanel) {
         return (
-            <DeleteItemPanel panelTitle={panelTitle} itemName={titleValue}
+            <DeleteItemPanel panelTitle={panelTitle} panelDesc={panelDesc} itemName={titleValue}
                 actionButtonName={actionButtonName} cancelButtonName={cancelButtonName}
                 OnDelete={() => deleteProject({
                     title: currentTitleValue,
@@ -298,9 +311,13 @@ export const ProjectDialogPanel = ({ currentPanelAction, panelTitle, cancelButto
 
     return (
         <>
-            <AlertDialog.Title className='text-3xl font-bold mb-4 text-zinc-200 font-text'>
+            <AlertDialog.Title className='text-3xl font-bold mb-2 text-zinc-200 font-text'>
                 {panelTitle}
             </AlertDialog.Title>
+
+            <AlertDialog.Description className='text-sm font-text text-zinc-400'>
+                {panelDesc} 
+			</AlertDialog.Description>
 
             <InputField className='' placeholder='Project Title' type='text' value={currentTitleValue} OnInputChanged={handleChangeTitle} />
             <TextAreaField className='' placeholder='Project description' value={currentDescValue} OnInputChanged={handleChangeDesc} />

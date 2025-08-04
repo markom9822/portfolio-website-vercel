@@ -107,6 +107,8 @@ export const AdminExperience = () => {
     ];
 
     const [experiencePanelTitle, setExperiencePanelTitle] = useState("");
+    const [experiencePanelDesc, setExperiencePanelDesc] = useState("");
+
     const [actionButtonName, setActionButtonName] = useState("");
     const [isDeletePanel, setIsDeletePanel] = useState(false);
 
@@ -120,6 +122,8 @@ export const AdminExperience = () => {
     const handlePressAddNewExperience = () => {
 
         setExperiencePanelTitle('Add New Experience')
+        setExperiencePanelDesc('Add new experience to the portfolio database.')
+
         setActionButtonName('Add Experience')
         setIsDeletePanel(false)
 
@@ -131,6 +135,8 @@ export const AdminExperience = () => {
     const handlePressEditExperience = (experienceCompanyName: string, experienceCompanyLocation: string, experiencePositions: PositionProps[]) => {
 
         setExperiencePanelTitle('Edit Experience')
+        setExperiencePanelDesc('Edit an existing experience to the portfolio database.')
+
         setActionButtonName('Save Changes')
         setIsDeletePanel(false)
 
@@ -142,6 +148,8 @@ export const AdminExperience = () => {
     const handlePressDeleteExperience = (experienceCompanyName: string) => {
 
         setExperiencePanelTitle('Delete Experience')
+        setExperiencePanelDesc('Delete this experience in the portfolio database.')
+
         setActionButtonName('Delete')
         setIsDeletePanel(true)
 
@@ -190,7 +198,7 @@ export const AdminExperience = () => {
                             </AlertDialog.Trigger>
 
                             <AddPanel>
-                                <ExperienceDialogPanel panelTitle={experiencePanelTitle} cancelButtonName='Cancel'
+                                <ExperienceDialogPanel panelTitle={experiencePanelTitle} panelDesc={experiencePanelDesc} cancelButtonName='Cancel'
                                         actionButtonName={actionButtonName} companyNameValue={currentExperienceCompanyName}
                                         companyLocationValue={currentExperienceCompanyLocation} positionsValue={currentExperiencePositions} isDeleteExperiencePanel={isDeletePanel} />
 
@@ -208,6 +216,8 @@ export const AdminExperience = () => {
 type ExperienceDialogPanelProps = {
 
     panelTitle: string,
+    panelDesc: string,
+
     cancelButtonName: string,
     actionButtonName: string,
     companyNameValue: string,
@@ -216,17 +226,23 @@ type ExperienceDialogPanelProps = {
     isDeleteExperiencePanel: boolean
 }
 
-export const ExperienceDialogPanel = ({ panelTitle, cancelButtonName, actionButtonName, companyNameValue, companyLocationValue, positionsValue, isDeleteExperiencePanel }: ExperienceDialogPanelProps) => {
+export const ExperienceDialogPanel = ({ panelTitle, panelDesc, cancelButtonName, actionButtonName, companyNameValue, companyLocationValue, positionsValue, isDeleteExperiencePanel }: ExperienceDialogPanelProps) => {
 
     if (isDeleteExperiencePanel) {
         return (
-            <DeleteItemPanel panelTitle={panelTitle} itemName={companyNameValue} actionButtonName={actionButtonName} cancelButtonName={cancelButtonName}/>
+            <DeleteItemPanel panelTitle={panelTitle} panelDesc={panelDesc} itemName={companyNameValue} actionButtonName={actionButtonName} cancelButtonName={cancelButtonName}/>
         )
     }
 
     return (
         <>
-            <h2 className="text-3xl font-bold mb-4 text-zinc-200 font-text">{panelTitle}</h2>
+            <AlertDialog.Title className='text-3xl font-bold mb-2 text-zinc-200 font-text'>
+                {panelTitle}
+            </AlertDialog.Title>
+
+            <AlertDialog.Description className='text-sm font-text text-zinc-400'>
+                {panelDesc} 
+			</AlertDialog.Description>
 
             <InputField className='' placeholder='Experience company name' type='text' value={companyNameValue} />
             <InputField className='' placeholder='Experience company location' type='text' value={companyLocationValue} />

@@ -38,6 +38,8 @@ export const AdminEducation = () => {
     ];
 
     const [educationPanelTitle, setEducationPanelTitle] = useState("");
+    const [educationPanelDesc, setEducationPanelDesc] = useState("");
+
     const [actionButtonName, setActionButtonName] = useState("");
     const [isDeletePanel, setIsDeletePanel] = useState(false);
 
@@ -52,6 +54,8 @@ export const AdminEducation = () => {
     const handlePressAddNewEducation = () => {
 
         setEducationPanelTitle('Add New Education')
+        setEducationPanelDesc('Add new education to the portfolio database.')
+
         setActionButtonName('Add Project')
         setIsDeletePanel(false)
 
@@ -65,6 +69,8 @@ export const AdminEducation = () => {
     const handlePressEditEducation = (educationTitle: string, educationSubtitle: string, educationStartDate: string, educationEndDate: string, educationContent: string) => {
 
         setEducationPanelTitle('Edit Education')
+        setEducationPanelDesc('Edit an existing education in the portfolio database.')
+
         setActionButtonName('Save Changes')
         setIsDeletePanel(false)
 
@@ -78,6 +84,8 @@ export const AdminEducation = () => {
     const handlePressDeleteEducation = (educationTitle: string) => {
 
         setEducationPanelTitle('Delete Education')
+        setEducationPanelDesc('Delete this education in the portfolio database.')
+
         setActionButtonName('Delete')
         setIsDeletePanel(true)
 
@@ -127,7 +135,7 @@ export const AdminEducation = () => {
                             </AlertDialog.Trigger>
 
                             <AddPanel>
-                                <EducationDialogPanel panelTitle={educationPanelTitle} cancelButtonName='Cancel'
+                                <EducationDialogPanel panelTitle={educationPanelTitle} panelDesc={educationPanelDesc} cancelButtonName='Cancel'
                                         actionButtonName={actionButtonName} titleValue={currentEducationTitle}
                                         subtitleValue={currentEducationSubtitle} startDateValue={currentEducationStartDate} endDateValue={currentEducationEndDate}
                                         contentValue={currentEducationContent} isDeleteEducationPanel={isDeletePanel} />
@@ -145,6 +153,8 @@ export const AdminEducation = () => {
 type EducationDialogPanelProps = {
 
     panelTitle: string,
+    panelDesc: string,
+
     cancelButtonName: string,
     actionButtonName: string,
     titleValue: string,
@@ -155,17 +165,23 @@ type EducationDialogPanelProps = {
     isDeleteEducationPanel: boolean
 }
 
-export const EducationDialogPanel = ({ panelTitle, cancelButtonName, actionButtonName, titleValue, subtitleValue, startDateValue, endDateValue, contentValue, isDeleteEducationPanel }: EducationDialogPanelProps) => {
+export const EducationDialogPanel = ({ panelTitle, panelDesc, cancelButtonName, actionButtonName, titleValue, subtitleValue, startDateValue, endDateValue, contentValue, isDeleteEducationPanel }: EducationDialogPanelProps) => {
 
     if (isDeleteEducationPanel) {
         return (
-            <DeleteItemPanel panelTitle={panelTitle} itemName={titleValue} actionButtonName={actionButtonName} cancelButtonName={cancelButtonName}/>
+            <DeleteItemPanel panelTitle={panelTitle} panelDesc={panelDesc} itemName={titleValue} actionButtonName={actionButtonName} cancelButtonName={cancelButtonName}/>
         )
     }
 
     return (
         <>
-            <h2 className="text-3xl font-bold mb-4 text-zinc-200 font-text">{panelTitle}</h2>
+            <AlertDialog.Title className='text-3xl font-bold mb-2 text-zinc-200 font-text'>
+                {panelTitle}
+            </AlertDialog.Title>
+
+            <AlertDialog.Description className='text-sm font-text text-zinc-400'>
+                {panelDesc} 
+			</AlertDialog.Description>
 
             <InputField className='' placeholder='Education Title' type='text' value={titleValue} />
             <InputField className='' placeholder='Education subtitle' type='text' value={subtitleValue} />

@@ -56,6 +56,8 @@ export const AdminPosts = () => {
     ];
 
     const [postPanelTitle, setPostPanelTitle] = useState("");
+    const [postPanelDesc, setPostPanelDesc] = useState("");
+
     const [actionButtonName, setActionButtonName] = useState("");
     const [isDeletePanel, setIsDeletePanel] = useState(false);
 
@@ -70,6 +72,8 @@ export const AdminPosts = () => {
     const handlePressAddNewPost = () => {
 
         setPostPanelTitle('Add New Post')
+        setPostPanelDesc('Add a new post to the portfolio database.')
+
         setActionButtonName('Add Post')
         setIsDeletePanel(false)
 
@@ -82,6 +86,8 @@ export const AdminPosts = () => {
     const handlePressEditPost = (postTitle: string, postDesc: string, postUrl: string, postStartDate: string) => {
 
         setPostPanelTitle('Edit Post')
+        setPostPanelDesc('Edit an existing post in the portfolio database.')
+
         setActionButtonName('Save Changes')
         setIsDeletePanel(false)
 
@@ -94,6 +100,8 @@ export const AdminPosts = () => {
     const handlePressDeletePost = (postTitle: string) => {
 
         setPostPanelTitle('Delete Post')
+        setPostPanelDesc('Delete this post from the portfolio database.')
+
         setActionButtonName('Delete')
         setIsDeletePanel(true)
 
@@ -143,7 +151,7 @@ export const AdminPosts = () => {
                             </AlertDialog.Trigger>
 
                             <AddPanel>
-                                <PostDialogPanel panelTitle={postPanelTitle} cancelButtonName='Cancel'
+                                <PostDialogPanel panelTitle={postPanelTitle} panelDesc={postPanelDesc} cancelButtonName='Cancel'
                                     actionButtonName={actionButtonName} titleValue={currentPostTitle}
                                     descriptionValue={currentPostDesc} urlValue={currentPostUrl} publishDateValue={currentPostPublishDate}
                                     isDeletePostPanel={isDeletePanel} />
@@ -161,6 +169,8 @@ export const AdminPosts = () => {
 type PostDialogPanelProps = {
 
     panelTitle: string,
+    panelDesc: string,
+
     cancelButtonName: string,
     actionButtonName: string,
     titleValue: string,
@@ -170,7 +180,7 @@ type PostDialogPanelProps = {
     isDeletePostPanel: boolean
 }
 
-export const PostDialogPanel = ({ panelTitle, cancelButtonName, actionButtonName, titleValue, descriptionValue, urlValue, publishDateValue, isDeletePostPanel }: PostDialogPanelProps) => {
+export const PostDialogPanel = ({ panelTitle, panelDesc, cancelButtonName, actionButtonName, titleValue, descriptionValue, urlValue, publishDateValue, isDeletePostPanel }: PostDialogPanelProps) => {
 
     const [currentTitleValue, setCurrentTitleValue] = useState(titleValue);
     const [currentLinkValue, setCurrentLinkValue] = useState(urlValue);
@@ -191,13 +201,19 @@ export const PostDialogPanel = ({ panelTitle, cancelButtonName, actionButtonName
 
     if (isDeletePostPanel) {
         return (
-            <DeleteItemPanel panelTitle={panelTitle} itemName={titleValue} actionButtonName={actionButtonName} cancelButtonName={cancelButtonName} />
+            <DeleteItemPanel panelTitle={panelTitle} panelDesc={panelDesc} itemName={titleValue} actionButtonName={actionButtonName} cancelButtonName={cancelButtonName} />
         )
     }
 
     return (
         <>
-            <h2 className="text-3xl font-bold mb-4 text-zinc-200 font-text">{panelTitle}</h2>
+            <AlertDialog.Title className='text-3xl font-bold mb-2 text-zinc-200 font-text'>
+                {panelTitle}
+            </AlertDialog.Title>
+
+            <AlertDialog.Description className='text-sm font-text text-zinc-400'>
+                {panelDesc} 
+			</AlertDialog.Description>
 
             <InputField className='' placeholder='Post Title' type='text' value={currentTitleValue} OnInputChanged={handleChangeTitle} />
             <TextAreaField className='' placeholder='Post description' value={descriptionValue}/>
