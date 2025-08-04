@@ -59,6 +59,7 @@ export const AdminProjects = () => {
     const [isDeletePanel, setIsDeletePanel] = useState(false);
     const [currentPanelAction, setCurrentPanelAction] = useState("");
     const [loading, setLoading] = useState(false);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
 
     const [projectForm, setProjectForm] = useState<ProjectFormProps>({
@@ -141,10 +142,7 @@ export const AdminProjects = () => {
     const deleteProjectInDatabase = (project: ProjectFormProps) => {
 
         console.log(`Need to delete project (${project.title}) in database`)
-
-
     }
-
 
     // read projects from database initially
     useEffect(() => {
@@ -154,12 +152,12 @@ export const AdminProjects = () => {
     }, []);
 
     return (
-        <AlertDialog.Root>
+        <AlertDialog.Root open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <div className="min-h-screen bg-[#0f0f0f] text-white p-6 font-text">
                 <div className="max-w-5xl mx-auto space-y-12">
 
                     {loading ? (
-                        <LoaderScreen/>
+                        <LoaderScreen />
                     ) : (
 
                         <div className="flex flex-col justify-between items-center space-y-8">
@@ -203,6 +201,7 @@ export const AdminProjects = () => {
                                     <ProjectDialogPanel currentPanelAction={currentPanelAction} panelTitle={projectPanelTitle} cancelButtonName='Cancel'
                                         actionButtonName={actionButtonName} titleValue={projectForm.title} descriptionValue={projectForm.description}
                                         urlValue={projectForm.projectLink} startDateValue={projectForm.startDate} isDeleteProjectPanel={isDeletePanel}
+                                        setDialogOpen={setIsDialogOpen}
                                         createNewProject={createProjectInDatabase} updateNewProject={updateProjectInDatabase} deleteProject={deleteProjectInDatabase} />
                                 </AddPanel>
                             </div>
@@ -227,21 +226,36 @@ type ProjectDialogPanelProps = {
     urlValue: string,
     startDateValue: string,
     isDeleteProjectPanel: boolean,
+    setDialogOpen: (open: boolean) => void,
     createNewProject: (project: ProjectFormProps) => void,
     updateNewProject: (project: ProjectFormProps) => void,
     deleteProject: (project: ProjectFormProps) => void,
 }
 
 export const ProjectDialogPanel = ({ currentPanelAction, panelTitle, cancelButtonName, actionButtonName, titleValue,
-    descriptionValue, urlValue, startDateValue, isDeleteProjectPanel, createNewProject, updateNewProject, deleteProject }: ProjectDialogPanelProps) => {
+    descriptionValue, urlValue, startDateValue, isDeleteProjectPanel, setDialogOpen, createNewProject, updateNewProject, deleteProject }: ProjectDialogPanelProps) => {
 
     const [currentTitleValue, setCurrentTitleValue] = useState(titleValue);
     const [currentDescValue, setCurrentDescValue] = useState(descriptionValue);
     const [currentLinkValue, setCurrentLinkValue] = useState(urlValue);
     const [currentStartDateValue, setCurrentStartDateValue] = useState(startDateValue);
+    const [warning, setWarning] = useState('');
+
+    const isProjectEntryValid = () => {
+
+        return currentTitleValue != '' &&
+        currentDescValue != '' && currentLinkValue != ''
+        && currentStartDateValue != '';
+    }
 
     // handle add project
     const handlePressActionButton = () => {
+
+        if(!isProjectEntryValid())
+        {
+            setWarning('Please complete all fields.');
+            return;
+        }
 
         const newProject = {
             title: currentTitleValue,
@@ -259,6 +273,9 @@ export const ProjectDialogPanel = ({ currentPanelAction, panelTitle, cancelButto
         else if (currentPanelAction == 'update') {
             updateNewProject(newProject)
         }
+
+        setWarning('')
+        setDialogOpen(false)
     }
 
     const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => { setCurrentTitleValue(event.target.value) };
@@ -290,6 +307,7 @@ export const ProjectDialogPanel = ({ currentPanelAction, panelTitle, cancelButto
             <InputField className='' placeholder='Project url' type='text' value={currentLinkValue} OnInputChanged={handleChangeLink} />
             <InputField className='' placeholder='Project start date (dd/mm/yyy)' type='text' value={currentStartDateValue} OnInputChanged={handleChangeStartDate} />
 
+            {warning && <div className="text-red-500 font-text">{warning}</div>}
 
             <div style={{ display: "flex", gap: 25, justifyContent: "flex-end" }}>
                 <AlertDialog.Cancel asChild>
@@ -297,13 +315,11 @@ export const ProjectDialogPanel = ({ currentPanelAction, panelTitle, cancelButto
                         {cancelButtonName}
                     </button>
                 </AlertDialog.Cancel>
-                <AlertDialog.Action asChild>
-                    <button
-                        onClick={handlePressActionButton}
-                        className="font-text text-zinc-400 rounded hover:text-zinc-200 px-2 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 transition">
-                        {actionButtonName}
-                    </button>
-                </AlertDialog.Action>
+                <button
+                    onClick={handlePressActionButton}
+                    className="font-text text-zinc-400 rounded hover:text-zinc-200 px-2 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 transition">
+                    {actionButtonName}
+                </button>
             </div>
         </>
     )
