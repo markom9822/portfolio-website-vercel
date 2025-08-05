@@ -8,15 +8,15 @@ type DeleteItemPanelProps = {
     itemName: string,
     cancelButtonName: string,
     actionButtonName: string,
-    OnDelete?: () => void,
+    OnDelete?: () => Promise<void>,    
 }
 
 export const DeleteItemPanel = ({ panelTitle, panelDesc, itemName, cancelButtonName, actionButtonName, OnDelete }: DeleteItemPanelProps) => {
 
     // handle add project
-    const handlePressDeleteButton = () => {
+    const handlePressDeleteButton = async () => {
         if (OnDelete) {
-            OnDelete();
+            await OnDelete();
         }
     }
 

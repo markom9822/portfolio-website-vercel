@@ -1,9 +1,9 @@
 
-import { useEffect, useState, type ChangeEvent, type ReactElement } from 'react';
-import { reactIcon, viteIcon, typescriptIcon, tailwindCSSIcon, gitIcon, figmaIcon, electronIcon, markdownIcon, jotaiIcon, codemirrorIcon, expoIcon } from '../components/Icons';
-import markNoteImage from '/images/MarkNote_app_cover.png'
-import rugbyRadarImage from '/images/Rugby_Radar_Poster.jpg'
-import portfolioWebsiteImage from '/images/portfolio_website_cover.png';
+import { useEffect, useState, type ChangeEvent } from 'react';
+//import { reactIcon, viteIcon, typescriptIcon, tailwindCSSIcon, gitIcon, figmaIcon, electronIcon, markdownIcon, jotaiIcon, codemirrorIcon, expoIcon } from '../components/Icons';
+//import markNoteImage from '/images/MarkNote_app_cover.png'
+//import rugbyRadarImage from '/images/Rugby_Radar_Poster.jpg'
+//import portfolioWebsiteImage from '/images/portfolio_website_cover.png';
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaRegEdit } from "react-icons/fa";
 import { AlertDialog } from "radix-ui";
@@ -11,12 +11,30 @@ import { InputField } from '../ui/InputField';
 import { TextAreaField } from '../ui/TextAreaField';
 import { FaArrowLeft } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
-import { formatDateToDDMMYYYY } from '../utils/helper';
 import { AddPanel } from '../components/AddPanel';
 import { DeleteItemPanel } from '../components/DeleteItemPanel';
 import LoaderScreen from '../components/LoadingScreen';
 
+import {
+    collection,
+    addDoc,
+    getDocs,
+    deleteDoc,
+    doc,
+    updateDoc,
+} from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
+
 export type ProjectFormProps = {
+
+    title: string,
+    description: string,
+    projectLink: string,
+    startDate: string,
+}
+
+interface ProjectDB {
+    id: string;
 
     title: string,
     description: string,
@@ -27,7 +45,7 @@ export type ProjectFormProps = {
 export const AdminProjects = () => {
 
 
-    const projects = [
+    /*const projects = [
         {
             title: "This portfolio website!",
             description: "A portfolio website built from scratch using React, Vite and Tailwind CSS.",
@@ -52,10 +70,12 @@ export const AdminProjects = () => {
             image: rugbyRadarImage,
             techUsed: [reactIcon, typescriptIcon, expoIcon, gitIcon, figmaIcon],
         },
-    ];
+    ];*/
 
     const [projectPanelTitle, setProjectPanelTitle] = useState("");
     const [projectPanelDesc, setProjectPanelDesc] = useState("");
+
+    const [allProjects, setAllProjects] = useState<ProjectDB[]>([]);
 
     const [actionButtonName, setActionButtonName] = useState("");
     const [isDeletePanel, setIsDeletePanel] = useState(false);
@@ -63,13 +83,13 @@ export const AdminProjects = () => {
     const [loading, setLoading] = useState(false);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-
     const [projectForm, setProjectForm] = useState<ProjectFormProps>({
         title: "",
         description: "",
         projectLink: "",
         startDate: "",
     });
+    const [projectID, setProjectID] = useState("");
 
     const navigate = useNavigate();
 
@@ -90,7 +110,7 @@ export const AdminProjects = () => {
         })
     }
 
-    const handlePressEditProject = (projectTitle: string, projectDesc: string, projectUrl: string, projectStartDate: string) => {
+    const handlePressEditProject = (projectID: string, projectTitle: string, projectDesc: string, projectUrl: string, projectStartDate: string) => {
 
         setCurrentPanelAction('update')
         setProjectPanelTitle('Edit Project')
@@ -105,9 +125,11 @@ export const AdminProjects = () => {
             projectLink: projectUrl,
             startDate: projectStartDate,
         })
+
+        setProjectID(projectID)
     }
 
-    const handlePressDeleteProject = (projectTitle: string) => {
+    const handlePressDeleteProject = (projectID: string, projectTitle: string) => {
 
         setCurrentPanelAction('delete')
         setProjectPanelTitle('Delete Project')
@@ -122,41 +144,74 @@ export const AdminProjects = () => {
             projectLink: "",
             startDate: "",
         })
+
+        setProjectID(projectID)
     }
 
     // CRUD System
 
-    const createProjectInDatabase = (project: ProjectFormProps) => {
+    const createProjectInDatabase = async (project: ProjectFormProps) => {
 
         console.log(`Need to create new project (${project.title}) in database`)
-
+        await addDoc(collection(db, "projects"), {
+            title: project.title,
+            description: project.description,
+            projectLink: project.projectLink,
+            startDate: project.startDate,
+        });
 
         // read database after
         readProjectsFromDatabase();
     }
 
-    const readProjectsFromDatabase = () => {
+    const readProjectsFromDatabase = async (): Promise<void> => {
 
+        console.log("Trying to read projects from database")
+        setLoading(true);
+
+        try {
+            const snap = await getDocs(collection(db, "projects"));
+            const data: ProjectDB[] = snap.docs.map((d) => ({
+                id: d.id,
+                ...(d.data() as Omit<ProjectDB, "id">), // Type assertion for Firestore data
+            }));
+
+            setAllProjects(data);
+        }
+        catch (error) {
+            console.error("Error reading projects:", error);
+        }
+        finally {
+            setLoading(false);
+        }
     }
 
-    const updateProjectInDatabase = (project: ProjectFormProps) => {
+    const updateProjectInDatabase = async (project: ProjectFormProps, projectID: string) => {
 
         console.log(`Need to update project (${project.title}) in database`)
+        await updateDoc(doc(db, "projects", projectID), {
+            title: project.title,
+            description: project.description,
+            projectLink: project.projectLink,
+            startDate: project.startDate,
+        });
 
         // read database after
         readProjectsFromDatabase();
     }
 
-    const deleteProjectInDatabase = (project: ProjectFormProps) => {
+    const deleteProjectInDatabase = async (project: ProjectFormProps, projectID: string) => {
 
-        console.log(`Need to delete project (${project.title}) in database`)
+        console.log(`Need to delete project (${project.title}, ${projectID}) in database`)
+        await deleteDoc(doc(db, "projects", projectID));
+
+        // read database after
+        readProjectsFromDatabase();
     }
 
     // read projects from database initially
     useEffect(() => {
-
         readProjectsFromDatabase();
-
     }, []);
 
     return (
@@ -184,15 +239,19 @@ export const AdminProjects = () => {
                             <div
                                 className="mt-10 flex flex-col w-full">
 
-                                {projects.map(({ title, description, projectLink, startDate, image, techUsed }, index) => (
+                                {allProjects.length == 0 ? (<p className='text-center text-2xl text-zinc-500'>No Projects Yet</p>) : (
+                                    <>
+                                        {allProjects.map(({ id, title, description, projectLink, startDate }, index) => (
 
-                                    <AdminProjectPanel key={index}
-                                        title={title} description={description} projectLink={projectLink}
-                                        startDate={startDate} image={image} techUsed={techUsed} index={index}
-                                        OnPressEdit={() => handlePressEditProject(title, description, projectLink, formatDateToDDMMYYYY(startDate))}
-                                        OnPressDelete={() => handlePressDeleteProject(title)} />
+                                            <AdminProjectPanel key={index}
+                                                title={title}
+                                                startDate={startDate} index={index}
+                                                OnPressEdit={() => handlePressEditProject(id, title, description, projectLink, startDate)}
+                                                OnPressDelete={() => handlePressDeleteProject(id, title)} />
 
-                                ))}
+                                        ))}
+                                    </>
+                                )}
 
                             </div>
 
@@ -207,11 +266,10 @@ export const AdminProjects = () => {
 
                                 <AddPanel>
                                     <ProjectDialogPanel currentPanelAction={currentPanelAction} panelTitle={projectPanelTitle} panelDesc={projectPanelDesc}
-                                        cancelButtonName='Cancel' actionButtonName={actionButtonName} titleValue={projectForm.title}
-                                        descriptionValue={projectForm.description} urlValue={projectForm.projectLink}
-                                        startDateValue={projectForm.startDate} isDeleteProjectPanel={isDeletePanel}
-                                        setDialogOpen={setIsDialogOpen}
-                                        createNewProject={createProjectInDatabase} updateNewProject={updateProjectInDatabase} deleteProject={deleteProjectInDatabase} />
+                                        cancelButtonName='Cancel' actionButtonName={actionButtonName} projectForm={projectForm} projectID={projectID}
+                                        isDeleteProjectPanel={isDeletePanel}
+                                        setDialogOpen={setIsDialogOpen} onCreateProject={createProjectInDatabase}
+                                        onUpdateProject={updateProjectInDatabase} onDeleteProject={deleteProjectInDatabase} />
                                 </AddPanel>
                             </div>
 
@@ -219,7 +277,6 @@ export const AdminProjects = () => {
                     )}
                 </div>
             </div>
-
         </AlertDialog.Root>
     )
 }
@@ -229,43 +286,39 @@ type ProjectDialogPanelProps = {
     currentPanelAction: string,
     panelTitle: string,
     panelDesc: string,
-
     cancelButtonName: string,
     actionButtonName: string,
-    titleValue: string,
-    descriptionValue: string,
-    urlValue: string,
-    startDateValue: string,
+    projectForm: ProjectFormProps,
+    projectID: string,
     isDeleteProjectPanel: boolean,
+
     setDialogOpen: (open: boolean) => void,
-    createNewProject: (project: ProjectFormProps) => void,
-    updateNewProject: (project: ProjectFormProps) => void,
-    deleteProject: (project: ProjectFormProps) => void,
+    onCreateProject: (project: ProjectFormProps) => Promise<void>;
+    onUpdateProject: (project: ProjectFormProps, projectID: string) => Promise<void>;
+    onDeleteProject: (project: ProjectFormProps, projectID: string) => Promise<void>;
 }
 
-export const ProjectDialogPanel = ({ 
-    currentPanelAction, panelTitle, panelDesc, cancelButtonName, actionButtonName, titleValue,
-    descriptionValue, urlValue, startDateValue, isDeleteProjectPanel,
-    setDialogOpen, createNewProject, updateNewProject, deleteProject }: ProjectDialogPanelProps) => {
+export const ProjectDialogPanel = ({
+    currentPanelAction, panelTitle, panelDesc, cancelButtonName, actionButtonName, projectForm, projectID, isDeleteProjectPanel,
+    setDialogOpen, onCreateProject, onUpdateProject, onDeleteProject }: ProjectDialogPanelProps) => {
 
-    const [currentTitleValue, setCurrentTitleValue] = useState(titleValue);
-    const [currentDescValue, setCurrentDescValue] = useState(descriptionValue);
-    const [currentLinkValue, setCurrentLinkValue] = useState(urlValue);
-    const [currentStartDateValue, setCurrentStartDateValue] = useState(startDateValue);
+    const [currentTitleValue, setCurrentTitleValue] = useState(projectForm.title);
+    const [currentDescValue, setCurrentDescValue] = useState(projectForm.description);
+    const [currentLinkValue, setCurrentLinkValue] = useState(projectForm.projectLink);
+    const [currentStartDateValue, setCurrentStartDateValue] = useState(projectForm.startDate);
     const [warning, setWarning] = useState('');
 
     const isProjectEntryValid = () => {
 
         return currentTitleValue != '' &&
-        currentDescValue != '' && currentLinkValue != ''
-        && currentStartDateValue != '';
+            currentDescValue != '' && currentLinkValue != ''
+            && currentStartDateValue != '';
     }
 
     // handle add project
-    const handlePressActionButton = () => {
+    const handlePressActionButton = async () => {
 
-        if(!isProjectEntryValid())
-        {
+        if (!isProjectEntryValid()) {
             setWarning('Please complete all fields.');
             return;
         }
@@ -278,13 +331,14 @@ export const ProjectDialogPanel = ({
         }
 
         console.log(newProject)
+        console.log(currentPanelAction)
 
         // Need to save update here
-        if (currentPanelAction == 'action') {
-            createNewProject(newProject)
+        if (currentPanelAction == 'add') {
+            await onCreateProject(newProject)
         }
         else if (currentPanelAction == 'update') {
-            updateNewProject(newProject)
+            await onUpdateProject(newProject, projectID)
         }
 
         setWarning('')
@@ -298,14 +352,14 @@ export const ProjectDialogPanel = ({
 
     if (isDeleteProjectPanel) {
         return (
-            <DeleteItemPanel panelTitle={panelTitle} panelDesc={panelDesc} itemName={titleValue}
+            <DeleteItemPanel panelTitle={panelTitle} panelDesc={panelDesc} itemName={projectForm.title}
                 actionButtonName={actionButtonName} cancelButtonName={cancelButtonName}
-                OnDelete={() => deleteProject({
+                OnDelete={() => onDeleteProject({
                     title: currentTitleValue,
                     description: currentDescValue,
                     projectLink: currentLinkValue,
                     startDate: currentStartDateValue
-                })} />
+                }, projectID)} />
         )
     }
 
@@ -316,8 +370,8 @@ export const ProjectDialogPanel = ({
             </AlertDialog.Title>
 
             <AlertDialog.Description className='text-sm font-text text-zinc-400'>
-                {panelDesc} 
-			</AlertDialog.Description>
+                {panelDesc}
+            </AlertDialog.Description>
 
             <InputField className='' placeholder='Project Title' type='text' value={currentTitleValue} OnInputChanged={handleChangeTitle} />
             <TextAreaField className='' placeholder='Project description' value={currentDescValue} OnInputChanged={handleChangeDesc} />
@@ -342,24 +396,16 @@ export const ProjectDialogPanel = ({
     )
 }
 
-
 type AdminProjectPanelProps = {
 
     title: string,
-    description: string,
-    projectLink: string,
-    startDate: Date,
-    image: any,
-    techUsed: ReactElement[],
+    startDate: string,
     index: number,
     OnPressEdit: () => void,
     OnPressDelete: () => void,
-
 }
 
-export const AdminProjectPanel = ({ title, index, OnPressEdit, OnPressDelete }: AdminProjectPanelProps) => {
-
-    //const formattedDate = startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+export const AdminProjectPanel = ({ title, startDate, index, OnPressEdit, OnPressDelete }: AdminProjectPanelProps) => {
 
     return (
         <div
@@ -369,8 +415,15 @@ export const AdminProjectPanel = ({ title, index, OnPressEdit, OnPressDelete }: 
                 <div className="border-b-2 border-b-zinc-500 flex flex-row justify-between items-center w-full py-2">
 
                     <div className="flex flex-row items-center space-x-6">
-                        <div className="px-2.5 py-1 text-sm bg-zinc-900 group-hover:bg-zinc-700 font-bold font-text text-zinc-400 group-hover:text-zinc-300 rounded transition">{index + 1}</div>
-                        <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition font-text">{title}</h3>
+                        <div className="flex items-center px-2.5 py-1 text-sm bg-zinc-900 group-hover:bg-zinc-700 font-bold font-text text-zinc-400 group-hover:text-zinc-300 rounded transition">
+                            {index + 1}
+                        </div>
+                        <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition font-text self-center">
+                            {title}
+                        </h3>
+                        <p className="text-sm pt-1 text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition font-text self-center">
+                            [ {startDate} ]
+                        </p>
                     </div>
 
                     <div className="flex flex-row items-center space-x-4">
@@ -395,7 +448,6 @@ export const AdminProjectPanel = ({ title, index, OnPressEdit, OnPressDelete }: 
                     </div>
                 </div>
             </div>
-
         </div>
     )
 }
