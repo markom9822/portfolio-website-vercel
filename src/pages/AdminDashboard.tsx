@@ -5,6 +5,11 @@ export const AdminDashboard = () => {
 
     const navigate = useNavigate();
 
+    const handleLogout = () => {
+        localStorage.removeItem("admin-auth");
+        navigate("/admin/login");
+    };
+
     const cards = [
         {
             title: "Projects",
@@ -47,6 +52,12 @@ export const AdminDashboard = () => {
                         Dashboard
                     </h1>
 
+                    <button 
+                    onClick={handleLogout}
+                    className="p-2 rounded duration-200 cursor-pointer border-2 border-zinc-600 hover:border-zinc-300 transition">
+                        Logout
+                    </button>
+
                     <div
                         style={{
                             display: 'grid',
@@ -55,9 +66,9 @@ export const AdminDashboard = () => {
                         }}
                         className="justify-center"
                     >
-                        {cards.map(({ title, description, route }) => (
+                        {cards.map(({ title, description, route }, index) => (
 
-                            <DashboardCard title={title} description={description} route={route} navigateFunction={navigate}/>
+                            <DashboardCard key={index} title={title} description={description} route={route} navigateFunction={navigate} />
                         ))}
 
                     </div>
