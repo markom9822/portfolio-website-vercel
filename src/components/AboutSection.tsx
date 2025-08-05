@@ -105,9 +105,9 @@ export const AboutSection = () => {
                     }}
                     className="justify-center"
                 >
-                    {skills.map(({ title, experience, icon }) => (
+                    {skills.map(({ title, experience, icon }, index) => (
 
-                        <SkillPanel title={title} experience={experience} maxExperienceLevel={maxExperienceLevel} icon={icon} />
+                        <SkillPanel key={index} title={title} experience={experience} maxExperienceLevel={maxExperienceLevel} icon={icon} />
                     ))}
 
                 </div>

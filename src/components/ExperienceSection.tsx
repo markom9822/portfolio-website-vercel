@@ -139,9 +139,9 @@ export const ExperienceSection = () => {
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
 
-                {experiences.map(({ companyName, companyIcon, companyLocation, locationFlag, positions }) => (
+                {experiences.map(({ companyName, companyIcon, companyLocation, locationFlag, positions }, index) => (
 
-                    <ExperiencePanel companyName={companyName} companyIcon={companyIcon} companyLocation={companyLocation} locationFlag={locationFlag} positions={positions} />
+                    <ExperiencePanel key={index} companyName={companyName} companyIcon={companyIcon} companyLocation={companyLocation} locationFlag={locationFlag} positions={positions} />
 
                 ))}
 
@@ -204,9 +204,9 @@ export const ExperiencePanel = ({ companyName, companyIcon, companyLocation, loc
             </div>
 
             <div className="space-y-4 w-full">
-                {positions.map(({ positionName, content, positionStartDate, positionEndDate }) => (
+                {positions.map(({ positionName, content, positionStartDate, positionEndDate }, index) => (
 
-                    <PositionPanel positionName={positionName} positionStartDate={positionStartDate}
+                    <PositionPanel key={index} positionName={positionName} positionStartDate={positionStartDate}
                         positionEndDate={positionEndDate} content={content} />
                 ))}
             </div>
