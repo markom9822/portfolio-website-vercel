@@ -7,14 +7,8 @@ import { IoSchoolOutline } from "react-icons/io5";
 import { MdOutlineLocalPostOffice } from "react-icons/md";
 import { SiMinutemailer } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
-
 import { motion } from "motion/react"
-
-import {
-  githubIcon,
-  linkedinIcon,
-} from "./components/Icons";
-
+import { githubIcon, linkedinIcon,} from "./components/Icons";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase/firebaseConfig";
 
@@ -150,7 +144,7 @@ export function App() {
     }
 
 
-  }, [activeTab, isProjectsFetched, isAboutMeContentFetched]);
+  }, [activeTab, isProjectsFetched, isPostsFetched, isAboutMeContentFetched]);
 
 
   const handleTabButtonPressed = (labelName: string) => {
@@ -210,7 +204,7 @@ export function App() {
                   )}
                   <button
                     onClick={() => handleTabButtonPressed(label)}
-                    className={`flex text-base items-center space-x-5 px-4 py-2 w-full rounded duration-200 cursor-pointer ${activeTab === label
+                    className={`flex text-base items-center space-x-5 px-4 py-1.5 w-full rounded duration-200 cursor-pointer ${activeTab === label
                       ? "text-white"
                       : "hover:bg-zinc-800 text-zinc-500/80"
                       }`}
@@ -224,7 +218,7 @@ export function App() {
           </div>
 
           <motion.div
-            className='flex justify-center space-x-5 pt-6 border-t border-zinc-700 text-zinc-400'
+            className='flex justify-center space-x-5 pt-3 border-t border-zinc-700 text-zinc-400'
             initial="hidden"
             animate="visible">
 
@@ -261,7 +255,7 @@ export function App() {
       [&::-webkit-scrollbar-thumb]:bg-zinc-600
         [&::-webkit-scrollbar-thumb]:rounded-xs
         [&::-webkit-scrollbar-corner]:bg-zinc-900
-        overflow-scroll">
+        overflow-x-scroll">
           {handleContentsSection(activeTab)}
         </main>
 
