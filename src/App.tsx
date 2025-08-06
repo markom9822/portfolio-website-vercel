@@ -15,6 +15,9 @@ import {
   linkedinIcon,
 } from "./components/Icons";
 
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "./firebase/firebaseConfig";
+
 import { AboutSection } from './components/AboutSection';
 import { ExperienceSection } from './components/ExperienceSection';
 import { ProjectsSection } from './components/ProjectsSection';
@@ -22,6 +25,9 @@ import { PostsSection } from './components/PostsSection';
 import { EducationSection } from './components/EducationSection'
 import { ReachOutSection } from './components/ReachOutSection';
 import LoaderScreen from './components/LoadingScreen';
+import type { ProjectDB } from './pages/AdminProjects';
+import type { AboutMeContentDB } from './pages/AdminDashboard';
+import type { PostDB } from './pages/AdminPosts';
 
 export function App() {
 
@@ -29,6 +35,16 @@ export function App() {
 
   const [activeTab, setActiveTab] = useState("about");
   const [isLoading, setIsLoading] = useState(true);
+  const [isProjectsLoading, setIsProjectsLoading] = useState(false);
+  const [isProjectsFetched, setIsProjectsFetched] = useState(false);
+  const [projects, setProjects] = useState<ProjectDB[]>([]);
+  const [isPostsLoading, setIsPostsLoading] = useState(false);
+  const [isPostsFetched, setIsPostsFetched] = useState(false);
+  const [posts, setPosts] = useState<PostDB[]>([]);
+  const [isAboutMeContentLoading, setIsAboutMeContentLoading] = useState(false);
+  const [isAboutMeContentFetched, setIsAboutMeContentFetched] = useState(false);
+  const [aboutMeContent, setAboutMeContent] = useState<AboutMeContentDB[]>([]);
+
   const contentContainerRef = useRef<HTMLDivElement | null>(null);
 
 
@@ -45,15 +61,15 @@ export function App() {
 
     switch (tab) {
       case "about":
-        return <AboutSection />;
+        return isAboutMeContentLoading ? (<LoaderScreen/>) :(<AboutSection aboutMeContent={aboutMeContent}/>);
       case "experience":
         return <ExperienceSection />;
       case "projects":
-        return <ProjectsSection />;
+        return isProjectsLoading ? (<LoaderScreen/>) : (<ProjectsSection projects={projects}/>)
       case "education":
         return <EducationSection />;
       case "posts":
-        return <PostsSection />;
+        return isPostsLoading ? (<LoaderScreen/>) : (<PostsSection posts={posts}/>)
       case "reach out":
         return <ReachOutSection />;
       default:
@@ -67,6 +83,75 @@ export function App() {
     return () => clearTimeout(timer);
 
   }, []);
+
+  useEffect(() => {
+
+    const fetchProjects = () => {
+      setIsProjectsLoading(true);
+      getDocs(collection(db, "projects"))
+        .then((snap) => {
+
+          const data: ProjectDB[] = snap.docs.map((d) => ({
+                id: d.id,
+                ...(d.data() as Omit<ProjectDB, "id">), // Type assertion for Firestore data
+            }));
+
+          setProjects(data);
+          setIsProjectsFetched(true);
+        })
+        .catch(console.error)
+        .finally(() => setIsProjectsLoading(false));
+    };
+
+    const fetchPosts = () => {
+      setIsPostsLoading(true);
+      getDocs(collection(db, "posts"))
+        .then((snap) => {
+
+          const data: PostDB[] = snap.docs.map((d) => ({
+                id: d.id,
+                ...(d.data() as Omit<PostDB, "id">), // Type assertion for Firestore data
+            }));
+
+          setPosts(data);
+          setIsPostsFetched(true);
+        })
+        .catch(console.error)
+        .finally(() => setIsPostsLoading(false));
+    };
+
+    const fetchAboutMeContent = () => {
+      setIsAboutMeContentLoading(true);
+      getDocs(collection(db, "aboutMe"))
+        .then((snap) => {
+
+          const data: AboutMeContentDB[] = snap.docs.map((d) => ({
+                id: d.id,
+                ...(d.data() as Omit<AboutMeContentDB, "id">), // Type assertion for Firestore data
+            }));
+
+          setAboutMeContent(data);
+          setIsAboutMeContentFetched(true);
+        })
+        .catch(console.error)
+        .finally(() => setIsAboutMeContentLoading(false));
+    };
+
+    if ((activeTab === "projects") && !isProjectsFetched) {
+      fetchProjects();
+    }
+
+    if ((activeTab === "posts") && !isPostsFetched) {
+      fetchPosts();
+    }
+
+    if ((activeTab === "about") && !isAboutMeContentFetched) {
+      fetchAboutMeContent();
+    }
+
+
+  }, [activeTab, isProjectsFetched, isAboutMeContentFetched]);
+
 
   const handleTabButtonPressed = (labelName: string) => {
 

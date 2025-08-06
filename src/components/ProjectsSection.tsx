@@ -1,42 +1,17 @@
-import { Fragment, useState, type ReactElement } from "react";
+import { Fragment, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { GoArrowUpRight } from "react-icons/go";
-import { codemirrorIcon, electronIcon, expoIcon, figmaIcon, githubIcon, gitIcon, jotaiIcon, markdownIcon, reactIcon, tailwindCSSIcon, typescriptIcon, viteIcon } from "./Icons";
-import markNoteImage from '/images/MarkNote_app_cover.png'
-import rugbyRadarImage from '/images/Rugby_Radar_Poster.jpg'
-import portfolioWebsiteImage from '/images/portfolio_website_cover.png';
+import { githubIcon } from "./Icons";
 import { motion, stagger, AnimatePresence } from "motion/react"
+import type { ProjectDB } from "../pages/AdminProjects";
+import { getTechUsedFromName } from "../store/techUsedOptions";
 
+type ProjectSectionProps = {
 
-export const ProjectsSection = () => {
+    projects: ProjectDB[]
+}
 
-
-    const projects = [
-        {
-            title: "This portfolio website!",
-            description: "A portfolio website built from scratch using React, Vite and Tailwind CSS.",
-            projectLink: "https://github.com/markom9822/portfolio-website-vercel",
-            startDate: new Date(2025, 6, 28),
-            image: portfolioWebsiteImage,
-            techUsed: [reactIcon, viteIcon, typescriptIcon, tailwindCSSIcon, gitIcon, figmaIcon],
-        },
-        {
-            title: "MarkNote App",
-            description: "A personal desktop Markdown note taking application developed using React and Electron.",
-            projectLink: "https://github.com/markom9822/MarkNote-App",
-            startDate: new Date(2024, 2, 29),
-            image: markNoteImage,
-            techUsed: [reactIcon, electronIcon, typescriptIcon, tailwindCSSIcon, markdownIcon, jotaiIcon, codemirrorIcon, gitIcon],
-        },
-        {
-            title: "Rugby Radar App",
-            description: "A sports mobile application built with React Native and Expo. Provides real-time information on fixtures, stats, standings and more from 10+ rugby leagues around the world.",
-            projectLink: "https://github.com/markom9822/rugbyRadar_app",
-            startDate: new Date(2024, 6, 12),
-            image: rugbyRadarImage,
-            techUsed: [reactIcon, typescriptIcon, expoIcon, gitIcon, figmaIcon],
-        },
-    ];
+export const ProjectsSection = ({ projects }: ProjectSectionProps) => {
 
     const containerVariant = {
         hidden: {},
@@ -55,6 +30,13 @@ export const ProjectsSection = () => {
             transition: { duration: 0.4 },
         },
     };
+
+    const sortedProjects = projects.sort((a, b) => {
+        const dateA = new Date(a.startDate).getTime();
+        const dateB = new Date(b.startDate).getTime();
+
+        return dateB - dateA;
+    });
 
     return (
         <motion.div
@@ -84,33 +66,30 @@ export const ProjectsSection = () => {
                 animate='show'
                 variants={containerVariant}>
 
-                {projects.map(({ title, description, projectLink, startDate, image, techUsed }, index) => (
+                {sortedProjects.map(({ title, description, projectLink, startDate, techUsed, imageName }, index) => (
 
-                    <ProjectPanel title={title} description={description} projectLink={projectLink}
-                        startDate={startDate} image={image} techUsed={techUsed} index={index} />
+                    <ProjectPanel key={index} title={title} description={description} projectLink={projectLink}
+                        startDate={startDate} techUsed={techUsed} imageName={imageName} index={index} />
 
                 ))}
 
             </motion.div>
-
         </motion.div>
     )
 }
-
 
 type ProjectPanelProps = {
 
     title: string,
     description: string,
     projectLink: string,
-    startDate: Date,
-    image: any,
-    techUsed: ReactElement[],
-    index: number
-
+    startDate: string,
+    techUsed: string[],
+    imageName: string,
+    index: number,
 }
 
-export const ProjectPanel = ({ title, description, projectLink, startDate, image, techUsed, index }: ProjectPanelProps) => {
+export const ProjectPanel = ({ title, description, projectLink, startDate, techUsed, imageName, index }: ProjectPanelProps) => {
 
     const panelVariant = {
         hidden: { opacity: 0, y: 10 },
@@ -123,7 +102,7 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, image
 
     const [isOpen, setIsOpen] = useState(false);
 
-    const formattedDate = startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+    //const formattedDate = startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
 
     return (
         <motion.div
@@ -141,18 +120,18 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, image
                     </div>
 
                     <div className="flex flex-row items-center space-x-3">
-                        <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Started: {formattedDate}</p>
-                        <button
+                        <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Started: {startDate}</p>
+                        <div
                             className="p-1 text-zinc-500 group-hover:text-zinc-300 transition">
                             {isOpen ? <FaChevronUp /> : <FaChevronDown />}
-                        </button>
+                        </div>
                     </div>
                 </div>
             </button>
 
             <AnimatePresence initial={false}>
                 {isOpen ? (
-                    <ProjectInfoPanel description={description} projectLink={projectLink} image={image} techUsed={techUsed}/>
+                    <ProjectInfoPanel description={description} projectLink={projectLink} imageName={imageName} techUsed={techUsed} />
                 ) : null}
             </AnimatePresence>
 
@@ -164,11 +143,11 @@ type ProjectInfoPanelProps = {
 
     description: string,
     projectLink: string,
-    image: any,
-    techUsed: ReactElement[],
+    imageName: string,
+    techUsed: string[],
 }
 
-export const ProjectInfoPanel = ({ description, projectLink, image, techUsed }: ProjectInfoPanelProps) => {
+export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed }: ProjectInfoPanelProps) => {
 
     const menuVariants = {
         closed: {
@@ -186,7 +165,7 @@ export const ProjectInfoPanel = ({ description, projectLink, image, techUsed }: 
     };
 
     return (
-            <motion.div 
+        <motion.div
             className="mt-4 w-full"
             initial="closed"
             animate="open"
@@ -194,60 +173,60 @@ export const ProjectInfoPanel = ({ description, projectLink, image, techUsed }: 
             key="modal"
             variants={menuVariants}>
 
-                <div className="flex flex-row w-full" key="content">
+            <div className="flex flex-row w-full" key="content">
 
-                    <div className="w-2/3 p-1">
-                        <p className="text-sm text-zinc-400 mb-6 font-text w-full">
-                            {description.split('\n').map((line, index, arr) => (
-                                <Fragment key={index}>
-                                    {line}
-                                    {index < arr.length - 1 && (
-                                        <>
-                                            <br />
-                                            <br />
-                                        </>
-                                    )}
-                                </Fragment>
-                            ))}
-                        </p>
-                    </div>
-
-                    <div className="w-1/3 flex items-center justify-center border-l-2 border-l-zinc-500">
-                        <img
-                            src={image}
-                            className="rounded w-10/12" />
-                    </div>
-                </div>
-
-
-                <div className="flex flex-col space-y-2 w-full" key="tech">
-
-                    <h3 className="font-text text-xs text-zinc-400 w-full">TECH USED:</h3>
-
-                    <div className="w-2/3 flex flex-row flex-wrap space-x-1 space-y-2 mb-3 p-1">
-                        {techUsed.map((img, index) => (
-                            <div className="mx-4" key={index}>
-                                {img}
-                            </div>
+                <div className="w-2/3 p-1">
+                    <p className="text-sm text-zinc-400 mb-6 font-text w-full">
+                        {description.split('\n').map((line, index, arr) => (
+                            <Fragment key={index}>
+                                {line}
+                                {index < arr.length - 1 && (
+                                    <>
+                                        <br />
+                                        <br />
+                                    </>
+                                )}
+                            </Fragment>
                         ))}
-                    </div>
+                    </p>
                 </div>
 
-                <a
-                    href={projectLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-text w-full"
-                    key="link"
-                    style={{ color: '#9e75f0' }}
-                >
-                    <div className="flex flex-row space-x-2 items-center hover:text-purple-300 transition my-1 w-full">
-                        {githubIcon}
-                        <p>View on GitHub</p>
-                        <GoArrowUpRight size={25} />
-                    </div>
-                </a>
-            </motion.div>
+                <div className="w-1/3 flex items-center justify-center border-l-2 border-l-zinc-500">
+                    <img
+                        src={`/images/${imageName}`}
+                        alt="Project"
+                        className="rounded w-10/12" />
+                </div>
+            </div>
+
+
+            <div className="flex flex-col space-y-2 w-full" key="tech">
+
+                <h3 className="font-text text-xs text-zinc-400 w-full">TECH USED:</h3>
+
+                <div className="w-2/3 flex flex-row flex-wrap space-x-1 space-y-2 mb-3 p-1">
+                    {techUsed.map((name, index) => (
+                        <div className="mx-4" key={index}>
+                            {getTechUsedFromName(name)?.icon}
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <a
+                href={projectLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-text w-full"
+                key="link"
+                style={{ color: '#9e75f0' }}
+            >
+                <div className="flex flex-row space-x-2 items-center hover:text-purple-300 transition my-1 w-full">
+                    {githubIcon}
+                    <p>View on GitHub</p>
+                    <GoArrowUpRight size={25} />
+                </div>
+            </a>
+        </motion.div>
     )
 }
-

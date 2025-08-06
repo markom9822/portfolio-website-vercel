@@ -1,11 +1,4 @@
-
 import { useEffect, useState, type ChangeEvent } from 'react';
-//import { reactIcon, viteIcon, typescriptIcon, tailwindCSSIcon, gitIcon, figmaIcon, electronIcon, markdownIcon, jotaiIcon, codemirrorIcon, expoIcon } from '../components/Icons';
-//import markNoteImage from '/images/MarkNote_app_cover.png'
-//import rugbyRadarImage from '/images/Rugby_Radar_Poster.jpg'
-//import portfolioWebsiteImage from '/images/portfolio_website_cover.png';
-import { RiDeleteBin5Line } from "react-icons/ri";
-import { FaRegEdit } from "react-icons/fa";
 import { AlertDialog } from "radix-ui";
 import { InputField } from '../ui/InputField';
 import { TextAreaField } from '../ui/TextAreaField';
@@ -14,16 +7,11 @@ import { useNavigate } from 'react-router-dom';
 import { AddPanel } from '../components/AddPanel';
 import { DeleteItemPanel } from '../components/DeleteItemPanel';
 import LoaderScreen from '../components/LoadingScreen';
-
-import {
-    collection,
-    addDoc,
-    getDocs,
-    deleteDoc,
-    doc,
-    updateDoc,
-} from "firebase/firestore";
+import {collection,addDoc,getDocs,deleteDoc,doc,updateDoc,} from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
+import { TagsInput } from '../ui/TagsInput';
+import { getTechNamesArray } from '../store/techUsedOptions';
+import { AdminProjectPanel } from './AdminPanelItem';
 
 export type ProjectFormProps = {
 
@@ -31,15 +19,19 @@ export type ProjectFormProps = {
     description: string,
     projectLink: string,
     startDate: string,
+    techUsed: string[],
+    imageName: string,
 }
 
-interface ProjectDB {
+export interface ProjectDB {
     id: string;
 
     title: string,
     description: string,
     projectLink: string,
     startDate: string,
+    techUsed: string[],
+    imageName: string,
 }
 
 export const AdminProjects = () => {
@@ -88,6 +80,8 @@ export const AdminProjects = () => {
         description: "",
         projectLink: "",
         startDate: "",
+        techUsed: [],
+        imageName: "",
     });
     const [projectID, setProjectID] = useState("");
 
@@ -107,10 +101,13 @@ export const AdminProjects = () => {
             description: "",
             projectLink: "",
             startDate: "",
+            techUsed: [],
+            imageName: "",
         })
     }
 
-    const handlePressEditProject = (projectID: string, projectTitle: string, projectDesc: string, projectUrl: string, projectStartDate: string) => {
+    const handlePressEditProject = (projectID: string, projectTitle: string, projectDesc: string,
+         projectUrl: string, projectStartDate: string, projectTechUsed: string[], projectImageName: string) => {
 
         setCurrentPanelAction('update')
         setProjectPanelTitle('Edit Project')
@@ -124,6 +121,8 @@ export const AdminProjects = () => {
             description: projectDesc,
             projectLink: projectUrl,
             startDate: projectStartDate,
+            techUsed: projectTechUsed,
+            imageName: projectImageName,
         })
 
         setProjectID(projectID)
@@ -143,13 +142,14 @@ export const AdminProjects = () => {
             description: "",
             projectLink: "",
             startDate: "",
+            techUsed: [],
+            imageName: "",
         })
 
         setProjectID(projectID)
     }
 
     // CRUD System
-
     const createProjectInDatabase = async (project: ProjectFormProps) => {
 
         console.log(`Need to create new project (${project.title}) in database`)
@@ -158,6 +158,8 @@ export const AdminProjects = () => {
             description: project.description,
             projectLink: project.projectLink,
             startDate: project.startDate,
+            techUsed: project.techUsed,
+            imageName: project.imageName,
         });
 
         // read database after
@@ -194,6 +196,8 @@ export const AdminProjects = () => {
             description: project.description,
             projectLink: project.projectLink,
             startDate: project.startDate,
+            techUsed: project.techUsed,
+            imageName: project.imageName,
         });
 
         // read database after
@@ -227,7 +231,7 @@ export const AdminProjects = () => {
                             <div className='flex items-center relative w-full'>
                                 <button
                                     onClick={() => navigate('/admin/dashboard')}
-                                    className='absolute left-0 flex flex-row items-center space-x-2 text-zinc-400 hover:text-zinc-200'>
+                                    className='duration-200 cursor-pointer absolute left-0 flex flex-row items-center space-x-2 text-zinc-400 hover:text-zinc-200'>
                                     <FaArrowLeft />
                                     <p>Dashboard</p>
                                 </button>
@@ -241,12 +245,12 @@ export const AdminProjects = () => {
 
                                 {allProjects.length == 0 ? (<p className='text-center text-2xl text-zinc-500'>No Projects Yet</p>) : (
                                     <>
-                                        {allProjects.map(({ id, title, description, projectLink, startDate }, index) => (
+                                        {allProjects.map(({ id, title, description, projectLink, startDate, techUsed, imageName }, index) => (
 
                                             <AdminProjectPanel key={index}
                                                 title={title}
-                                                startDate={startDate} index={index}
-                                                OnPressEdit={() => handlePressEditProject(id, title, description, projectLink, startDate)}
+                                                date={startDate} index={index}
+                                                OnPressEdit={() => handlePressEditProject(id, title, description, projectLink, startDate, techUsed, imageName)}
                                                 OnPressDelete={() => handlePressDeleteProject(id, title)} />
 
                                         ))}
@@ -302,17 +306,23 @@ export const ProjectDialogPanel = ({
     currentPanelAction, panelTitle, panelDesc, cancelButtonName, actionButtonName, projectForm, projectID, isDeleteProjectPanel,
     setDialogOpen, onCreateProject, onUpdateProject, onDeleteProject }: ProjectDialogPanelProps) => {
 
+    const techUsedOptions = getTechNamesArray();
+
     const [currentTitleValue, setCurrentTitleValue] = useState(projectForm.title);
     const [currentDescValue, setCurrentDescValue] = useState(projectForm.description);
     const [currentLinkValue, setCurrentLinkValue] = useState(projectForm.projectLink);
     const [currentStartDateValue, setCurrentStartDateValue] = useState(projectForm.startDate);
+    const [currentTechUsedValue, setCurrentTechUsedValue] = useState<string[]>(projectForm.techUsed);
+    const [currentImageNameValue, setCurrentImageNameValue] = useState<string>(projectForm.imageName);
+
     const [warning, setWarning] = useState('');
 
     const isProjectEntryValid = () => {
 
         return currentTitleValue != '' &&
             currentDescValue != '' && currentLinkValue != ''
-            && currentStartDateValue != '';
+            && currentStartDateValue != '' && currentTechUsedValue.length > 0
+            && currentImageNameValue != '';
     }
 
     // handle add project
@@ -328,6 +338,8 @@ export const ProjectDialogPanel = ({
             description: currentDescValue,
             projectLink: currentLinkValue,
             startDate: currentStartDateValue,
+            techUsed: currentTechUsedValue,
+            imageName: currentImageNameValue,
         }
 
         console.log(newProject)
@@ -349,6 +361,8 @@ export const ProjectDialogPanel = ({
     const handleChangeDesc = (event: ChangeEvent<HTMLTextAreaElement>) => { setCurrentDescValue(event.target.value) };
     const handleChangeLink = (event: ChangeEvent<HTMLInputElement>) => { setCurrentLinkValue(event.target.value) };
     const handleChangeStartDate = (event: ChangeEvent<HTMLInputElement>) => { setCurrentStartDateValue(event.target.value) };
+    //const handleChangeTechUsed = (event: ChangeEvent<HTMLInputElement>) => { setCurrentTechUsedValue(event.target.value) };
+    const handleChangeImageName = (event: ChangeEvent<HTMLInputElement>) => { setCurrentImageNameValue(event.target.value) };
 
     if (isDeleteProjectPanel) {
         return (
@@ -358,7 +372,9 @@ export const ProjectDialogPanel = ({
                     title: currentTitleValue,
                     description: currentDescValue,
                     projectLink: currentLinkValue,
-                    startDate: currentStartDateValue
+                    startDate: currentStartDateValue,
+                    techUsed: currentTechUsedValue,
+                    imageName: currentImageNameValue,
                 }, projectID)} />
         )
     }
@@ -376,7 +392,9 @@ export const ProjectDialogPanel = ({
             <InputField className='' placeholder='Project Title' type='text' value={currentTitleValue} OnInputChanged={handleChangeTitle} />
             <TextAreaField className='' placeholder='Project description' value={currentDescValue} OnInputChanged={handleChangeDesc} />
             <InputField className='' placeholder='Project url' type='text' value={currentLinkValue} OnInputChanged={handleChangeLink} />
-            <InputField className='' placeholder='Project start date (dd/mm/yyy)' type='text' value={currentStartDateValue} OnInputChanged={handleChangeStartDate} />
+            <InputField className='' placeholder='Project start date (dd/mm/yyy)' type='date' value={currentStartDateValue} OnInputChanged={handleChangeStartDate} />
+            <TagsInput tagOptions={techUsedOptions} value={currentTechUsedValue} onValueChanged={(value) => setCurrentTechUsedValue(value)}/>
+            <InputField className='' placeholder='Project image name' type='text' value={currentImageNameValue} OnInputChanged={handleChangeImageName} />
 
             {warning && <div className="text-red-500 font-text">{warning}</div>}
 
@@ -393,61 +411,5 @@ export const ProjectDialogPanel = ({
                 </button>
             </div>
         </>
-    )
-}
-
-type AdminProjectPanelProps = {
-
-    title: string,
-    startDate: string,
-    index: number,
-    OnPressEdit: () => void,
-    OnPressDelete: () => void,
-}
-
-export const AdminProjectPanel = ({ title, startDate, index, OnPressEdit, OnPressDelete }: AdminProjectPanelProps) => {
-
-    return (
-        <div
-            className="w-full">
-            <div
-                className="group flex flex-row justify-between items-center p-2 py-4 w-full rounded">
-                <div className="border-b-2 border-b-zinc-500 flex flex-row justify-between items-center w-full py-2">
-
-                    <div className="flex flex-row items-center space-x-6">
-                        <div className="flex items-center px-2.5 py-1 text-sm bg-zinc-900 group-hover:bg-zinc-700 font-bold font-text text-zinc-400 group-hover:text-zinc-300 rounded transition">
-                            {index + 1}
-                        </div>
-                        <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition font-text self-center">
-                            {title}
-                        </h3>
-                        <p className="text-sm pt-1 text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition font-text self-center">
-                            [ {startDate} ]
-                        </p>
-                    </div>
-
-                    <div className="flex flex-row items-center space-x-4">
-
-                        <AlertDialog.Trigger asChild>
-                            <button
-                                onClick={OnPressEdit}
-                                title='Edit project'
-                                className='p-2 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 text-zinc-400 hover:text-zinc-200 transition rounded'>
-                                <FaRegEdit className='' />
-                            </button>
-                        </AlertDialog.Trigger>
-
-                        <AlertDialog.Trigger asChild>
-                            <button
-                                onClick={OnPressDelete}
-                                title='Delete project'
-                                className='p-2 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 text-zinc-400 hover:text-zinc-200 transition rounded'>
-                                <RiDeleteBin5Line className='' />
-                            </button>
-                        </AlertDialog.Trigger>
-                    </div>
-                </div>
-            </div>
-        </div>
     )
 }

@@ -73,9 +73,9 @@ export const EducationSection = () => {
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
 
-                {educations.map(({ title, subtitle, content, icon, startDate, endDate }) => (
+                {educations.map(({ title, subtitle, content, icon, startDate, endDate }, index) => (
 
-                    <EducationPanel title={title} subtitle={subtitle} content={content} icon={icon} startDate={startDate} endDate={endDate} />
+                    <EducationPanel key={index} title={title} subtitle={subtitle} content={content} icon={icon} startDate={startDate} endDate={endDate} />
                 ))}
 
             </motion.div>
