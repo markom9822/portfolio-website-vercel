@@ -94,7 +94,7 @@ export const PostsSection = () => {
                 variants={containerVariant}>
 
                 {blogPosts.map(({ title, description, publishDate, blogLink, image }, index) => (
-                    <BlogPostPanel title={title} description={description} publishDate={publishDate} blogLink={blogLink} image={image} index={index} />
+                    <BlogPostPanel key={index} title={title} description={description} publishDate={publishDate} blogLink={blogLink} image={image} index={index} />
                 ))}
 
             </motion.div>
@@ -143,10 +143,10 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
                     </div>
                     <div className="flex flex-row items-center space-x-3">
                         <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Published: {formattedDate}</p>
-                        <button
+                        <div
                             className="p-1 text-zinc-500 group-hover:text-zinc-300 transition">
                             {isOpen ? <FaChevronUp /> : <FaChevronDown />}
-                        </button>
+                        </div>
                     </div>
                 </div>
             </button>

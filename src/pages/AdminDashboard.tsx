@@ -1,13 +1,21 @@
 import { useNavigate, type NavigateFunction } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig";
 
 
 export const AdminDashboard = () => {
 
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        localStorage.removeItem("admin-auth");
-        navigate("/admin/login");
+    const handleLogout = async () => {
+        try {
+            await signOut(auth);
+            console.log("User logged out successfully");
+            navigate("/admin/login");
+
+        } catch (error) {
+            console.error("Error logging out:", error);
+        }
     };
 
     const cards = [
@@ -52,9 +60,9 @@ export const AdminDashboard = () => {
                         Dashboard
                     </h1>
 
-                    <button 
-                    onClick={handleLogout}
-                    className="p-2 rounded duration-200 cursor-pointer border-2 border-zinc-600 hover:border-zinc-300 transition">
+                    <button
+                        onClick={handleLogout}
+                        className="p-2 rounded duration-200 cursor-pointer border-2 border-zinc-600 hover:border-zinc-300 transition">
                         Logout
                     </button>
 

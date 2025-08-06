@@ -242,6 +242,11 @@ export const unityIcon = (
 
 )
 
+export const googleIcon = (
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png" width="45" height="45">
+  </img>
+)
+
 export const ukFlagIcon = (
   <img  
   src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/2560px-Flag_of_the_United_Kingdom.svg.png" 

@@ -86,7 +86,7 @@ export const ProjectsSection = () => {
 
                 {projects.map(({ title, description, projectLink, startDate, image, techUsed }, index) => (
 
-                    <ProjectPanel title={title} description={description} projectLink={projectLink}
+                    <ProjectPanel key={index} title={title} description={description} projectLink={projectLink}
                         startDate={startDate} image={image} techUsed={techUsed} index={index} />
 
                 ))}
@@ -142,10 +142,10 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, image
 
                     <div className="flex flex-row items-center space-x-3">
                         <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Started: {formattedDate}</p>
-                        <button
+                        <div
                             className="p-1 text-zinc-500 group-hover:text-zinc-300 transition">
                             {isOpen ? <FaChevronUp /> : <FaChevronDown />}
-                        </button>
+                        </div>
                     </div>
                 </div>
             </button>

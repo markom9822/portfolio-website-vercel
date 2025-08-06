@@ -24,6 +24,8 @@ import {
     updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
+import { TagsInput } from '../ui/TagsInput';
+import { getTechNamesArray } from '../store/techUsedOptions';
 
 export type ProjectFormProps = {
 
@@ -31,6 +33,7 @@ export type ProjectFormProps = {
     description: string,
     projectLink: string,
     startDate: string,
+    techUsed: string[]
 }
 
 interface ProjectDB {
@@ -40,6 +43,7 @@ interface ProjectDB {
     description: string,
     projectLink: string,
     startDate: string,
+    techUsed: string[]
 }
 
 export const AdminProjects = () => {
@@ -88,6 +92,7 @@ export const AdminProjects = () => {
         description: "",
         projectLink: "",
         startDate: "",
+        techUsed: [],
     });
     const [projectID, setProjectID] = useState("");
 
@@ -107,10 +112,12 @@ export const AdminProjects = () => {
             description: "",
             projectLink: "",
             startDate: "",
+            techUsed: [],
         })
     }
 
-    const handlePressEditProject = (projectID: string, projectTitle: string, projectDesc: string, projectUrl: string, projectStartDate: string) => {
+    const handlePressEditProject = (projectID: string, projectTitle: string, projectDesc: string,
+         projectUrl: string, projectStartDate: string, projectTechUsed: string[]) => {
 
         setCurrentPanelAction('update')
         setProjectPanelTitle('Edit Project')
@@ -124,6 +131,7 @@ export const AdminProjects = () => {
             description: projectDesc,
             projectLink: projectUrl,
             startDate: projectStartDate,
+            techUsed: projectTechUsed,
         })
 
         setProjectID(projectID)
@@ -143,6 +151,7 @@ export const AdminProjects = () => {
             description: "",
             projectLink: "",
             startDate: "",
+            techUsed: [],
         })
 
         setProjectID(projectID)
@@ -158,6 +167,7 @@ export const AdminProjects = () => {
             description: project.description,
             projectLink: project.projectLink,
             startDate: project.startDate,
+            techUsed: project.techUsed,
         });
 
         // read database after
@@ -194,6 +204,7 @@ export const AdminProjects = () => {
             description: project.description,
             projectLink: project.projectLink,
             startDate: project.startDate,
+            techUsed: project.techUsed,
         });
 
         // read database after
@@ -241,12 +252,12 @@ export const AdminProjects = () => {
 
                                 {allProjects.length == 0 ? (<p className='text-center text-2xl text-zinc-500'>No Projects Yet</p>) : (
                                     <>
-                                        {allProjects.map(({ id, title, description, projectLink, startDate }, index) => (
+                                        {allProjects.map(({ id, title, description, projectLink, startDate, techUsed }, index) => (
 
                                             <AdminProjectPanel key={index}
                                                 title={title}
                                                 startDate={startDate} index={index}
-                                                OnPressEdit={() => handlePressEditProject(id, title, description, projectLink, startDate)}
+                                                OnPressEdit={() => handlePressEditProject(id, title, description, projectLink, startDate, techUsed)}
                                                 OnPressDelete={() => handlePressDeleteProject(id, title)} />
 
                                         ))}
@@ -302,22 +313,26 @@ export const ProjectDialogPanel = ({
     currentPanelAction, panelTitle, panelDesc, cancelButtonName, actionButtonName, projectForm, projectID, isDeleteProjectPanel,
     setDialogOpen, onCreateProject, onUpdateProject, onDeleteProject }: ProjectDialogPanelProps) => {
 
+    const techUsedOptions = getTechNamesArray();
+
     const [currentTitleValue, setCurrentTitleValue] = useState(projectForm.title);
     const [currentDescValue, setCurrentDescValue] = useState(projectForm.description);
     const [currentLinkValue, setCurrentLinkValue] = useState(projectForm.projectLink);
     const [currentStartDateValue, setCurrentStartDateValue] = useState(projectForm.startDate);
+    const [currentTechUsedValue, setCurrentTechUsedValue] = useState<string[]>(projectForm.techUsed);
+
     const [warning, setWarning] = useState('');
 
     const isProjectEntryValid = () => {
 
         return currentTitleValue != '' &&
             currentDescValue != '' && currentLinkValue != ''
-            && currentStartDateValue != '';
+            && currentStartDateValue != '' && currentTechUsedValue.length > 0;
     }
 
     // handle add project
     const handlePressActionButton = async () => {
-
+        
         if (!isProjectEntryValid()) {
             setWarning('Please complete all fields.');
             return;
@@ -328,6 +343,7 @@ export const ProjectDialogPanel = ({
             description: currentDescValue,
             projectLink: currentLinkValue,
             startDate: currentStartDateValue,
+            techUsed: currentTechUsedValue,
         }
 
         console.log(newProject)
@@ -349,6 +365,7 @@ export const ProjectDialogPanel = ({
     const handleChangeDesc = (event: ChangeEvent<HTMLTextAreaElement>) => { setCurrentDescValue(event.target.value) };
     const handleChangeLink = (event: ChangeEvent<HTMLInputElement>) => { setCurrentLinkValue(event.target.value) };
     const handleChangeStartDate = (event: ChangeEvent<HTMLInputElement>) => { setCurrentStartDateValue(event.target.value) };
+    //const handleChangeTechUsed = (event: ChangeEvent<HTMLInputElement>) => { setCurrentTechUsedValue(event.target.value) };
 
     if (isDeleteProjectPanel) {
         return (
@@ -358,7 +375,8 @@ export const ProjectDialogPanel = ({
                     title: currentTitleValue,
                     description: currentDescValue,
                     projectLink: currentLinkValue,
-                    startDate: currentStartDateValue
+                    startDate: currentStartDateValue,
+                    techUsed: currentTechUsedValue,
                 }, projectID)} />
         )
     }
@@ -377,6 +395,7 @@ export const ProjectDialogPanel = ({
             <TextAreaField className='' placeholder='Project description' value={currentDescValue} OnInputChanged={handleChangeDesc} />
             <InputField className='' placeholder='Project url' type='text' value={currentLinkValue} OnInputChanged={handleChangeLink} />
             <InputField className='' placeholder='Project start date (dd/mm/yyy)' type='text' value={currentStartDateValue} OnInputChanged={handleChangeStartDate} />
+            <TagsInput tagOptions={techUsedOptions} value={currentTechUsedValue} onValueChanged={(value) => setCurrentTechUsedValue(value)}/>
 
             {warning && <div className="text-red-500 font-text">{warning}</div>}
 
