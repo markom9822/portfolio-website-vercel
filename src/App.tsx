@@ -255,7 +255,7 @@ export function App() {
       [&::-webkit-scrollbar-thumb]:bg-zinc-600
         [&::-webkit-scrollbar-thumb]:rounded-xs
         [&::-webkit-scrollbar-corner]:bg-zinc-900
-        overflow-x-scroll">
+        overflow-x-hidden">
           {handleContentsSection(activeTab)}
         </main>
 
