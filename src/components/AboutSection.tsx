@@ -1,8 +1,15 @@
+import { Fragment } from 'react/jsx-runtime';
+import type { AboutMeContentDB } from '../pages/AdminDashboard';
 import { cppIcon, csIcon, pythonIcon, reactIcon, typescriptIcon, unityIcon } from './Icons';
 import { motion, stagger } from "motion/react"
 
 
-export const AboutSection = () => {
+type AboutSectionProps = {
+
+    aboutMeContent: AboutMeContentDB[]
+}
+
+export const AboutSection = ({ aboutMeContent }: AboutSectionProps) => {
 
     const skills = [
         {
@@ -67,31 +74,32 @@ export const AboutSection = () => {
             <motion.h2
                 className="text-4xl font-bold font-text"
                 variants={itemVariant}
-                animate={{transition: {ease: "easeOut"}}}
-                >
+                animate={{ transition: { ease: "easeOut" } }}
+            >
                 about me
             </motion.h2>
 
             <motion.p
-                className="text-lg text-zinc-400 font-text"
+                className="text-base text-zinc-400 font-text"
                 variants={itemVariant}
-                animate={{transition: {ease: "easeOut"}}}
+                animate={{ transition: { ease: "easeOut" } }}
             >
-                I am a Software Engineer from Dublin, Ireland living in London.
-                <br />
-                <br />
-                I have 3 years of experience in a med-tech startup building VR simulations for medical professionals.
-                My background is in Biomedical Engineering with a masters from Imperial College London. I have a strong
-                passion for learning new things and building.
-                <br />
-                <br />
-                Here you will find out more about me, my skills, my experience and some of my projects I've been working on in my spare time.
+                {aboutMeContent[0].content.split('\n').map((line, index, arr) => (
+                    <Fragment key={index}>
+                        {line}
+                        {index < arr.length - 1 && (
+                            <>
+                                <br />
+                            </>
+                        )}
+                    </Fragment>
+                ))}
             </motion.p>
 
             <motion.div
                 className='w-full'
                 variants={itemVariant}
-                animate={{transition: {ease: "easeOut"}}}
+                animate={{ transition: { ease: "easeOut" } }}
             >
                 <h2 className="text-2xl font-bold font-text mb-6">
                     skills

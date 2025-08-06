@@ -4,10 +4,13 @@ type TextAreaFieldProps = {
     className: string,
     placeholder: string,
     value: string,
+    minHeight?: number,
     OnInputChanged?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void,
 }
 
-export const TextAreaField = ({ className, placeholder, value, OnInputChanged, ...props }: TextAreaFieldProps) => {
+export const TextAreaField = ({ className, placeholder, value, minHeight = 20, OnInputChanged, ...props }: TextAreaFieldProps) => {
+
+    const inputClassName = `flex text-sm min-h-${minHeight} w-full min-w-0 rounded-md placeholder:text-zinc-500 text-zinc-100 font-text px-2 border-2 border-zinc-500`;
 
     return (
     <textarea
@@ -15,7 +18,7 @@ export const TextAreaField = ({ className, placeholder, value, OnInputChanged, .
       placeholder={placeholder}
       onChange={OnInputChanged}
       value={value}
-      className="flex text-sm min-h-20 w-full min-w-0 rounded-md placeholder:text-zinc-500 text-zinc-100 font-text px-2 border-2 border-zinc-500"
+      className={inputClassName}
       {...props} />
   );
 

@@ -26,6 +26,7 @@ import { EducationSection } from './components/EducationSection'
 import { ReachOutSection } from './components/ReachOutSection';
 import LoaderScreen from './components/LoadingScreen';
 import type { ProjectDB } from './pages/AdminProjects';
+import type { AboutMeContentDB } from './pages/AdminDashboard';
 
 export function App() {
 
@@ -36,6 +37,9 @@ export function App() {
   const [isProjectsLoading, setIsProjectsLoading] = useState(false);
   const [isProjectsFetched, setIsProjectsFetched] = useState(false);
   const [projects, setProjects] = useState<ProjectDB[]>([]);
+  const [isAboutMeContentLoading, setIsAboutMeContentLoading] = useState(false);
+  const [isAboutMeContentFetched, setIsAboutMeContentFetched] = useState(false);
+  const [aboutMeContent, setAboutMeContent] = useState<AboutMeContentDB[]>([]);
 
   const contentContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -53,7 +57,7 @@ export function App() {
 
     switch (tab) {
       case "about":
-        return <AboutSection />;
+        return isAboutMeContentLoading ? (<LoaderScreen/>) :(<AboutSection aboutMeContent={aboutMeContent}/>);
       case "experience":
         return <ExperienceSection />;
       case "projects":
@@ -95,12 +99,33 @@ export function App() {
         .finally(() => setIsProjectsLoading(false));
     };
 
+    const fetchAboutMeContent = () => {
+      setIsAboutMeContentLoading(true);
+      getDocs(collection(db, "aboutMe"))
+        .then((snap) => {
+
+          const data: AboutMeContentDB[] = snap.docs.map((d) => ({
+                id: d.id,
+                ...(d.data() as Omit<AboutMeContentDB, "id">), // Type assertion for Firestore data
+            }));
+
+          setAboutMeContent(data);
+          setIsAboutMeContentFetched(true);
+        })
+        .catch(console.error)
+        .finally(() => setIsAboutMeContentLoading(false));
+    };
+
     if ((activeTab === "projects") && !isProjectsFetched) {
       fetchProjects();
     }
 
+    if ((activeTab === "about") && !isAboutMeContentFetched) {
+      fetchAboutMeContent();
+    }
 
-  }, [activeTab, isProjectsFetched]);
+
+  }, [activeTab, isProjectsFetched, isAboutMeContentFetched]);
 
 
   const handleTabButtonPressed = (labelName: string) => {

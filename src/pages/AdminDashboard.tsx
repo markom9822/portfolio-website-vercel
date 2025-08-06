@@ -1,6 +1,14 @@
 import { useNavigate, type NavigateFunction } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
+import { RiLogoutBoxRFill } from "react-icons/ri";
+import { useState } from "react";
+
+export interface AboutMeContentDB {
+    id: string;
+
+    content: string,
+}
 
 
 export const AdminDashboard = () => {
@@ -19,6 +27,11 @@ export const AdminDashboard = () => {
     };
 
     const cards = [
+        {
+            title: "About me",
+            description: "Edit content about me and skills",
+            route: "/admin/aboutMe",
+        },
         {
             title: "Projects",
             description: "Create, edit, or delete portfolio projects.",
@@ -55,16 +68,20 @@ export const AdminDashboard = () => {
     return (
         <div className="min-h-screen bg-[#0f0f0f] text-white p-6 font-text">
             <div className="max-w-5xl mx-auto space-y-12">
-                <div className="flex flex-col justify-between items-center space-y-8">
-                    <h1 className="text-4xl font-bold font-text tracking-tight">
-                        Dashboard
-                    </h1>
+                <div className="flex flex-col justify-between items-center space-y-8 w-full">
 
-                    <button
-                        onClick={handleLogout}
-                        className="p-2 rounded duration-200 cursor-pointer border-2 border-zinc-600 hover:border-zinc-300 transition">
-                        Logout
-                    </button>
+                    <div className='flex items-center justify-center relative w-full'>
+                        <button
+                            onClick={handleLogout}
+                            className="absolute left-0 p-2 flex flex-row items-center text-zinc-400 hover:text-zinc-200
+                             space-x-2 rounded duration-200 cursor-pointer border-2 border-zinc-600 hover:border-zinc-300 transition">
+                            <RiLogoutBoxRFill size={20} />
+                            <p>Logout</p>
+                        </button>
+                        <h1 className=" relative text-4xl font-bold font-text tracking-tight">
+                            Dashboard
+                        </h1>
+                    </div>
 
                     <div
                         style={{
@@ -99,7 +116,6 @@ type DashboardCardProps = {
 export const DashboardCard = ({ title, description, route, navigateFunction }: DashboardCardProps) => {
 
     return (
-
         <button
             className="p-4 w-full rounded duration-200 cursor-pointer border-2 border-zinc-600 hover:border-zinc-300 transition"
             onClick={() => navigateFunction(route)}>
@@ -113,5 +129,4 @@ export const DashboardCard = ({ title, description, route, navigateFunction }: D
 
         </button>
     )
-
 }
