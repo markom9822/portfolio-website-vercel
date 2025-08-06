@@ -186,3 +186,8 @@ body {
 .animate-marquee {
   animation: marquee 20s linear infinite;
 }
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+

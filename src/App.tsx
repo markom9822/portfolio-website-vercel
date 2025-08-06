@@ -15,6 +15,9 @@ import {
   linkedinIcon,
 } from "./components/Icons";
 
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "./firebase/firebaseConfig";
+
 import { AboutSection } from './components/AboutSection';
 import { ExperienceSection } from './components/ExperienceSection';
 import { ProjectsSection } from './components/ProjectsSection';
@@ -22,6 +25,7 @@ import { PostsSection } from './components/PostsSection';
 import { EducationSection } from './components/EducationSection'
 import { ReachOutSection } from './components/ReachOutSection';
 import LoaderScreen from './components/LoadingScreen';
+import type { ProjectDB } from './pages/AdminProjects';
 
 export function App() {
 
@@ -29,6 +33,10 @@ export function App() {
 
   const [activeTab, setActiveTab] = useState("about");
   const [isLoading, setIsLoading] = useState(true);
+  const [isProjectsLoading, setIsProjectsLoading] = useState(false);
+  const [isProjectsFetched, setIsProjectsFetched] = useState(false);
+  const [projects, setProjects] = useState<ProjectDB[]>([]);
+
   const contentContainerRef = useRef<HTMLDivElement | null>(null);
 
 
@@ -49,7 +57,7 @@ export function App() {
       case "experience":
         return <ExperienceSection />;
       case "projects":
-        return <ProjectsSection />;
+        return isProjectsLoading ? (<LoaderScreen/>) : (<ProjectsSection projects={projects}/>)
       case "education":
         return <EducationSection />;
       case "posts":
@@ -67,6 +75,33 @@ export function App() {
     return () => clearTimeout(timer);
 
   }, []);
+
+  useEffect(() => {
+
+    const fetchProjects = () => {
+      setIsProjectsLoading(true);
+      getDocs(collection(db, "projects"))
+        .then((snap) => {
+
+          const data: ProjectDB[] = snap.docs.map((d) => ({
+                id: d.id,
+                ...(d.data() as Omit<ProjectDB, "id">), // Type assertion for Firestore data
+            }));
+
+          setProjects(data);
+          setIsProjectsFetched(true);
+        })
+        .catch(console.error)
+        .finally(() => setIsProjectsLoading(false));
+    };
+
+    if ((activeTab === "projects") && !isProjectsFetched) {
+      fetchProjects();
+    }
+
+
+  }, [activeTab, isProjectsFetched]);
+
 
   const handleTabButtonPressed = (labelName: string) => {
 

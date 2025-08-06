@@ -33,17 +33,19 @@ export type ProjectFormProps = {
     description: string,
     projectLink: string,
     startDate: string,
-    techUsed: string[]
+    techUsed: string[],
+    imageName: string,
 }
 
-interface ProjectDB {
+export interface ProjectDB {
     id: string;
 
     title: string,
     description: string,
     projectLink: string,
     startDate: string,
-    techUsed: string[]
+    techUsed: string[],
+    imageName: string,
 }
 
 export const AdminProjects = () => {
@@ -93,6 +95,7 @@ export const AdminProjects = () => {
         projectLink: "",
         startDate: "",
         techUsed: [],
+        imageName: "",
     });
     const [projectID, setProjectID] = useState("");
 
@@ -113,11 +116,12 @@ export const AdminProjects = () => {
             projectLink: "",
             startDate: "",
             techUsed: [],
+            imageName: "",
         })
     }
 
     const handlePressEditProject = (projectID: string, projectTitle: string, projectDesc: string,
-         projectUrl: string, projectStartDate: string, projectTechUsed: string[]) => {
+         projectUrl: string, projectStartDate: string, projectTechUsed: string[], projectImageName: string) => {
 
         setCurrentPanelAction('update')
         setProjectPanelTitle('Edit Project')
@@ -132,6 +136,7 @@ export const AdminProjects = () => {
             projectLink: projectUrl,
             startDate: projectStartDate,
             techUsed: projectTechUsed,
+            imageName: projectImageName,
         })
 
         setProjectID(projectID)
@@ -152,6 +157,7 @@ export const AdminProjects = () => {
             projectLink: "",
             startDate: "",
             techUsed: [],
+            imageName: "",
         })
 
         setProjectID(projectID)
@@ -168,6 +174,7 @@ export const AdminProjects = () => {
             projectLink: project.projectLink,
             startDate: project.startDate,
             techUsed: project.techUsed,
+            imageName: project.imageName,
         });
 
         // read database after
@@ -205,6 +212,7 @@ export const AdminProjects = () => {
             projectLink: project.projectLink,
             startDate: project.startDate,
             techUsed: project.techUsed,
+            imageName: project.imageName,
         });
 
         // read database after
@@ -252,12 +260,12 @@ export const AdminProjects = () => {
 
                                 {allProjects.length == 0 ? (<p className='text-center text-2xl text-zinc-500'>No Projects Yet</p>) : (
                                     <>
-                                        {allProjects.map(({ id, title, description, projectLink, startDate, techUsed }, index) => (
+                                        {allProjects.map(({ id, title, description, projectLink, startDate, techUsed, imageName }, index) => (
 
                                             <AdminProjectPanel key={index}
                                                 title={title}
                                                 startDate={startDate} index={index}
-                                                OnPressEdit={() => handlePressEditProject(id, title, description, projectLink, startDate, techUsed)}
+                                                OnPressEdit={() => handlePressEditProject(id, title, description, projectLink, startDate, techUsed, imageName)}
                                                 OnPressDelete={() => handlePressDeleteProject(id, title)} />
 
                                         ))}
@@ -320,6 +328,7 @@ export const ProjectDialogPanel = ({
     const [currentLinkValue, setCurrentLinkValue] = useState(projectForm.projectLink);
     const [currentStartDateValue, setCurrentStartDateValue] = useState(projectForm.startDate);
     const [currentTechUsedValue, setCurrentTechUsedValue] = useState<string[]>(projectForm.techUsed);
+    const [currentImageNameValue, setCurrentImageNameValue] = useState<string>(projectForm.imageName);
 
     const [warning, setWarning] = useState('');
 
@@ -327,12 +336,13 @@ export const ProjectDialogPanel = ({
 
         return currentTitleValue != '' &&
             currentDescValue != '' && currentLinkValue != ''
-            && currentStartDateValue != '' && currentTechUsedValue.length > 0;
+            && currentStartDateValue != '' && currentTechUsedValue.length > 0
+            && currentImageNameValue != '';
     }
 
     // handle add project
     const handlePressActionButton = async () => {
-        
+
         if (!isProjectEntryValid()) {
             setWarning('Please complete all fields.');
             return;
@@ -344,6 +354,7 @@ export const ProjectDialogPanel = ({
             projectLink: currentLinkValue,
             startDate: currentStartDateValue,
             techUsed: currentTechUsedValue,
+            imageName: currentImageNameValue,
         }
 
         console.log(newProject)
@@ -366,6 +377,7 @@ export const ProjectDialogPanel = ({
     const handleChangeLink = (event: ChangeEvent<HTMLInputElement>) => { setCurrentLinkValue(event.target.value) };
     const handleChangeStartDate = (event: ChangeEvent<HTMLInputElement>) => { setCurrentStartDateValue(event.target.value) };
     //const handleChangeTechUsed = (event: ChangeEvent<HTMLInputElement>) => { setCurrentTechUsedValue(event.target.value) };
+    const handleChangeImageName = (event: ChangeEvent<HTMLInputElement>) => { setCurrentImageNameValue(event.target.value) };
 
     if (isDeleteProjectPanel) {
         return (
@@ -377,6 +389,7 @@ export const ProjectDialogPanel = ({
                     projectLink: currentLinkValue,
                     startDate: currentStartDateValue,
                     techUsed: currentTechUsedValue,
+                    imageName: currentImageNameValue,
                 }, projectID)} />
         )
     }
@@ -394,8 +407,9 @@ export const ProjectDialogPanel = ({
             <InputField className='' placeholder='Project Title' type='text' value={currentTitleValue} OnInputChanged={handleChangeTitle} />
             <TextAreaField className='' placeholder='Project description' value={currentDescValue} OnInputChanged={handleChangeDesc} />
             <InputField className='' placeholder='Project url' type='text' value={currentLinkValue} OnInputChanged={handleChangeLink} />
-            <InputField className='' placeholder='Project start date (dd/mm/yyy)' type='text' value={currentStartDateValue} OnInputChanged={handleChangeStartDate} />
+            <InputField className='' placeholder='Project start date (dd/mm/yyy)' type='date' value={currentStartDateValue} OnInputChanged={handleChangeStartDate} />
             <TagsInput tagOptions={techUsedOptions} value={currentTechUsedValue} onValueChanged={(value) => setCurrentTechUsedValue(value)}/>
+            <InputField className='' placeholder='Project image name' type='text' value={currentImageNameValue} OnInputChanged={handleChangeImageName} />
 
             {warning && <div className="text-red-500 font-text">{warning}</div>}
 
