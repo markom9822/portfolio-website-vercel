@@ -1,52 +1,16 @@
 import { Fragment, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-import healthTrackerImage from '/images/health_tracker.png'
-import insideShapesImage from '/images/inside_shape.png';
-import intersectionPointImage from '/images/intersection_points.png';
-import customGizmoImage from '/images/custom_gizmos.png';
 import { GoArrowUpRight } from "react-icons/go";
-
 import { motion, stagger, AnimatePresence } from "motion/react"
+import type { PostDB } from "../pages/AdminPosts";
 
 
-export const PostsSection = () => {
+type PostsSectionProps = {
 
-    const blogPosts = [
-        {
-            title: "Health Tracker",
-            description: "Automated health tracker system to help keep you on track. Presents your data in a readable format with graphs and statistics." +
-                "\nThe system uses Google Forms, Google Sheets, Looker Studio and Google Apps Script. Health related data is sent from your Garmin watch and sent to your Google Drive." +
-                " At a scheduled time a script is triggered to find the latest data sent, this data is processed and stored in a Google Sheet document along with your daily input into the Google Form.\n" +
-                "This is finally displayed with graphs and statistics on a page in Looker Studio.",
-            publishDate: new Date(2024, 4, 31),
-            blogLink: "https://medium.com/@markomeara98/health-tracker-using-google-forms-sheets-f5107471aec3",
-            image: healthTrackerImage,
-        },
-        {
-            title: "Inside Shapes",
-            description: "An exploration into algorithms to determine if a point is inside of different shapes.\n" +
-                "Built an algorithm to check if a point is inside of a 2D polygon of arbitrary shape and size. This is a well known problem in computer graphics and my approach solves this using a ray cast algorithm." +
-                "This works by checking the number of intersections between a ray in one direction and the boundaries of our shape, giving efficient and accurate results.\n" +
-                "Also built a method to check if a point is inside of a cuboid using vector projections in 3D space (via the dot product).",
-            publishDate: new Date(2023, 5, 5),
-            blogLink: "https://medium.com/@markomeara98/check-inside-shapes-in-unity-99253fd3d815",
-            image: insideShapesImage,
-        },
-        {
-            title: "Intersection Points",
-            description: "Algorithms to calculate intersection points with different shapes.\n",
-            publishDate: new Date(2023, 2, 5),
-            blogLink: "https://medium.com/@markomeara98/calculating-intersection-points-in-unity-cf010c155491",
-            image: intersectionPointImage,
-        },
-        {
-            title: "Custom Gizmo Shapes",
-            description: "Creating custom gizmo shapes in Unity.\n",
-            publishDate: new Date(2023, 4, 18),
-            blogLink: "https://medium.com/@markomeara98/custom-gizmo-shapes-in-unity-8357c254d809",
-            image: customGizmoImage,
-        },
-    ];
+    posts: PostDB[]
+}
+
+export const PostsSection = ({ posts }: PostsSectionProps) => {
 
     const containerVariant = {
         hidden: {},
@@ -65,6 +29,13 @@ export const PostsSection = () => {
             transition: { duration: 0.4 },
         },
     };
+
+    const sortedPosts = posts.sort((a, b) => {
+        const dateA = new Date(a.publishDate).getTime();
+        const dateB = new Date(b.publishDate).getTime();
+
+        return dateB - dateA;
+    });
 
     return (
         <motion.div
@@ -93,8 +64,8 @@ export const PostsSection = () => {
                 animate='show'
                 variants={containerVariant}>
 
-                {blogPosts.map(({ title, description, publishDate, blogLink, image }, index) => (
-                    <BlogPostPanel key={index} title={title} description={description} publishDate={publishDate} blogLink={blogLink} image={image} index={index} />
+                {sortedPosts.map(({ title, description, publishDate, blogLink, imageName }, index) => (
+                    <BlogPostPanel key={index} title={title} description={description} publishDate={publishDate} blogLink={blogLink} imageName={imageName} index={index} />
                 ))}
 
             </motion.div>
@@ -107,17 +78,15 @@ type BlogPostPanelProps = {
 
     title: string,
     description: string,
-    publishDate: Date,
+    publishDate: string,
     blogLink: string,
-    image: any,
+    imageName: string,
     index: number,
 }
 
-export const BlogPostPanel = ({ title, description, publishDate, blogLink, image, index }: BlogPostPanelProps) => {
+export const BlogPostPanel = ({ title, description, publishDate, blogLink, imageName, index }: BlogPostPanelProps) => {
 
     const [isOpen, setIsOpen] = useState(false);
-
-    const formattedDate = publishDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
 
     const panelVariant = {
         hidden: { opacity: 0, y: 10 },
@@ -142,7 +111,7 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
                         <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition font-text">{title}</h3>
                     </div>
                     <div className="flex flex-row items-center space-x-3">
-                        <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Published: {formattedDate}</p>
+                        <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Published: {publishDate}</p>
                         <div
                             className="p-1 text-zinc-500 group-hover:text-zinc-300 transition">
                             {isOpen ? <FaChevronUp /> : <FaChevronDown />}
@@ -153,7 +122,7 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
 
             <AnimatePresence initial={false}>
                 {isOpen ? (
-                    <BlogPostInfoPanel description={description} blogLink={blogLink} image={image} />
+                    <BlogPostInfoPanel description={description} blogLink={blogLink} imageName={imageName} />
                 ) : null}
             </AnimatePresence>
 
@@ -167,10 +136,10 @@ type BlogPostInfoPanelProps = {
 
     description: string,
     blogLink: string,
-    image: any,
+    imageName: string,
 }
 
-export const BlogPostInfoPanel = ({ description, blogLink, image }: BlogPostInfoPanelProps) => {
+export const BlogPostInfoPanel = ({ description, blogLink, imageName }: BlogPostInfoPanelProps) => {
 
 
     const menuVariants = {
@@ -207,7 +176,6 @@ export const BlogPostInfoPanel = ({ description, blogLink, image }: BlogPostInfo
                             {index < arr.length - 1 && (
                                 <>
                                     <br />
-                                    <br />
                                 </>
                             )}
                         </Fragment>
@@ -216,7 +184,8 @@ export const BlogPostInfoPanel = ({ description, blogLink, image }: BlogPostInfo
 
                 <div className="w-1/3 flex items-center justify-center border-l-2 border-l-zinc-500">
                     <img
-                        src={image}
+                        src={`/images/${imageName}`}
+                        alt="Post"
                         loading="eager"
                         className="rounded w-70" />
                 </div>

@@ -27,6 +27,7 @@ import { ReachOutSection } from './components/ReachOutSection';
 import LoaderScreen from './components/LoadingScreen';
 import type { ProjectDB } from './pages/AdminProjects';
 import type { AboutMeContentDB } from './pages/AdminDashboard';
+import type { PostDB } from './pages/AdminPosts';
 
 export function App() {
 
@@ -37,6 +38,9 @@ export function App() {
   const [isProjectsLoading, setIsProjectsLoading] = useState(false);
   const [isProjectsFetched, setIsProjectsFetched] = useState(false);
   const [projects, setProjects] = useState<ProjectDB[]>([]);
+  const [isPostsLoading, setIsPostsLoading] = useState(false);
+  const [isPostsFetched, setIsPostsFetched] = useState(false);
+  const [posts, setPosts] = useState<PostDB[]>([]);
   const [isAboutMeContentLoading, setIsAboutMeContentLoading] = useState(false);
   const [isAboutMeContentFetched, setIsAboutMeContentFetched] = useState(false);
   const [aboutMeContent, setAboutMeContent] = useState<AboutMeContentDB[]>([]);
@@ -65,7 +69,7 @@ export function App() {
       case "education":
         return <EducationSection />;
       case "posts":
-        return <PostsSection />;
+        return isPostsLoading ? (<LoaderScreen/>) : (<PostsSection posts={posts}/>)
       case "reach out":
         return <ReachOutSection />;
       default:
@@ -99,6 +103,23 @@ export function App() {
         .finally(() => setIsProjectsLoading(false));
     };
 
+    const fetchPosts = () => {
+      setIsPostsLoading(true);
+      getDocs(collection(db, "posts"))
+        .then((snap) => {
+
+          const data: PostDB[] = snap.docs.map((d) => ({
+                id: d.id,
+                ...(d.data() as Omit<PostDB, "id">), // Type assertion for Firestore data
+            }));
+
+          setPosts(data);
+          setIsPostsFetched(true);
+        })
+        .catch(console.error)
+        .finally(() => setIsPostsLoading(false));
+    };
+
     const fetchAboutMeContent = () => {
       setIsAboutMeContentLoading(true);
       getDocs(collection(db, "aboutMe"))
@@ -118,6 +139,10 @@ export function App() {
 
     if ((activeTab === "projects") && !isProjectsFetched) {
       fetchProjects();
+    }
+
+    if ((activeTab === "posts") && !isPostsFetched) {
+      fetchPosts();
     }
 
     if ((activeTab === "about") && !isAboutMeContentFetched) {
