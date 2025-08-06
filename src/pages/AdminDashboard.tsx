@@ -2,7 +2,13 @@ import { useNavigate, type NavigateFunction } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { RiLogoutBoxRFill } from "react-icons/ri";
-import { useState } from "react";
+import { BsInfoCircle } from "react-icons/bs";
+import type { IconType } from "react-icons";
+import { LuBriefcaseBusiness } from "react-icons/lu";
+import { GrProjects } from "react-icons/gr";
+import { IoSchoolOutline, IoSettingsSharp } from "react-icons/io5";
+import { MdOutlineLocalPostOffice } from "react-icons/md";
+import { SiMinutemailer } from "react-icons/si";
 
 export interface AboutMeContentDB {
     id: string;
@@ -30,36 +36,43 @@ export const AdminDashboard = () => {
         {
             title: "About me",
             description: "Edit content about me and skills",
+            icon: BsInfoCircle,
             route: "/admin/aboutMe",
         },
         {
             title: "Projects",
             description: "Create, edit, or delete portfolio projects.",
+            icon: GrProjects,
             route: "/admin/projects",
         },
         {
             title: "Posts",
             description: "Create, edit, or delete blog posts.",
+            icon: MdOutlineLocalPostOffice,
             route: "/admin/posts",
         },
         {
             title: "Education",
             description: "Create, edit, or delete education history.",
+            icon: IoSchoolOutline,
             route: "/admin/education",
         },
         {
             title: "Experience",
             description: "Create, edit, or delete work history.",
+            icon: LuBriefcaseBusiness,
             route: "/admin/experience",
         },
         {
             title: "Message Inbox",
             description: "View pending message requests.",
+            icon: SiMinutemailer,
             route: "/admin/contact",
         },
         {
             title: "Settings",
             description: "New features coming soon.",
+            icon: IoSettingsSharp,
             route: "/admin/settings",
         },
     ];
@@ -91,9 +104,9 @@ export const AdminDashboard = () => {
                         }}
                         className="justify-center"
                     >
-                        {cards.map(({ title, description, route }, index) => (
+                        {cards.map(({ title, description, icon, route }, index) => (
 
-                            <DashboardCard key={index} title={title} description={description} route={route} navigateFunction={navigate} />
+                            <DashboardCard key={index} title={title} description={description} Icon={icon} route={route} navigateFunction={navigate} />
                         ))}
 
                     </div>
@@ -109,24 +122,25 @@ type DashboardCardProps = {
 
     title: string,
     description: string,
+    Icon: IconType,
     route: string;
     navigateFunction: NavigateFunction
 }
 
-export const DashboardCard = ({ title, description, route, navigateFunction }: DashboardCardProps) => {
+export const DashboardCard = ({ title, description, Icon, route, navigateFunction }: DashboardCardProps) => {
 
     return (
         <button
             className="p-4 w-full rounded duration-200 cursor-pointer border-2 border-zinc-600 hover:border-zinc-300 transition"
             onClick={() => navigateFunction(route)}>
 
-            <div className='flex flex-col w-full'>
-                <div className='flex flex-col justify-between'>
-                    <h3 className="text-lg font-semibold text-zinc-200 mb-2 font-text">{title}</h3>
-                    <h3 className="text-base text-zinc-200 mb-2 font-text">{description}</h3>
-                </div>
+            <div className='flex flex-col w-full items-center justify-center space-y-2'>
+                <div className="flex flex-row items-center space-x-3">
+                    {Icon && <Icon size={20} />}
+                    <h3 className="text-lg font-semibold text-zinc-200 font-text">{title}</h3>
+                </div> 
+                <h3 className="text-sm text-zinc-400 mb-2 font-text">{description}</h3>
             </div>
-
         </button>
     )
 }

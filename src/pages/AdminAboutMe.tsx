@@ -89,7 +89,7 @@ export const AdminAboutMe = () => {
                             <div className='flex items-center relative w-full'>
                                 <button
                                     onClick={() => navigate('/admin/dashboard')}
-                                    className='absolute left-0 flex flex-row items-center space-x-2 text-zinc-400 hover:text-zinc-200'>
+                                    className='duration-200 cursor-pointer absolute left-0 flex flex-row items-center space-x-2 text-zinc-400 hover:text-zinc-200'>
                                     <FaArrowLeft />
                                     <p>Dashboard</p>
                                 </button>
