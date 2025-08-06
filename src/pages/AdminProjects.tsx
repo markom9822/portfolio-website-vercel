@@ -1,9 +1,4 @@
-
 import { useEffect, useState, type ChangeEvent } from 'react';
-//import { reactIcon, viteIcon, typescriptIcon, tailwindCSSIcon, gitIcon, figmaIcon, electronIcon, markdownIcon, jotaiIcon, codemirrorIcon, expoIcon } from '../components/Icons';
-//import markNoteImage from '/images/MarkNote_app_cover.png'
-//import rugbyRadarImage from '/images/Rugby_Radar_Poster.jpg'
-//import portfolioWebsiteImage from '/images/portfolio_website_cover.png';
 import { AlertDialog } from "radix-ui";
 import { InputField } from '../ui/InputField';
 import { TextAreaField } from '../ui/TextAreaField';
@@ -12,15 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { AddPanel } from '../components/AddPanel';
 import { DeleteItemPanel } from '../components/DeleteItemPanel';
 import LoaderScreen from '../components/LoadingScreen';
-
-import {
-    collection,
-    addDoc,
-    getDocs,
-    deleteDoc,
-    doc,
-    updateDoc,
-} from "firebase/firestore";
+import {collection,addDoc,getDocs,deleteDoc,doc,updateDoc,} from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { TagsInput } from '../ui/TagsInput';
 import { getTechNamesArray } from '../store/techUsedOptions';
@@ -163,7 +150,6 @@ export const AdminProjects = () => {
     }
 
     // CRUD System
-
     const createProjectInDatabase = async (project: ProjectFormProps) => {
 
         console.log(`Need to create new project (${project.title}) in database`)

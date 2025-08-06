@@ -130,7 +130,7 @@ export const AdminAboutMeContent = ({ OnChangesSaved, contentValue, handleInputC
             <h2 className="text-xl">About me header</h2>
 
             <div>
-                <TextAreaField minHeight={40} className="" placeholder="About me text" value={contentValue} OnInputChanged={handleInputChanged} />
+                <TextAreaField minHeight={200} className="" placeholder="About me text" value={contentValue} OnInputChanged={handleInputChanged} />
                 <button
                     onClick={OnChangesSaved}
                     className="text-sm rounded px-2 my-2 text-zinc-400 hover:text-zinc-200 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 transition">
