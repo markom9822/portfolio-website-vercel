@@ -235,6 +235,13 @@ export const pythonIcon = (
 
 )
 
+export const fireBaseIcon = (
+  <a href="https://firebase.google.com/" target="_blank">
+    <img src="https://brandlogos.net/wp-content/uploads/2025/03/firebase_icon-logo_brandlogos.net_tcvck-512x646.png" title="Firebase" width="35" height="35">
+    </img>
+  </a>
+)
+
 export const unityIcon = (
 
   <img style={{ width: 45, height: 45 }} src="https://i.redd.it/tu3gt6ysfxq71.png">
@@ -248,13 +255,13 @@ export const googleIcon = (
 )
 
 export const ukFlagIcon = (
-  <img  
-  src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/2560px-Flag_of_the_United_Kingdom.svg.png" 
-  width="25" height="10"></img>
+  <img
+    src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/2560px-Flag_of_the_United_Kingdom.svg.png"
+    width="25" height="10"></img>
 )
 
 export const canadaFlagIcon = (
-  <img  
-  src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Canada_%28Pantone%29.svg/1200px-Flag_of_Canada_%28Pantone%29.svg.png" 
-  width="25" height="10"></img>
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Canada_%28Pantone%29.svg/1200px-Flag_of_Canada_%28Pantone%29.svg.png"
+    width="25" height="10"></img>
 )
