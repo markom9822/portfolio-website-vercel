@@ -1,31 +1,13 @@
 import { Fragment } from "react/jsx-runtime";
-import iclLogo from '/images/icl_logo.png'
-import ucdLogo from '/images/ucd_logo.png'
 import { motion, stagger } from "motion/react"
+import type { EducationDB } from "../pages/AdminEducation";
 
+type EducationSectionProps = {
 
-export const EducationSection = () => {
+    educations: EducationDB[]
+}
 
-    const educations = [
-        {
-            title: "Imperial College London",
-            subtitle: "MSc - Biomedical Engineering, Neurotechnology",
-            startDate: new Date(2021, 9, 1),
-            endDate: new Date(2022, 9, 1),
-            content: "Graduated with Merit and received Department of Bioengineering Scholarship.\n" +
-                "Masters Thesis: Sensory augmentation with a third eye using Virtual Reality, published in the 2023 IEEE International Conference on Robot and Human Interactive Communication.",
-            icon: iclLogo,
-        },
-        {
-            title: "University College Dublin",
-            subtitle: "BEng - Biomedical Engineering",
-            startDate: new Date(2017, 9, 1),
-            endDate: new Date(2021, 9, 1),
-            content: "First Class Honors (GPA: 3.72/4.20).\n" +
-                "Final Year Thesis: Preliminary and final technical report on sleep stage prediction from wearable sensors using machine learning coded in Python.",
-            icon: ucdLogo,
-        },
-    ];
+export const EducationSection = ({ educations }: EducationSectionProps) => {
 
     const containerVariant = {
         hidden: {},
@@ -45,6 +27,12 @@ export const EducationSection = () => {
         },
     };
 
+    const sortedEducations = educations.sort((a, b) => {
+        const dateA = new Date(a.endDate).getTime();
+        const dateB = new Date(b.endDate).getTime();
+
+        return dateB - dateA;
+    });
 
     return (
         <motion.div
@@ -73,9 +61,9 @@ export const EducationSection = () => {
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
 
-                {educations.map(({ title, subtitle, content, icon, startDate, endDate }, index) => (
+                {sortedEducations.map(({ title, subtitle, content, imageName, startDate, endDate }, index) => (
 
-                    <EducationPanel key={index} title={title} subtitle={subtitle} content={content} icon={icon} startDate={startDate} endDate={endDate} />
+                    <EducationPanel key={index} title={title} subtitle={subtitle} content={content} imageName={imageName} startDate={startDate} endDate={endDate} />
                 ))}
 
             </motion.div>
@@ -87,16 +75,16 @@ type EducationPanelProps = {
 
     title: string,
     subtitle: string,
-    startDate: Date,
-    endDate: Date,
+    startDate: string,
+    endDate: string,
     content: string,
-    icon: any,
+    imageName: string,
 }
 
-export const EducationPanel = ({ title, subtitle, content, icon, startDate, endDate }: EducationPanelProps) => {
+export const EducationPanel = ({ title, subtitle, content, imageName, startDate, endDate }: EducationPanelProps) => {
 
-    const startYear = startDate.getFullYear();
-    const endYear = endDate.getFullYear();
+    const startYear = new Date(startDate).getFullYear();
+    const endYear = new Date(endDate).getFullYear();
 
     return (
         <div
@@ -110,7 +98,7 @@ export const EducationPanel = ({ title, subtitle, content, icon, startDate, endD
 
                 <div className="flex items-center opacity-60 group-hover:opacity-100 transition">
                     <img
-                        src={icon}
+                        src={`/images/${imageName}`}
                         className='w-15 h-15' />
                 </div>
 

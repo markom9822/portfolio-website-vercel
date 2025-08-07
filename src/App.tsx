@@ -22,6 +22,7 @@ import LoaderScreen from './components/LoadingScreen';
 import type { ProjectDB } from './pages/AdminProjects';
 import type { AboutMeContentDB } from './pages/AdminDashboard';
 import type { PostDB } from './pages/AdminPosts';
+import type { EducationDB } from './pages/AdminEducation';
 
 export function App() {
 
@@ -29,18 +30,24 @@ export function App() {
 
   const [activeTab, setActiveTab] = useState("about");
   const [isLoading, setIsLoading] = useState(true);
+
   const [isProjectsLoading, setIsProjectsLoading] = useState(false);
   const [isProjectsFetched, setIsProjectsFetched] = useState(false);
   const [projects, setProjects] = useState<ProjectDB[]>([]);
+
   const [isPostsLoading, setIsPostsLoading] = useState(false);
   const [isPostsFetched, setIsPostsFetched] = useState(false);
   const [posts, setPosts] = useState<PostDB[]>([]);
+
+  const [isEducationsLoading, setIsEducationsLoading] = useState(false);
+  const [isEducationsFetched, setIsEducationsFetched] = useState(false);
+  const [educations, setEducations] = useState<EducationDB[]>([]);
+
   const [isAboutMeContentLoading, setIsAboutMeContentLoading] = useState(false);
   const [isAboutMeContentFetched, setIsAboutMeContentFetched] = useState(false);
   const [aboutMeContent, setAboutMeContent] = useState<AboutMeContentDB[]>([]);
 
   const contentContainerRef = useRef<HTMLDivElement | null>(null);
-
 
   const tabs = [
     { label: "about", Icon: BsInfoCircle },
@@ -61,7 +68,7 @@ export function App() {
       case "projects":
         return isProjectsLoading ? (<LoaderScreen/>) : (<ProjectsSection projects={projects}/>)
       case "education":
-        return <EducationSection />;
+        return isEducationsLoading ? (<LoaderScreen/>) : (<EducationSection educations={educations}/>)
       case "posts":
         return isPostsLoading ? (<LoaderScreen/>) : (<PostsSection posts={posts}/>)
       case "reach out":
@@ -114,6 +121,23 @@ export function App() {
         .finally(() => setIsPostsLoading(false));
     };
 
+    const fetchEducations = () => {
+      setIsEducationsLoading(true);
+      getDocs(collection(db, "education"))
+        .then((snap) => {
+
+          const data: EducationDB[] = snap.docs.map((d) => ({
+                id: d.id,
+                ...(d.data() as Omit<EducationDB, "id">), // Type assertion for Firestore data
+            }));
+
+          setEducations(data);
+          setIsEducationsFetched(true);
+        })
+        .catch(console.error)
+        .finally(() => setIsEducationsLoading(false));
+    };
+
     const fetchAboutMeContent = () => {
       setIsAboutMeContentLoading(true);
       getDocs(collection(db, "aboutMe"))
@@ -139,12 +163,16 @@ export function App() {
       fetchPosts();
     }
 
+    if ((activeTab === "education") && !isEducationsFetched) {
+      fetchEducations();
+    }
+
     if ((activeTab === "about") && !isAboutMeContentFetched) {
       fetchAboutMeContent();
     }
 
 
-  }, [activeTab, isProjectsFetched, isPostsFetched, isAboutMeContentFetched]);
+  }, [activeTab, isProjectsFetched, isPostsFetched, isEducationsFetched, isAboutMeContentFetched]);
 
 
   const handleTabButtonPressed = (labelName: string) => {
