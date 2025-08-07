@@ -23,6 +23,7 @@ import type { ProjectDB } from './pages/AdminProjects';
 import type { AboutMeContentDB } from './pages/AdminDashboard';
 import type { PostDB } from './pages/AdminPosts';
 import type { EducationDB } from './pages/AdminEducation';
+import type { SkillsDB } from './pages/AdminAboutMe';
 
 export function App() {
 
@@ -47,6 +48,10 @@ export function App() {
   const [isAboutMeContentFetched, setIsAboutMeContentFetched] = useState(false);
   const [aboutMeContent, setAboutMeContent] = useState<AboutMeContentDB[]>([]);
 
+  const [isSkillsLoading, setIsSkillsLoading] = useState(false);
+  const [isSkillsFetched, setIsSkillsFetched] = useState(false);
+  const [skills, setSkills] = useState<SkillsDB[]>([]);
+
   const contentContainerRef = useRef<HTMLDivElement | null>(null);
 
   const tabs = [
@@ -62,7 +67,7 @@ export function App() {
 
     switch (tab) {
       case "about":
-        return isAboutMeContentLoading ? (<LoaderScreen/>) :(<AboutSection aboutMeContent={aboutMeContent}/>);
+        return isAboutMeContentLoading ? (<LoaderScreen/>) :(<AboutSection aboutMeContent={aboutMeContent} skills={skills}/>);
       case "experience":
         return <ExperienceSection />;
       case "projects":
@@ -155,6 +160,23 @@ export function App() {
         .finally(() => setIsAboutMeContentLoading(false));
     };
 
+    const fetchSkills = () => {
+      setIsSkillsLoading(true);
+      getDocs(collection(db, "skills"))
+        .then((snap) => {
+
+          const data: SkillsDB[] = snap.docs.map((d) => ({
+                id: d.id,
+                ...(d.data() as Omit<SkillsDB, "id">), // Type assertion for Firestore data
+            }));
+
+          setSkills(data);
+          setIsSkillsFetched(true);
+        })
+        .catch(console.error)
+        .finally(() => setIsSkillsLoading(false));
+    };
+
     if ((activeTab === "projects") && !isProjectsFetched) {
       fetchProjects();
     }
@@ -167,12 +189,14 @@ export function App() {
       fetchEducations();
     }
 
-    if ((activeTab === "about") && !isAboutMeContentFetched) {
+    if ((activeTab === "about") && !isAboutMeContentFetched && !isSkillsFetched) {
       fetchAboutMeContent();
+      fetchSkills();
     }
 
 
-  }, [activeTab, isProjectsFetched, isPostsFetched, isEducationsFetched, isAboutMeContentFetched]);
+  }, [activeTab, isProjectsFetched, isPostsFetched,
+     isEducationsFetched, isAboutMeContentFetched, isSkillsFetched]);
 
 
   const handleTabButtonPressed = (labelName: string) => {

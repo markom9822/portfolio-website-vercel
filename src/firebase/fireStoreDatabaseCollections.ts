@@ -6,5 +6,6 @@ export const fireStoreCollections = (
         projectsSection: "projects",
         postsSection: "posts",
         educationSection: "education",
+        skillsSection: "skills",
     }
 )
