@@ -1,13 +1,14 @@
 import { useRef, useState, type ChangeEvent } from "react";
 
 
-type TaxInputProps = {
+type TagInputProps = {
     tagOptions: string[],
     value: string[],
     onValueChanged: (value: string[]) => void,
+    tagLimit?: number,
 }
 
-export const TagsInput = ({ tagOptions, value, onValueChanged }: TaxInputProps) => {
+export const TagsInput = ({ tagOptions, value, onValueChanged, tagLimit }: TagInputProps) => {
 
     const [input, setInput] = useState<string>('');
     const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
@@ -24,6 +25,12 @@ export const TagsInput = ({ tagOptions, value, onValueChanged }: TaxInputProps) 
     const removeTag = (idx: number) => onValueChanged(value.filter((_, i) => i !== idx));
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+
+        if(tagLimit && value.length >= tagLimit)
+        {
+            return;
+        }
+
         setInput(e.target.value);
         setShowSuggestions(e.target.value.length > 0 && filteredSuggestions.length > 0);
     };
