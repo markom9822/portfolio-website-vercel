@@ -67,7 +67,7 @@ export function App() {
 
     switch (tab) {
       case "about":
-        return isAboutMeContentLoading ? (<LoaderScreen/>) :(<AboutSection aboutMeContent={aboutMeContent} skills={skills}/>);
+        return isAboutMeContentLoading || isSkillsLoading ? (<LoaderScreen/>) :(<AboutSection aboutMeContent={aboutMeContent} skills={skills}/>);
       case "experience":
         return <ExperienceSection />;
       case "projects":
