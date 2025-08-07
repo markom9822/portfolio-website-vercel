@@ -7,6 +7,7 @@ import { AdminEducation } from "./pages/AdminEducation";
 import { AdminExperience } from "./pages/AdminExperience";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AdminAboutMe } from "./pages/AdminAboutMe";
+import { AdminSettings } from "./pages/AdminSettings";
 
 
 export default function AdminApp() {
@@ -20,6 +21,7 @@ export default function AdminApp() {
             <Route path="posts" element={<ProtectedRoute><AdminPosts/></ProtectedRoute>}/>
             <Route path="education" element={<ProtectedRoute><AdminEducation/></ProtectedRoute>}/>
             <Route path="experience" element={<ProtectedRoute><AdminExperience/></ProtectedRoute>}/>
+            <Route path="settings" element={<ProtectedRoute><AdminSettings/></ProtectedRoute>}/>
 
             <Route path="*" element={<AdminLogin/>}/>
         </Routes>
