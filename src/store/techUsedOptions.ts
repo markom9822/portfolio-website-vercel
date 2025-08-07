@@ -1,5 +1,5 @@
 import type { JSX } from "react"
-import { codemirrorIcon, electronIcon, expoIcon, figmaIcon, fireBaseIcon, gitIcon, jotaiIcon, markdownIcon, motionIcon, reactIcon, tailwindCSSIcon, typescriptIcon, viteIcon } from "../components/Icons"
+import { codemirrorIcon, cppIcon, csIcon, electronIcon, expoIcon, figmaIcon, fireBaseIcon, gitIcon, jotaiIcon, markdownIcon, motionIcon, pythonIcon, reactIcon, tailwindCSSIcon, typescriptIcon, unityIcon, viteIcon } from "../components/Icons"
 
 export interface TechUsedInfo {
   name: string,
@@ -78,6 +78,20 @@ export const TechUsed : TechUsedInfo[] = [
     name: 'Motion',
     icon: motionIcon,
   },
-
-
+  {
+    name: 'C#',
+    icon: csIcon,
+  },
+  {
+    name: 'Unity',
+    icon: unityIcon,
+  },
+  {
+    name: 'C++',
+    icon: cppIcon,
+  },
+  {
+    name: 'Python',
+    icon: pythonIcon,
+  },
 ];
