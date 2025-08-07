@@ -12,6 +12,7 @@ import { db } from "../firebase/firebaseConfig";
 import { TagsInput } from '../ui/TagsInput';
 import { getTechNamesArray } from '../store/techUsedOptions';
 import { AdminProjectPanel } from './AdminPanelItem';
+import { fireStoreCollections } from '../firebase/fireStoreDatabaseCollections';
 
 export type ProjectFormProps = {
 
@@ -153,7 +154,7 @@ export const AdminProjects = () => {
     const createProjectInDatabase = async (project: ProjectFormProps) => {
 
         console.log(`Need to create new project (${project.title}) in database`)
-        await addDoc(collection(db, "projects"), {
+        await addDoc(collection(db, fireStoreCollections.projectsSection), {
             title: project.title,
             description: project.description,
             projectLink: project.projectLink,
@@ -172,7 +173,7 @@ export const AdminProjects = () => {
         setLoading(true);
 
         try {
-            const snap = await getDocs(collection(db, "projects"));
+            const snap = await getDocs(collection(db, fireStoreCollections.projectsSection));
             const data: ProjectDB[] = snap.docs.map((d) => ({
                 id: d.id,
                 ...(d.data() as Omit<ProjectDB, "id">), // Type assertion for Firestore data
@@ -191,7 +192,7 @@ export const AdminProjects = () => {
     const updateProjectInDatabase = async (project: ProjectFormProps, projectID: string) => {
 
         console.log(`Need to update project (${project.title}) in database`)
-        await updateDoc(doc(db, "projects", projectID), {
+        await updateDoc(doc(db, fireStoreCollections.projectsSection, projectID), {
             title: project.title,
             description: project.description,
             projectLink: project.projectLink,
@@ -207,7 +208,7 @@ export const AdminProjects = () => {
     const deleteProjectInDatabase = async (project: ProjectFormProps, projectID: string) => {
 
         console.log(`Need to delete project (${project.title}, ${projectID}) in database`)
-        await deleteDoc(doc(db, "projects", projectID));
+        await deleteDoc(doc(db, fireStoreCollections.projectsSection, projectID));
 
         // read database after
         readProjectsFromDatabase();

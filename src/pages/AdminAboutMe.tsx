@@ -14,6 +14,7 @@ import {
     updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
+import { fireStoreCollections } from '../firebase/fireStoreDatabaseCollections';
 
 
 export interface AboutMeContentDB {
@@ -40,7 +41,7 @@ export const AdminAboutMe = () => {
         setLoading(true);
 
         try {
-            const snap = await getDocs(collection(db, "aboutMe"));
+            const snap = await getDocs(collection(db, fireStoreCollections.aboutMeSection));
             const data: AboutMeContentDB[] = snap.docs.map((d) => ({
                 id: d.id,
                 ...(d.data() as Omit<AboutMeContentDB, "id">), // Type assertion for Firestore data
@@ -60,7 +61,7 @@ export const AdminAboutMe = () => {
     const updateAboutMeContentInDatabase = async (aboutMeContent: string, aboutMeContentID: string) => {
 
         console.log(`Need to update about me content in database`)
-        await updateDoc(doc(db, "aboutMe", aboutMeContentID), {
+        await updateDoc(doc(db, fireStoreCollections.aboutMeSection, aboutMeContentID), {
             content: aboutMeContent,
         });
 
