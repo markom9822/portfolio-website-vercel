@@ -11,6 +11,7 @@ import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc, } from "firebas
 import { db } from '../firebase/firebaseConfig';
 import LoaderScreen from '../components/LoadingScreen';
 import { AdminProjectPanel } from './AdminPanelItem';
+import { fireStoreCollections } from '../firebase/fireStoreDatabaseCollections';
 
 export type PostFormProps = {
 
@@ -119,7 +120,7 @@ export const AdminPosts = () => {
     const createPostInDatabase = async (post: PostFormProps) => {
 
         console.log(`Need to create new post (${post.title}) in database`)
-        await addDoc(collection(db, "posts"), {
+        await addDoc(collection(db, fireStoreCollections.postsSection), {
             title: post.title,
             description: post.description,
             publishDate: post.publishDate,
@@ -137,7 +138,7 @@ export const AdminPosts = () => {
         setLoading(true);
 
         try {
-            const snap = await getDocs(collection(db, "posts"));
+            const snap = await getDocs(collection(db, fireStoreCollections.postsSection));
             const data: PostDB[] = snap.docs.map((d) => ({
                 id: d.id,
                 ...(d.data() as Omit<PostDB, "id">), // Type assertion for Firestore data
@@ -156,7 +157,7 @@ export const AdminPosts = () => {
     const updatePostInDatabase = async (post: PostFormProps, postID: string) => {
 
         console.log(`Need to update post (${post.title}) in database`)
-        await updateDoc(doc(db, "posts", postID), {
+        await updateDoc(doc(db, fireStoreCollections.postsSection, postID), {
             title: post.title,
             description: post.description,
             publishDate: post.publishDate,
@@ -171,7 +172,7 @@ export const AdminPosts = () => {
     const deletePostInDatabase = async (post: PostFormProps, postID: string) => {
 
         console.log(`Need to delete post (${post.title}, ${postID}) in database`)
-        await deleteDoc(doc(db, "posts", postID));
+        await deleteDoc(doc(db, fireStoreCollections.postsSection, postID));
 
         // read database after
         readPostsFromDatabase();
@@ -295,7 +296,7 @@ export const PostDialogPanel = ({
             return;
         }
 
-        const newProject = {
+        const newPost = {
             title: currentTitleValue,
             description: currentDescValue,
             publishDate: currentPublishDateValue,
@@ -303,15 +304,15 @@ export const PostDialogPanel = ({
             imageName: currentImageNameValue,
         }
 
-        console.log(newProject)
+        console.log(newPost)
         console.log(currentPanelAction)
 
         // Need to save update here
         if (currentPanelAction == 'add') {
-            await onCreatePost(newProject)
+            await onCreatePost(newPost)
         }
         else if (currentPanelAction == 'update') {
-            await onUpdatePost(newProject, postID)
+            await onUpdatePost(newPost, postID)
         }
 
         setWarning('')

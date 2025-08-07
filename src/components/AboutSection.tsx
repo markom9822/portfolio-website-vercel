@@ -1,17 +1,19 @@
 import { Fragment } from 'react/jsx-runtime';
 import type { AboutMeContentDB } from '../pages/AdminDashboard';
-import { cppIcon, csIcon, pythonIcon, reactIcon, typescriptIcon, unityIcon } from './Icons';
 import { motion, stagger } from "motion/react"
+import type { SkillsDB } from '../pages/AdminAboutMe';
+import { getTechUsedFromName } from '../store/techUsedOptions';
 
 
 type AboutSectionProps = {
 
-    aboutMeContent: AboutMeContentDB[]
+    aboutMeContent: AboutMeContentDB[],
+    skills: SkillsDB[]
 }
 
-export const AboutSection = ({ aboutMeContent }: AboutSectionProps) => {
+export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
 
-    const skills = [
+    /*const skills = [
         {
             title: "C#",
             experience: 3,
@@ -42,7 +44,7 @@ export const AboutSection = ({ aboutMeContent }: AboutSectionProps) => {
             experience: 1,
             icon: pythonIcon,
         },
-    ];
+    ];*/
 
     const containerVariant = {
         hidden: {},
@@ -62,7 +64,12 @@ export const AboutSection = ({ aboutMeContent }: AboutSectionProps) => {
         },
     };
 
-    const maxExperienceLevel = Math.max(...skills.map(skill => skill.experience));
+    const maxExperienceLevel = Math.max(...skills.map(skill => Number(skill.experience)));
+
+     const sortedSkills = skills.sort((a, b) => {
+        return Number(b.experience) - Number(a.experience);
+    });
+
 
     return (
         <motion.div
@@ -113,9 +120,9 @@ export const AboutSection = ({ aboutMeContent }: AboutSectionProps) => {
                     }}
                     className="justify-center"
                 >
-                    {skills.map(({ title, experience, icon }, index) => (
+                    {sortedSkills.map(({ title, experience, techUsed }, index) => (
 
-                        <SkillPanel key={index} title={title} experience={experience} maxExperienceLevel={maxExperienceLevel} icon={icon} />
+                        <SkillPanel key={index} title={title} experience={Number(experience)} maxExperienceLevel={maxExperienceLevel} tech={techUsed[0]} />
                     ))}
 
                 </div>
@@ -129,10 +136,10 @@ type SkillPanelProps = {
     title: string,
     experience: number,
     maxExperienceLevel: number;
-    icon: any;
+    tech: string;
 }
 
-export const SkillPanel = ({ title, experience, maxExperienceLevel, icon }: SkillPanelProps) => {
+export const SkillPanel = ({ title, experience, maxExperienceLevel, tech }: SkillPanelProps) => {
 
     const experienceText = experience.toString() + " yrs";
     const experienceWidth = `${Math.round((experience / maxExperienceLevel) * 100)}%`
@@ -142,7 +149,7 @@ export const SkillPanel = ({ title, experience, maxExperienceLevel, icon }: Skil
             className="p-4"
         >
             <div className='flex flex-row space-x-3'>
-                {icon}
+                {getTechUsedFromName(tech)?.icon}
 
                 <div className='flex flex-col w-full'>
                     <div className='flex flex-row justify-between'>

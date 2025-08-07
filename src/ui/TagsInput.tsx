@@ -1,13 +1,14 @@
 import { useRef, useState, type ChangeEvent } from "react";
 
 
-type TaxInputProps = {
+type TagInputProps = {
     tagOptions: string[],
     value: string[],
     onValueChanged: (value: string[]) => void,
+    tagLimit?: number,
 }
 
-export const TagsInput = ({ tagOptions, value, onValueChanged }: TaxInputProps) => {
+export const TagsInput = ({ tagOptions, value, onValueChanged, tagLimit }: TagInputProps) => {
 
     const [input, setInput] = useState<string>('');
     const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
@@ -24,6 +25,12 @@ export const TagsInput = ({ tagOptions, value, onValueChanged }: TaxInputProps) 
     const removeTag = (idx: number) => onValueChanged(value.filter((_, i) => i !== idx));
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+
+        if(tagLimit && value.length >= tagLimit)
+        {
+            return;
+        }
+
         setInput(e.target.value);
         setShowSuggestions(e.target.value.length > 0 && filteredSuggestions.length > 0);
     };
@@ -39,7 +46,7 @@ export const TagsInput = ({ tagOptions, value, onValueChanged }: TaxInputProps) 
         <div className="p-2 border-2 border-zinc-500 rounded-lg font-text">
             <div className="flex flex-wrap space-x-2">
                 {value.map((tag, idx) => (
-                    <div key={tag} className="bg-zinc-200 flex items-center px-2 py-1 rounded-2xl text-sm">
+                    <div key={tag} className="bg-zinc-200 flex items-center px-2 py-1 rounded-2xl text-sm my-1">
                         <span>{tag}</span>
                         <span
                             style={{ cursor: 'pointer', marginLeft: 8 }}

@@ -7,14 +7,8 @@ import { IoSchoolOutline } from "react-icons/io5";
 import { MdOutlineLocalPostOffice } from "react-icons/md";
 import { SiMinutemailer } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
-
 import { motion } from "motion/react"
-
-import {
-  githubIcon,
-  linkedinIcon,
-} from "./components/Icons";
-
+import { githubIcon, linkedinIcon,} from "./components/Icons";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase/firebaseConfig";
 
@@ -28,6 +22,8 @@ import LoaderScreen from './components/LoadingScreen';
 import type { ProjectDB } from './pages/AdminProjects';
 import type { AboutMeContentDB } from './pages/AdminDashboard';
 import type { PostDB } from './pages/AdminPosts';
+import type { EducationDB } from './pages/AdminEducation';
+import type { SkillsDB } from './pages/AdminAboutMe';
 
 export function App() {
 
@@ -35,18 +31,28 @@ export function App() {
 
   const [activeTab, setActiveTab] = useState("about");
   const [isLoading, setIsLoading] = useState(true);
+
   const [isProjectsLoading, setIsProjectsLoading] = useState(false);
   const [isProjectsFetched, setIsProjectsFetched] = useState(false);
   const [projects, setProjects] = useState<ProjectDB[]>([]);
+
   const [isPostsLoading, setIsPostsLoading] = useState(false);
   const [isPostsFetched, setIsPostsFetched] = useState(false);
   const [posts, setPosts] = useState<PostDB[]>([]);
+
+  const [isEducationsLoading, setIsEducationsLoading] = useState(false);
+  const [isEducationsFetched, setIsEducationsFetched] = useState(false);
+  const [educations, setEducations] = useState<EducationDB[]>([]);
+
   const [isAboutMeContentLoading, setIsAboutMeContentLoading] = useState(false);
   const [isAboutMeContentFetched, setIsAboutMeContentFetched] = useState(false);
   const [aboutMeContent, setAboutMeContent] = useState<AboutMeContentDB[]>([]);
 
-  const contentContainerRef = useRef<HTMLDivElement | null>(null);
+  const [isSkillsLoading, setIsSkillsLoading] = useState(false);
+  const [isSkillsFetched, setIsSkillsFetched] = useState(false);
+  const [skills, setSkills] = useState<SkillsDB[]>([]);
 
+  const contentContainerRef = useRef<HTMLDivElement | null>(null);
 
   const tabs = [
     { label: "about", Icon: BsInfoCircle },
@@ -61,13 +67,13 @@ export function App() {
 
     switch (tab) {
       case "about":
-        return isAboutMeContentLoading ? (<LoaderScreen/>) :(<AboutSection aboutMeContent={aboutMeContent}/>);
+        return isAboutMeContentLoading || isSkillsLoading ? (<LoaderScreen/>) :(<AboutSection aboutMeContent={aboutMeContent} skills={skills}/>);
       case "experience":
         return <ExperienceSection />;
       case "projects":
         return isProjectsLoading ? (<LoaderScreen/>) : (<ProjectsSection projects={projects}/>)
       case "education":
-        return <EducationSection />;
+        return isEducationsLoading ? (<LoaderScreen/>) : (<EducationSection educations={educations}/>)
       case "posts":
         return isPostsLoading ? (<LoaderScreen/>) : (<PostsSection posts={posts}/>)
       case "reach out":
@@ -120,6 +126,23 @@ export function App() {
         .finally(() => setIsPostsLoading(false));
     };
 
+    const fetchEducations = () => {
+      setIsEducationsLoading(true);
+      getDocs(collection(db, "education"))
+        .then((snap) => {
+
+          const data: EducationDB[] = snap.docs.map((d) => ({
+                id: d.id,
+                ...(d.data() as Omit<EducationDB, "id">), // Type assertion for Firestore data
+            }));
+
+          setEducations(data);
+          setIsEducationsFetched(true);
+        })
+        .catch(console.error)
+        .finally(() => setIsEducationsLoading(false));
+    };
+
     const fetchAboutMeContent = () => {
       setIsAboutMeContentLoading(true);
       getDocs(collection(db, "aboutMe"))
@@ -137,6 +160,23 @@ export function App() {
         .finally(() => setIsAboutMeContentLoading(false));
     };
 
+    const fetchSkills = () => {
+      setIsSkillsLoading(true);
+      getDocs(collection(db, "skills"))
+        .then((snap) => {
+
+          const data: SkillsDB[] = snap.docs.map((d) => ({
+                id: d.id,
+                ...(d.data() as Omit<SkillsDB, "id">), // Type assertion for Firestore data
+            }));
+
+          setSkills(data);
+          setIsSkillsFetched(true);
+        })
+        .catch(console.error)
+        .finally(() => setIsSkillsLoading(false));
+    };
+
     if ((activeTab === "projects") && !isProjectsFetched) {
       fetchProjects();
     }
@@ -145,12 +185,18 @@ export function App() {
       fetchPosts();
     }
 
-    if ((activeTab === "about") && !isAboutMeContentFetched) {
+    if ((activeTab === "education") && !isEducationsFetched) {
+      fetchEducations();
+    }
+
+    if ((activeTab === "about") && !isAboutMeContentFetched && !isSkillsFetched) {
       fetchAboutMeContent();
+      fetchSkills();
     }
 
 
-  }, [activeTab, isProjectsFetched, isAboutMeContentFetched]);
+  }, [activeTab, isProjectsFetched, isPostsFetched,
+     isEducationsFetched, isAboutMeContentFetched, isSkillsFetched]);
 
 
   const handleTabButtonPressed = (labelName: string) => {
@@ -210,7 +256,7 @@ export function App() {
                   )}
                   <button
                     onClick={() => handleTabButtonPressed(label)}
-                    className={`flex text-base items-center space-x-5 px-4 py-2 w-full rounded duration-200 cursor-pointer ${activeTab === label
+                    className={`flex text-base items-center space-x-5 px-4 py-1.5 w-full rounded duration-200 cursor-pointer ${activeTab === label
                       ? "text-white"
                       : "hover:bg-zinc-800 text-zinc-500/80"
                       }`}
@@ -224,7 +270,7 @@ export function App() {
           </div>
 
           <motion.div
-            className='flex justify-center space-x-5 pt-6 border-t border-zinc-700 text-zinc-400'
+            className='flex justify-center space-x-5 pt-3 border-t border-zinc-700 text-zinc-400'
             initial="hidden"
             animate="visible">
 
@@ -261,7 +307,7 @@ export function App() {
       [&::-webkit-scrollbar-thumb]:bg-zinc-600
         [&::-webkit-scrollbar-thumb]:rounded-xs
         [&::-webkit-scrollbar-corner]:bg-zinc-900
-        overflow-scroll">
+        overflow-x-hidden">
           {handleContentsSection(activeTab)}
         </main>
 
