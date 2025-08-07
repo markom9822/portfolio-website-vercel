@@ -254,6 +254,14 @@ export const googleIcon = (
   </img>
 )
 
+export const motionIcon = (
+
+  <a href="https://motion.dev/" target="_blank">
+    <img title="Motion" width="45" height="45" src="https://user-images.githubusercontent.com/7850794/164965509-2a8dc49e-2ed7-4243-a2c9-481b03bbc31a.png">
+    </img>
+  </a>
+)
+
 export const ukFlagIcon = (
   <img
     src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/2560px-Flag_of_the_United_Kingdom.svg.png"
