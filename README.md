@@ -2,9 +2,6 @@
 
 <img width="1908" height="895" alt="image" src="https://github.com/user-attachments/assets/3b664962-3bc3-4041-964f-422ffafa9578" />
 
-
-Built using React, Vite and Tailwind CSS.
-
 ---
 
 ## ✨ Features
