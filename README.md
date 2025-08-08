@@ -6,14 +6,16 @@ Built using React, Vite and Tailwind CSS.
 
 ## ✨ Features
 
-- 
-
+- Custom admin dashboard with CRUD system for managing all information displayed
+- Firebase Authentication for secure admin access
+- Real-time Firestore backend
+  
 ---
 
 ## 🛠 Tech Stack
 
 - **Frontend:** React (Vite)
-- **Backend:** []
+- **Backend:** Firebase (Firestore and Authentication)
 - **UI:** ShadCN UI (Radix + TailwindCSS)
 - **Animation:** Framer Motion
 
