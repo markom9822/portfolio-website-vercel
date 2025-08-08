@@ -9,6 +9,7 @@
 - Custom admin dashboard with CRUD system for managing all information displayed
 - Firebase Authentication for secure admin access
 - Real-time Firestore backend
+- Unit tested with tests automatically ran when making pull requests using GitHub actions.
   
 ---
 
