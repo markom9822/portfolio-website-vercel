@@ -1,7 +1,8 @@
 import { Fragment } from "react/jsx-runtime";
 import { getDurationInYearsMonths, getDurationText } from "../utils/helper";
-import { canadaFlagIcon, ukFlagIcon } from "./Icons";
 import { motion, stagger } from "motion/react"
+import type { ExperienceDB } from "../pages/AdminExperience";
+import { getFlagFromName } from "../store/countryFlagOptions";
 
 export const fundamentalXRIcon = (
     <a href="https://www.fundamentalxr.com/" target="_blank">
@@ -22,9 +23,14 @@ export const yCountryCampIcon = (
     </a>
 )
 
-export const ExperienceSection = () => {
+type ExperienceSectionProps = {
 
-    const experiences = [
+    experiences: ExperienceDB[]
+}
+
+export const ExperienceSection = ({ experiences }: ExperienceSectionProps) => {
+
+    /*const experiences = [
         {
             companyName: "fundamental XR",
             companyIcon: fundamentalXRIcon,
@@ -92,7 +98,7 @@ export const ExperienceSection = () => {
                 }
             ]
         },
-    ];
+    ];*/
 
     const containerVariant = {
         hidden: {},
@@ -111,6 +117,13 @@ export const ExperienceSection = () => {
             transition: { duration: 0.4 },
         },
     };
+
+    const sortedExperiences = experiences.sort((a, b) => {
+        const dateA = new Date(a.positions[a.positions.length - 1].positionEndDate).getTime();
+        const dateB = new Date(b.positions[b.positions.length - 1].positionEndDate).getTime();
+
+        return dateB - dateA;
+    });
 
     return (
         <motion.div
@@ -139,9 +152,10 @@ export const ExperienceSection = () => {
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
 
-                {experiences.map(({ companyName, companyIcon, companyLocation, locationFlag, positions }, index) => (
+                {sortedExperiences.map(({ companyName, companyIconName, companyLocation, companyWebsite, positions }, index) => (
 
-                    <ExperiencePanel key={index} companyName={companyName} companyIcon={companyIcon} companyLocation={companyLocation} locationFlag={locationFlag} positions={positions} />
+                    <ExperiencePanel key={index} companyName={companyName} companyIconName={companyIconName} companyLocation={companyLocation}
+                        companyWebsite={companyWebsite} positions={positions} />
 
                 ))}
 
@@ -153,8 +167,8 @@ export const ExperienceSection = () => {
 export type PositionProps = {
 
     positionName: string,
-    positionStartDate: Date,
-    positionEndDate: Date,
+    positionStartDate: string,
+    positionEndDate: string,
     content: string,
 }
 
@@ -162,13 +176,13 @@ export type PositionProps = {
 type ExperiencePanelProps = {
 
     companyName: string,
-    companyIcon: any,
+    companyIconName: string,
     companyLocation: string,
-    locationFlag: any,
+    companyWebsite: string,
     positions: PositionProps[],
 }
 
-export const ExperiencePanel = ({ companyName, companyIcon, companyLocation, locationFlag, positions }: ExperiencePanelProps) => {
+export const ExperiencePanel = ({ companyName, companyIconName, companyLocation, companyWebsite, positions }: ExperiencePanelProps) => {
 
     // do I need to show total experience period
     const showTotalDuration = positions.length > 1;
@@ -176,9 +190,12 @@ export const ExperiencePanel = ({ companyName, companyIcon, companyLocation, loc
     var durationText = '';
 
     if (showTotalDuration) {
-        const positionDuration = getDurationInYearsMonths(positions[positions.length - 1].positionStartDate, positions[0].positionEndDate);
+        const positionDuration = getDurationInYearsMonths(new Date(positions[positions.length - 1].positionStartDate), new Date(positions[0].positionEndDate));
         durationText = getDurationText(positionDuration.years, positionDuration.months);
     }
+
+    const parts = companyLocation.split(",");
+    const country = parts[parts.length - 1].toLowerCase().trim();
 
     return (
         <div
@@ -192,22 +209,25 @@ export const ExperiencePanel = ({ companyName, companyIcon, companyLocation, loc
                     <div className="flex flex-row items-center space-x-3">
                         <p className="font-text text-sm text-zinc-400 group-hover:text-zinc-200 transition">{companyLocation.toUpperCase()}</p>
                         <div className="opacity-40 group-hover:opacity-100 transition">
-                            {locationFlag}
+                            {getFlagFromName(country)?.icon}
                         </div>
                     </div>
 
                 </div>
 
                 <div className="flex items-center opacity-60 group-hover:opacity-100 transition">
-                    {companyIcon}
+                    <a href={companyWebsite} target="_blank">
+                        <img title={companyName} width="70" height="70" style={{ borderRadius: '5px' }} src={companyIconName}>
+                        </img>
+                    </a>
                 </div>
             </div>
 
             <div className="space-y-4 w-full">
                 {positions.map(({ positionName, content, positionStartDate, positionEndDate }, index) => (
 
-                    <PositionPanel key={index} positionName={positionName} positionStartDate={positionStartDate}
-                        positionEndDate={positionEndDate} content={content} />
+                    <PositionPanel key={index} positionName={positionName} positionStartDate={new Date(positionStartDate)}
+                        positionEndDate={new Date(positionEndDate)} content={content} />
                 ))}
             </div>
 

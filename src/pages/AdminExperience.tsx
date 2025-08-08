@@ -1,18 +1,18 @@
 
-import { useState } from 'react';
-import { RiDeleteBin5Line } from "react-icons/ri";
-import { FaRegEdit } from "react-icons/fa";
+import { useEffect, useState, type ChangeEvent } from 'react';
 import { AlertDialog } from "radix-ui";
 import { InputField } from '../ui/InputField';
 import { TextAreaField } from '../ui/TextAreaField';
 import { FaArrowLeft } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
-import { formatDateToDDMMYYYY } from '../utils/helper';
-import { canadaFlagIcon, ukFlagIcon } from '../components/Icons';
-import type { PositionProps } from '../components/ExperienceSection';
-import { CiSquarePlus } from "react-icons/ci";
+import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
 import { AddPanel } from '../components/AddPanel';
 import { DeleteItemPanel } from '../components/DeleteItemPanel';
+import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc, } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
+import { fireStoreCollections } from '../firebase/fireStoreDatabaseCollections';
+import LoaderScreen from '../components/LoadingScreen';
+import { AdminProjectPanel } from './AdminPanelItem';
 
 
 export const fundamentalXRIcon = (
@@ -34,9 +34,36 @@ export const yCountryCampIcon = (
     </a>
 )
 
+export type ExperiencePositionFormProps = {
+
+    positionName: string,
+    positionStartDate: string,
+    positionEndDate: string,
+    content: string,
+}
+
+export type ExperienceFormProps = {
+
+    companyName: string,
+    companyIconName: string,
+    companyLocation: string,
+    companyWebsite: string,
+    positions: ExperiencePositionFormProps[],
+}
+
+export interface ExperienceDB {
+    id: string;
+
+    companyName: string,
+    companyIconName: string,
+    companyLocation: string,
+    companyWebsite: string,
+    positions: ExperiencePositionFormProps[],
+}
+
 export const AdminExperience = () => {
 
-    const experiences = [
+    /*const experiences = [
         {
             companyName: "fundamental XR",
             companyIcon: fundamentalXRIcon,
@@ -104,133 +131,327 @@ export const AdminExperience = () => {
                 }
             ]
         },
-    ];
+    ];*/
 
     const [experiencePanelTitle, setExperiencePanelTitle] = useState("");
     const [experiencePanelDesc, setExperiencePanelDesc] = useState("");
 
+    const [allExperiences, setAllExperiences] = useState<ExperienceDB[]>([]);
+
     const [actionButtonName, setActionButtonName] = useState("");
     const [isDeletePanel, setIsDeletePanel] = useState(false);
+    const [currentPanelAction, setCurrentPanelAction] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const [currentExperienceCompanyName, setCurrentExperienceCompanyName] = useState("");
-    const [currentExperienceCompanyLocation, setCurrentExperienceCompanyLocation] = useState("");
-    const [currentExperiencePositions, setCurrentExperiencePositions] = useState<PositionProps[]>([]);
-
+    const [experienceForm, setExperienceForm] = useState<ExperienceFormProps>({
+        companyName: "",
+        companyIconName: "",
+        companyLocation: "",
+        companyWebsite: "",
+        positions: [],
+    });
+    const [experienceID, setExperienceID] = useState("");
 
     const navigate = useNavigate();
 
     const handlePressAddNewExperience = () => {
 
+        setCurrentPanelAction('add')
         setExperiencePanelTitle('Add New Experience')
-        setExperiencePanelDesc('Add new experience to the portfolio database.')
+        setExperiencePanelDesc('Add a new experience to the portfolio database.')
 
         setActionButtonName('Add Experience')
         setIsDeletePanel(false)
 
-        setCurrentExperienceCompanyName('')
-        setCurrentExperienceCompanyLocation('')
-        setCurrentExperiencePositions([])
+        setExperienceForm({
+            companyName: "",
+            companyIconName: "",
+            companyLocation: "",
+            companyWebsite: "",
+            positions: [],
+        })
     }
 
-    const handlePressEditExperience = (experienceCompanyName: string, experienceCompanyLocation: string, experiencePositions: PositionProps[]) => {
+    const handlePressEditExperience = (expID: string, expCompanyName: string, expCompanyIconName: string,
+        expCompanyLocation: string, expCompanyWebsite: string, expPositions: ExperiencePositionFormProps[]) => {
 
+        setCurrentPanelAction('update')
         setExperiencePanelTitle('Edit Experience')
-        setExperiencePanelDesc('Edit an existing experience to the portfolio database.')
+        setExperiencePanelDesc('Edit an existing experience in the portfolio database.')
 
         setActionButtonName('Save Changes')
         setIsDeletePanel(false)
 
-        setCurrentExperienceCompanyName(experienceCompanyName)
-        setCurrentExperienceCompanyLocation(experienceCompanyLocation)
-        setCurrentExperiencePositions(experiencePositions)
+        setExperienceForm({
+            companyName: expCompanyName,
+            companyIconName: expCompanyIconName,
+            companyLocation: expCompanyLocation,
+            companyWebsite: expCompanyWebsite,
+            positions: expPositions,
+        })
+
+        setExperienceID(expID)
     }
 
-    const handlePressDeleteExperience = (experienceCompanyName: string) => {
+    const handlePressDeleteExperience = (expID: string, expCompanyName: string) => {
 
+        setCurrentPanelAction('delete')
         setExperiencePanelTitle('Delete Experience')
-        setExperiencePanelDesc('Delete this experience in the portfolio database.')
+        setExperiencePanelDesc('Delete this experience from the portfolio database.')
 
         setActionButtonName('Delete')
         setIsDeletePanel(true)
 
-        setCurrentExperienceCompanyName(experienceCompanyName)
+        setExperienceForm({
+            companyName: expCompanyName,
+            companyIconName: "",
+            companyLocation: "",
+            companyWebsite: "",
+            positions: [],
+        })
+
+        setExperienceID(expID)
     }
 
-    return (
+    // CRUD System
+    const createExperienceInDatabase = async (experience: ExperienceFormProps) => {
 
-        <AlertDialog.Root>
+        console.log(`Need to create new experience (${experience.companyName}) in database`)
+        await addDoc(collection(db, fireStoreCollections.experienceSection), {
+            companyName: experience.companyName,
+            companyIconName: experience.companyIconName,
+            companyLocation: experience.companyLocation,
+            companyWebsite: experience.companyWebsite,
+            positions: experience.positions,
+        });
+
+        // read database after
+        readExperiencesFromDatabase();
+    }
+
+    const readExperiencesFromDatabase = async (): Promise<void> => {
+
+        console.log("Trying to read experiences from database")
+        setLoading(true);
+
+        try {
+            const snap = await getDocs(collection(db, fireStoreCollections.experienceSection));
+            const data: ExperienceDB[] = snap.docs.map((d) => ({
+                id: d.id,
+                ...(d.data() as Omit<ExperienceDB, "id">), // Type assertion for Firestore data
+            }));
+
+            setAllExperiences(data);
+        }
+        catch (error) {
+            console.error("Error reading experiences:", error);
+        }
+        finally {
+            setLoading(false);
+        }
+    }
+
+    const updateExperienceInDatabase = async (experience: ExperienceFormProps, experienceID: string) => {
+
+        console.log(`Need to update experience (${experience.companyName}) in database`)
+        await updateDoc(doc(db, fireStoreCollections.experienceSection, experienceID), {
+            companyName: experience.companyName,
+            companyIconName: experience.companyIconName,
+            companyLocation: experience.companyLocation,
+            companyWebsite: experience.companyWebsite,
+            positions: experience.positions,
+        });
+
+        // read database after
+        readExperiencesFromDatabase();
+    }
+
+    const deleteExperienceInDatabase = async (experience: ExperienceFormProps, experienceID: string) => {
+
+        console.log(`Need to delete experience (${experience.companyName}, ${experienceID}) in database`)
+        await deleteDoc(doc(db, fireStoreCollections.experienceSection, experienceID));
+
+        // read database after
+        readExperiencesFromDatabase();
+    }
+
+    // read experiences from database initially
+    useEffect(() => {
+        readExperiencesFromDatabase();
+    }, []);
+
+    return (
+        <AlertDialog.Root open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <div className="min-h-screen bg-[#0f0f0f] text-white p-6 font-text">
                 <div className="max-w-5xl mx-auto space-y-12">
-                    <div className="flex flex-col justify-between items-center space-y-8">
-                        <div className='flex items-center relative w-full'>
-                            <button
-                                onClick={() => navigate('/admin/dashboard')}
-                                className='absolute left-0 flex flex-row items-center space-x-2 text-zinc-400 hover:text-zinc-200'>
-                                <FaArrowLeft />
-                                <p>Dashboard</p>
-                            </button>
-                            <h1 className=" relative mx-auto text-4xl font-bold font-text tracking-tight">
-                                Experience
-                            </h1>
-                        </div>
 
+                    {loading ? (
+                        <LoaderScreen />
+                    ) : (
 
-                        <div
-                            className="mt-10 flex flex-col w-full">
-
-                            {experiences.map(({ companyName, companyLocation, positions }, index) => (
-
-                                <AdminExperiencePanel companyName={companyName} companyLocation={companyLocation} index={index}
-                                    OnPressEdit={() => handlePressEditExperience(companyName, companyLocation, positions)}
-                                    OnPressDelete={() => handlePressDeleteExperience(companyName)} />
-
-                            ))}
-
-                        </div>
-
-                        <div>
-                            <AlertDialog.Trigger asChild>
+                        <div className="flex flex-col justify-between items-center space-y-8">
+                            <div className='flex items-center relative w-full'>
                                 <button
-                                    onClick={() => handlePressAddNewExperience()}
-                                    className='p-3 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 transition rounded'>
-                                    <p>Add New Experience</p>
+                                    onClick={() => navigate('/admin/dashboard')}
+                                    className='duration-200 cursor-pointer absolute left-0 flex flex-row items-center space-x-2 text-zinc-400 hover:text-zinc-200'>
+                                    <FaArrowLeft />
+                                    <p>Dashboard</p>
                                 </button>
-                            </AlertDialog.Trigger>
+                                <h1 className=" relative mx-auto text-4xl font-bold font-text tracking-tight">
+                                    Experience
+                                </h1>
+                            </div>
 
-                            <AddPanel>
-                                <ExperienceDialogPanel panelTitle={experiencePanelTitle} panelDesc={experiencePanelDesc} cancelButtonName='Cancel'
-                                        actionButtonName={actionButtonName} companyNameValue={currentExperienceCompanyName}
-                                        companyLocationValue={currentExperienceCompanyLocation} positionsValue={currentExperiencePositions} isDeleteExperiencePanel={isDeletePanel} />
+                            <div
+                                className="mt-10 flex flex-col w-full">
 
-                            </AddPanel>
+                                {allExperiences.length == 0 ? (<p className='text-center text-2xl text-zinc-500'>No Experience Yet</p>) : (
+                                    <>
+                                        {allExperiences.map(({ id, companyName, companyIconName, companyLocation, companyWebsite, positions }, index) => (
+
+                                            <AdminProjectPanel key={index}
+                                                title={companyName}
+                                                date={positions[0].positionEndDate} index={index}
+                                                OnPressEdit={() => handlePressEditExperience(id, companyName, companyIconName, companyLocation, companyWebsite, positions)}
+                                                OnPressDelete={() => handlePressDeleteExperience(id, companyName)} />
+
+                                        ))}
+                                    </>
+                                )}
+
+                            </div>
+
+                            <div>
+                                <AlertDialog.Trigger asChild>
+                                    <button
+                                        onClick={() => handlePressAddNewExperience()}
+                                        className='p-3 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 transition rounded'>
+                                        <p>Add New Experience</p>
+                                    </button>
+                                </AlertDialog.Trigger>
+
+                                <AddPanel>
+                                    <ExperienceDialogPanel currentPanelAction={currentPanelAction} panelTitle={experiencePanelTitle} panelDesc={experiencePanelDesc}
+                                        cancelButtonName='Cancel' actionButtonName={actionButtonName} experienceForm={experienceForm} experienceID={experienceID}
+                                        isDeleteExpPanel={isDeletePanel}
+                                        setDialogOpen={setIsDialogOpen} onCreateExperience={createExperienceInDatabase}
+                                        onUpdateExperience={updateExperienceInDatabase} onDeleteExperience={deleteExperienceInDatabase} />
+                                </AddPanel>
+                            </div>
+
                         </div>
-
-                    </div>
+                    )}
                 </div>
             </div>
-
         </AlertDialog.Root>
     )
 }
 
 type ExperienceDialogPanelProps = {
 
+    currentPanelAction: string,
     panelTitle: string,
     panelDesc: string,
-
     cancelButtonName: string,
     actionButtonName: string,
-    companyNameValue: string,
-    companyLocationValue: string,
-    positionsValue: PositionProps[]
-    isDeleteExperiencePanel: boolean
+    experienceForm: ExperienceFormProps,
+    experienceID: string,
+    isDeleteExpPanel: boolean,
+
+    setDialogOpen: (open: boolean) => void,
+    onCreateExperience: (exp: ExperienceFormProps) => Promise<void>;
+    onUpdateExperience: (exp: ExperienceFormProps, expID: string) => Promise<void>;
+    onDeleteExperience: (exp: ExperienceFormProps, expID: string) => Promise<void>;
 }
 
-export const ExperienceDialogPanel = ({ panelTitle, panelDesc, cancelButtonName, actionButtonName, companyNameValue, companyLocationValue, positionsValue, isDeleteExperiencePanel }: ExperienceDialogPanelProps) => {
+export const ExperienceDialogPanel = ({
+    currentPanelAction, panelTitle, panelDesc, cancelButtonName, actionButtonName, experienceForm, experienceID, isDeleteExpPanel,
+    setDialogOpen, onCreateExperience, onUpdateExperience, onDeleteExperience }: ExperienceDialogPanelProps) => {
 
-    if (isDeleteExperiencePanel) {
+    const [currentCompanyNameValue, setCurrentCompanyNameValue] = useState(experienceForm.companyName);
+    const [currentCompanyIconValue, setCurrentCompanyIconValue] = useState(experienceForm.companyIconName);
+    const [currentCompanyLocValue, setCurrentCompanyLocValue] = useState(experienceForm.companyLocation);
+    const [currentCompanyWebsiteValue, setCurrentCompanyWebsiteValue] = useState(experienceForm.companyWebsite);
+    const [currentCompanyPositionsValue, setCurrentCompanyPositionsValue] = useState<ExperiencePositionFormProps[]>(experienceForm.positions);
+
+    const [warning, setWarning] = useState('');
+
+    const isExpEntryValid = () => {
+
+        return currentCompanyNameValue != '' &&
+            currentCompanyIconValue != '' && currentCompanyLocValue != ''
+            && currentCompanyWebsiteValue != '' && currentCompanyPositionsValue.length > 0
+    }
+
+    // handle add project
+    const handlePressActionButton = async () => {
+
+        if (!isExpEntryValid()) {
+            setWarning('Please complete all fields.');
+            return;
+        }
+
+        const newExp = {
+            companyName: currentCompanyNameValue,
+            companyIconName: currentCompanyIconValue,
+            companyLocation: currentCompanyLocValue,
+            companyWebsite: currentCompanyWebsiteValue,
+            positions: currentCompanyPositionsValue,
+        }
+
+        console.log(newExp)
+        console.log(currentPanelAction)
+
+        // Need to save update here
+        if (currentPanelAction == 'add') {
+            await onCreateExperience(newExp)
+        }
+        else if (currentPanelAction == 'update') {
+            await onUpdateExperience(newExp, experienceID)
+        }
+
+        setWarning('')
+        setDialogOpen(false)
+    }
+
+    const handleChangeCompanyName = (event: ChangeEvent<HTMLInputElement>) => { setCurrentCompanyNameValue(event.target.value) };
+    const handleChangeCompanyIcon = (event: ChangeEvent<HTMLInputElement>) => { setCurrentCompanyIconValue(event.target.value) };
+    const handleChangeCompanyLoc = (event: ChangeEvent<HTMLInputElement>) => { setCurrentCompanyLocValue(event.target.value) };
+    const handleChangeCompanyWebsite = (event: ChangeEvent<HTMLInputElement>) => { setCurrentCompanyWebsiteValue(event.target.value) };
+    const handleChangePositions = (positions: ExperiencePositionFormProps[]) => { setCurrentCompanyPositionsValue(positions) };
+
+    const handleAddPosition = () => {
+
+        const copy = [...currentCompanyPositionsValue]
+        copy.push({
+            positionName: "",
+            positionStartDate: "",
+            positionEndDate: "",
+            content: "",
+        })
+
+        setCurrentCompanyPositionsValue(copy);
+    }
+
+    const handleRemovePosition = () => {
+
+        const copy = [...currentCompanyPositionsValue]
+        copy.pop();
+        setCurrentCompanyPositionsValue(copy);
+    }
+
+    if (isDeleteExpPanel) {
         return (
-            <DeleteItemPanel panelTitle={panelTitle} panelDesc={panelDesc} itemName={companyNameValue} actionButtonName={actionButtonName} cancelButtonName={cancelButtonName}/>
+            <DeleteItemPanel panelTitle={panelTitle} panelDesc={panelDesc} itemName={experienceForm.companyName}
+                actionButtonName={actionButtonName} cancelButtonName={cancelButtonName}
+                OnDelete={() => onDeleteExperience({
+                    companyName: currentCompanyNameValue,
+                    companyIconName: currentCompanyIconValue,
+                    companyLocation: currentCompanyLocValue,
+                    companyWebsite: currentCompanyWebsiteValue,
+                    positions: currentCompanyPositionsValue,
+                }, experienceID)} />
         )
     }
 
@@ -241,29 +462,46 @@ export const ExperienceDialogPanel = ({ panelTitle, panelDesc, cancelButtonName,
             </AlertDialog.Title>
 
             <AlertDialog.Description className='text-sm font-text text-zinc-400'>
-                {panelDesc} 
-			</AlertDialog.Description>
+                {panelDesc}
+            </AlertDialog.Description>
 
-            <InputField className='' placeholder='Experience company name' type='text' value={companyNameValue} />
-            <InputField className='' placeholder='Experience company location' type='text' value={companyLocationValue} />
+            <InputField className='' placeholder='Company name' type='text' value={currentCompanyNameValue} OnInputChanged={handleChangeCompanyName} />
+            <InputField className='' placeholder='Company icon link' type='text' value={currentCompanyIconValue} OnInputChanged={handleChangeCompanyIcon} />
+            <InputField className='' placeholder='Company location' type='text' value={currentCompanyLocValue} OnInputChanged={handleChangeCompanyLoc} />
+            <InputField className='' placeholder='Company website' type='text' value={currentCompanyWebsiteValue} OnInputChanged={handleChangeCompanyWebsite} />
 
             <div className='flex flex-row items-center border-b-2 border-b-zinc-400 space-x-4'>
                 <h3 className="text-xl text-zinc-200 font-text">Positions</h3>
-
-                <button 
-                title='Add position'
-                className='text-zinc-400 rounded hover:text-zinc-200 duration-200 cursor-pointer transition'>
-                    <CiSquarePlus size={30} />
-                </button>
             </div>
 
             <div className='space-y-6'>
-                {positionsValue.map(({ positionName, positionStartDate, positionEndDate, content }) => (
+                {currentCompanyPositionsValue.map(({ positionName, positionStartDate, positionEndDate, content }, index) => (
 
-                    <PositionItem positionNameValue={positionName} positionStartDateValue={formatDateToDDMMYYYY(positionStartDate)}
-                        positionEndDateValue={formatDateToDDMMYYYY(positionEndDate)} contentValue={content} />
+                    <PositionItem key={index} index={index} positionNameValue={positionName} positionStartDateValue={positionStartDate}
+                        positionEndDateValue={positionEndDate} contentValue={content} currentPositionsArray={currentCompanyPositionsValue}
+                        handlePositionValueChanged={handleChangePositions} />
                 ))}
+
+                <div className='flex flex-row'>
+                    <button
+                        onClick={handleAddPosition}
+                        title='Add position'
+                        className='flex text-zinc-400 rounded hover:text-zinc-200 duration-200 cursor-pointer transition'>
+                        <CiSquarePlus size={30} />
+                    </button>
+
+                    {currentCompanyPositionsValue.length > 0 && (
+                        <button
+                            onClick={handleRemovePosition}
+                            title='Remove position'
+                            className='flex text-zinc-400 rounded hover:text-zinc-200 duration-200 cursor-pointer transition'>
+                            <CiSquareMinus size={30} />
+                        </button>
+                    )}
+                </div>
             </div>
+
+            {warning && <div className="text-red-500 font-text">{warning}</div>}
 
             <div style={{ display: "flex", gap: 25, justifyContent: "flex-end" }}>
                 <AlertDialog.Cancel asChild>
@@ -271,11 +509,11 @@ export const ExperienceDialogPanel = ({ panelTitle, panelDesc, cancelButtonName,
                         {cancelButtonName}
                     </button>
                 </AlertDialog.Cancel>
-                <AlertDialog.Action asChild>
-                    <button className="font-text text-zinc-400 rounded hover:text-zinc-200 px-2 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 transition">
-                        {actionButtonName}
-                    </button>
-                </AlertDialog.Action>
+                <button
+                    onClick={handlePressActionButton}
+                    className="font-text text-zinc-400 rounded hover:text-zinc-200 px-2 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 transition">
+                    {actionButtonName}
+                </button>
             </div>
         </>
     )
@@ -283,74 +521,33 @@ export const ExperienceDialogPanel = ({ panelTitle, panelDesc, cancelButtonName,
 
 type PositionItemProps = {
 
+    index: number,
     positionNameValue: string,
     positionStartDateValue: string,
     positionEndDateValue: string,
     contentValue: string,
+    handlePositionValueChanged: (positions: ExperiencePositionFormProps[]) => void,
+    currentPositionsArray: ExperiencePositionFormProps[],
 }
 
-export const PositionItem = ({ positionNameValue, positionStartDateValue, positionEndDateValue, contentValue }: PositionItemProps) => {
+export const PositionItem = ({ index, positionNameValue, positionStartDateValue, positionEndDateValue,
+    contentValue, handlePositionValueChanged, currentPositionsArray }: PositionItemProps) => {
+
+    const editPositionValue = (updates: Partial<ExperiencePositionFormProps>) => {
+        const copy = [...currentPositionsArray];
+        copy[index] = {
+            ...copy[index], // keep existing properties
+            ...updates     // override with updates
+        };
+        handlePositionValueChanged(copy);
+    }
 
     return (
         <div className='space-y-2 border-b-2 border-b-zinc-600 pb-6'>
-            <InputField className='' placeholder='Position title' type='text' value={positionNameValue} />
-            <InputField className='' placeholder='Position start date (dd/mm/yyyy)' type='text' value={positionStartDateValue} />
-            <InputField className='' placeholder='Position end date (dd/mm/yyyy)' type='text' value={positionEndDateValue} />
-            <TextAreaField className='' placeholder='Position content' value={contentValue} />
-        </div>
-    )
-}
-
-
-type AdminExperiencePanelProps = {
-
-    companyName: string,
-    companyLocation: string,
-    index: number,
-    OnPressEdit: () => void,
-    OnPressDelete: () => void,
-
-}
-
-export const AdminExperiencePanel = ({ companyName, index, OnPressEdit, OnPressDelete }: AdminExperiencePanelProps) => {
-
-    //const formattedDate = startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
-
-    return (
-        <div
-            className="w-full">
-            <div
-                className="group flex flex-row justify-between items-center p-2 py-4 w-full rounded">
-                <div className="border-b-2 border-b-zinc-500 flex flex-row justify-between items-center w-full py-2">
-
-                    <div className="flex flex-row items-center space-x-6">
-                        <div className="px-2.5 py-1 text-sm bg-zinc-900 group-hover:bg-zinc-700 font-bold font-text text-zinc-400 group-hover:text-zinc-300 rounded transition">{index + 1}</div>
-                        <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition font-text">{companyName}</h3>
-                    </div>
-
-                    <div className="flex flex-row items-center space-x-4">
-
-                        <AlertDialog.Trigger asChild>
-                            <button
-                                onClick={OnPressEdit}
-                                title='Edit education'
-                                className='p-2 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 text-zinc-400 hover:text-zinc-200 transition rounded'>
-                                <FaRegEdit className='' />
-                            </button>
-                        </AlertDialog.Trigger>
-
-                        <AlertDialog.Trigger asChild>
-                            <button
-                                onClick={OnPressDelete}
-                                title='Delete education'
-                                className='p-2 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 text-zinc-400 hover:text-zinc-200 transition rounded'>
-                                <RiDeleteBin5Line className='' />
-                            </button>
-                        </AlertDialog.Trigger>
-                    </div>
-                </div>
-            </div>
-
+            <InputField className='' placeholder='Position title' type='text' value={positionNameValue} OnInputChanged={(e) => editPositionValue({positionName: e.target.value})} />
+            <InputField className='' placeholder='Position start date (dd/mm/yyyy)' type='date' value={positionStartDateValue} OnInputChanged={(e) => editPositionValue({positionStartDate: e.target.value})} />
+            <InputField className='' placeholder='Position end date (dd/mm/yyyy)' type='date' value={positionEndDateValue} OnInputChanged={(e) => editPositionValue({positionEndDate: e.target.value})} />
+            <TextAreaField className='' placeholder='Position content' value={contentValue} OnInputChanged={(e) => editPositionValue({content: e.target.value})} />
         </div>
     )
 }

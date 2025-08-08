@@ -24,6 +24,7 @@ import type { AboutMeContentDB } from './pages/AdminDashboard';
 import type { PostDB } from './pages/AdminPosts';
 import type { EducationDB } from './pages/AdminEducation';
 import type { SkillsDB } from './pages/AdminAboutMe';
+import type { ExperienceDB } from './pages/AdminExperience';
 
 export function App() {
 
@@ -43,6 +44,10 @@ export function App() {
   const [isEducationsLoading, setIsEducationsLoading] = useState(false);
   const [isEducationsFetched, setIsEducationsFetched] = useState(false);
   const [educations, setEducations] = useState<EducationDB[]>([]);
+
+  const [isExperiencesLoading, setIsExperiencesLoading] = useState(false);
+  const [isExperiencesFetched, setIsExperiencesFetched] = useState(false);
+  const [experiences, setExperiences] = useState<ExperienceDB[]>([]);
 
   const [isAboutMeContentLoading, setIsAboutMeContentLoading] = useState(false);
   const [isAboutMeContentFetched, setIsAboutMeContentFetched] = useState(false);
@@ -69,7 +74,7 @@ export function App() {
       case "about":
         return isAboutMeContentLoading || isSkillsLoading ? (<LoaderScreen/>) :(<AboutSection aboutMeContent={aboutMeContent} skills={skills}/>);
       case "experience":
-        return <ExperienceSection />;
+        return isExperiencesLoading ? (<LoaderScreen/>) : (<ExperienceSection experiences={experiences}/>)
       case "projects":
         return isProjectsLoading ? (<LoaderScreen/>) : (<ProjectsSection projects={projects}/>)
       case "education":
@@ -143,6 +148,23 @@ export function App() {
         .finally(() => setIsEducationsLoading(false));
     };
 
+    const fetchExperiences = () => {
+      setIsExperiencesLoading(true);
+      getDocs(collection(db, "experience"))
+        .then((snap) => {
+
+          const data: ExperienceDB[] = snap.docs.map((d) => ({
+                id: d.id,
+                ...(d.data() as Omit<ExperienceDB, "id">), // Type assertion for Firestore data
+            }));
+
+          setExperiences(data);
+          setIsExperiencesFetched(true);
+        })
+        .catch(console.error)
+        .finally(() => setIsExperiencesLoading(false));
+    };
+
     const fetchAboutMeContent = () => {
       setIsAboutMeContentLoading(true);
       getDocs(collection(db, "aboutMe"))
@@ -189,13 +211,17 @@ export function App() {
       fetchEducations();
     }
 
+    if ((activeTab === "experience") && !isExperiencesFetched) {
+      fetchExperiences();
+    }
+
     if ((activeTab === "about") && !isAboutMeContentFetched && !isSkillsFetched) {
       fetchAboutMeContent();
       fetchSkills();
     }
 
 
-  }, [activeTab, isProjectsFetched, isPostsFetched,
+  }, [activeTab, isProjectsFetched, isPostsFetched, isExperiencesFetched,
      isEducationsFetched, isAboutMeContentFetched, isSkillsFetched]);
 
 
