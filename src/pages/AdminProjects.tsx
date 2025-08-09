@@ -13,6 +13,7 @@ import { TagsInput } from '../ui/TagsInput';
 import { getTechNamesArray } from '../store/techUsedOptions';
 import { AdminProjectPanel } from './AdminPanelItem';
 import { fireStoreCollections } from '../firebase/fireStoreDatabaseCollections';
+import { CheckboxField } from '../ui/CheckboxField';
 
 export type ProjectFormProps = {
 
@@ -22,6 +23,7 @@ export type ProjectFormProps = {
     startDate: string,
     techUsed: string[],
     imageName: string,
+    isWork: boolean,
 }
 
 export interface ProjectDB {
@@ -33,6 +35,7 @@ export interface ProjectDB {
     startDate: string,
     techUsed: string[],
     imageName: string,
+    isWork: boolean,
 }
 
 export const AdminProjects = () => {
@@ -83,6 +86,7 @@ export const AdminProjects = () => {
         startDate: "",
         techUsed: [],
         imageName: "",
+        isWork: false,
     });
     const [projectID, setProjectID] = useState("");
 
@@ -104,11 +108,12 @@ export const AdminProjects = () => {
             startDate: "",
             techUsed: [],
             imageName: "",
+            isWork: false,
         })
     }
 
     const handlePressEditProject = (projectID: string, projectTitle: string, projectDesc: string,
-         projectUrl: string, projectStartDate: string, projectTechUsed: string[], projectImageName: string) => {
+         projectUrl: string, projectStartDate: string, projectTechUsed: string[], projectImageName: string, projectIsWork: boolean) => {
 
         setCurrentPanelAction('update')
         setProjectPanelTitle('Edit Project')
@@ -124,6 +129,7 @@ export const AdminProjects = () => {
             startDate: projectStartDate,
             techUsed: projectTechUsed,
             imageName: projectImageName,
+            isWork: projectIsWork,
         })
 
         setProjectID(projectID)
@@ -145,6 +151,7 @@ export const AdminProjects = () => {
             startDate: "",
             techUsed: [],
             imageName: "",
+            isWork: false,
         })
 
         setProjectID(projectID)
@@ -161,6 +168,7 @@ export const AdminProjects = () => {
             startDate: project.startDate,
             techUsed: project.techUsed,
             imageName: project.imageName,
+            isWork: project.isWork,
         });
 
         // read database after
@@ -199,6 +207,7 @@ export const AdminProjects = () => {
             startDate: project.startDate,
             techUsed: project.techUsed,
             imageName: project.imageName,
+            isWork: project.isWork,
         });
 
         // read database after
@@ -246,12 +255,12 @@ export const AdminProjects = () => {
 
                                 {allProjects.length == 0 ? (<p className='text-center text-2xl text-zinc-500'>No Projects Yet</p>) : (
                                     <>
-                                        {allProjects.map(({ id, title, description, projectLink, startDate, techUsed, imageName }, index) => (
+                                        {allProjects.map(({ id, title, description, projectLink, startDate, techUsed, imageName, isWork }, index) => (
 
                                             <AdminProjectPanel key={index}
                                                 title={title}
                                                 date={startDate} index={index}
-                                                OnPressEdit={() => handlePressEditProject(id, title, description, projectLink, startDate, techUsed, imageName)}
+                                                OnPressEdit={() => handlePressEditProject(id, title, description, projectLink, startDate, techUsed, imageName, isWork)}
                                                 OnPressDelete={() => handlePressDeleteProject(id, title)} />
 
                                         ))}
@@ -315,6 +324,7 @@ export const ProjectDialogPanel = ({
     const [currentStartDateValue, setCurrentStartDateValue] = useState(projectForm.startDate);
     const [currentTechUsedValue, setCurrentTechUsedValue] = useState<string[]>(projectForm.techUsed);
     const [currentImageNameValue, setCurrentImageNameValue] = useState<string>(projectForm.imageName);
+    const [currentIsWorkValue, setCurrentIsWorkValue] = useState<boolean>(projectForm.isWork);
 
     const [warning, setWarning] = useState('');
 
@@ -341,6 +351,7 @@ export const ProjectDialogPanel = ({
             startDate: currentStartDateValue,
             techUsed: currentTechUsedValue,
             imageName: currentImageNameValue,
+            isWork: currentIsWorkValue,
         }
 
         console.log(newProject)
@@ -364,6 +375,7 @@ export const ProjectDialogPanel = ({
     const handleChangeStartDate = (event: ChangeEvent<HTMLInputElement>) => { setCurrentStartDateValue(event.target.value) };
     //const handleChangeTechUsed = (event: ChangeEvent<HTMLInputElement>) => { setCurrentTechUsedValue(event.target.value) };
     const handleChangeImageName = (event: ChangeEvent<HTMLInputElement>) => { setCurrentImageNameValue(event.target.value) };
+    const handleChangeIsWork = (event: ChangeEvent<HTMLInputElement>) => { setCurrentIsWorkValue(event.target.checked) };
 
     if (isDeleteProjectPanel) {
         return (
@@ -376,6 +388,7 @@ export const ProjectDialogPanel = ({
                     startDate: currentStartDateValue,
                     techUsed: currentTechUsedValue,
                     imageName: currentImageNameValue,
+                    isWork: currentIsWorkValue,
                 }, projectID)} />
         )
     }
@@ -396,6 +409,11 @@ export const ProjectDialogPanel = ({
             <InputField className='' placeholder='Project start date (dd/mm/yyy)' type='date' value={currentStartDateValue} OnInputChanged={handleChangeStartDate} />
             <TagsInput tagOptions={techUsedOptions} value={currentTechUsedValue} onValueChanged={(value) => setCurrentTechUsedValue(value)}/>
             <InputField className='' placeholder='Project image name' type='text' value={currentImageNameValue} OnInputChanged={handleChangeImageName} />
+            <div className='flex flex-row w-1/2 items-center space-x-3'>
+                <p className='text-sm font-text text-zinc-300'>Is Work Project</p>
+                <CheckboxField className='' placeholder='Project image name' type='checkbox' checked={currentIsWorkValue} OnInputChanged={handleChangeIsWork} />
+            </div>
+            
 
             {warning && <div className="text-red-500 font-text">{warning}</div>}
 

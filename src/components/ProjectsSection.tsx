@@ -66,10 +66,10 @@ export const ProjectsSection = ({ projects }: ProjectSectionProps) => {
                 animate='show'
                 variants={containerVariant}>
 
-                {sortedProjects.map(({ title, description, projectLink, startDate, techUsed, imageName }, index) => (
+                {sortedProjects.map(({ title, description, projectLink, startDate, techUsed, imageName, isWork }, index) => (
 
                     <ProjectPanel key={index} title={title} description={description} projectLink={projectLink}
-                        startDate={startDate} techUsed={techUsed} imageName={imageName} index={index} />
+                        startDate={startDate} techUsed={techUsed} imageName={imageName} isWork={isWork} index={index} />
 
                 ))}
 
@@ -86,10 +86,11 @@ type ProjectPanelProps = {
     startDate: string,
     techUsed: string[],
     imageName: string,
+    isWork: boolean,
     index: number,
 }
 
-export const ProjectPanel = ({ title, description, projectLink, startDate, techUsed, imageName, index }: ProjectPanelProps) => {
+export const ProjectPanel = ({ title, description, projectLink, startDate, techUsed, imageName, isWork, index }: ProjectPanelProps) => {
 
     const panelVariant = {
         hidden: { opacity: 0, y: 10 },
@@ -104,6 +105,10 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, techU
 
     //const formattedDate = startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
 
+    const tagText = isWork ? ("Work") : ("Personal");
+    const tagClass = isWork ? ("text-xs px-2 py-1 border border-blue-600 text-blue-400 group-hover:text-blue-300 rounded-2xl font-text group-hover:translate-x-1 transition") 
+    : ("text-xs px-2 py-1 border border-purple-600 text-purple-400 group-hover:text-purple-300 rounded-2xl font-text group-hover:translate-x-1 transition");
+
     return (
         <motion.div
             variants={panelVariant}
@@ -117,6 +122,10 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, techU
                     <div className="flex flex-row items-center space-x-6">
                         <div className="px-2.5 py-1 text-sm bg-zinc-900 group-hover:bg-zinc-700 font-bold font-text text-zinc-400 group-hover:text-zinc-300 rounded transition">{index + 1}</div>
                         <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition font-text">{title}</h3>
+
+                        <div className={tagClass}>
+                            <p>{tagText}</p>
+                        </div>
                     </div>
 
                     <div className="flex flex-row items-center space-x-3">
@@ -131,7 +140,7 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, techU
 
             <AnimatePresence initial={false}>
                 {isOpen ? (
-                    <ProjectInfoPanel description={description} projectLink={projectLink} imageName={imageName} techUsed={techUsed} />
+                    <ProjectInfoPanel description={description} projectLink={projectLink} imageName={imageName} techUsed={techUsed} isWork={isWork} />
                 ) : null}
             </AnimatePresence>
 
@@ -145,9 +154,10 @@ type ProjectInfoPanelProps = {
     projectLink: string,
     imageName: string,
     techUsed: string[],
+    isWork: boolean,
 }
 
-export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed }: ProjectInfoPanelProps) => {
+export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed, isWork }: ProjectInfoPanelProps) => {
 
     const menuVariants = {
         closed: {
@@ -222,9 +232,18 @@ export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed
                 style={{ color: '#9e75f0' }}
             >
                 <div className="flex flex-row space-x-2 items-center hover:text-purple-300 transition my-1 w-full">
-                    {githubIcon}
-                    <p>View on GitHub</p>
-                    <GoArrowUpRight size={25} />
+
+                    {isWork ? (
+                        <><p>Read More</p>
+                            <GoArrowUpRight size={25} /></>
+
+                    ) : (
+                        <>
+                            {githubIcon}
+                            <p>View on GitHub</p>
+                            <GoArrowUpRight size={25} />
+                        </>
+                    )}
                 </div>
             </a>
         </motion.div>
