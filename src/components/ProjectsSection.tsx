@@ -103,11 +103,14 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, techU
 
     const [isOpen, setIsOpen] = useState(false);
 
-    //const formattedDate = startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+    const formattedDate = new Date(startDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
 
     const tagText = isWork ? ("Work") : ("Personal");
-    const tagClass = isWork ? ("text-xs px-2 py-1 border border-blue-600 text-blue-400 group-hover:text-blue-300 rounded-2xl font-text group-hover:translate-x-1 transition") 
-    : ("text-xs px-2 py-1 border border-purple-600 text-purple-400 group-hover:text-purple-300 rounded-2xl font-text group-hover:translate-x-1 transition");
+    const baseTagClass = "text-xs px-2 py-1 border-1 rounded-2xl font-text group-hover:translate-x-1 transition";
+    const colorTagClass = isWork
+        ? "border-blue-800 text-blue-600 group-hover:text-blue-400 group-hover:border-blue-600"
+        : "border-purple-800 text-purple-600 group-hover:text-purple-400 group-hover:border-purple-600";
+    const tagClass = `${baseTagClass} ${colorTagClass}`;
 
     return (
         <motion.div
@@ -129,7 +132,7 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, techU
                     </div>
 
                     <div className="flex flex-row items-center space-x-3">
-                        <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Started: {startDate}</p>
+                        <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Started: {formattedDate}</p>
                         <div
                             className="p-1 text-zinc-500 group-hover:text-zinc-300 transition">
                             {isOpen ? <FaChevronUp /> : <FaChevronDown />}
