@@ -1,27 +1,25 @@
 import * as React from "react"
 
-type InputFieldProps = {
+type CheckboxFieldProps = {
 
     className: string,
     placeholder: string,
     type:  React.HTMLInputTypeAttribute,
-    value?: string,
-    checked?: boolean,
+    checked: boolean,
     OnInputChanged?: (event: React.ChangeEvent<HTMLInputElement>) => void,
 
 }
 
-export const InputField = ({ className, placeholder, type, value, checked, OnInputChanged, ...props }: InputFieldProps) => {
+export const CheckboxField = ({ className, placeholder, type, checked, OnInputChanged, ...props }: CheckboxFieldProps) => {
 
     return (
     <input
       checked={checked}
       type={type}
       data-slot="input"
-      value={value}
       onChange={OnInputChanged}
       placeholder={placeholder}
-      className="flex h-9 w-full min-w-0 rounded-md placeholder:text-zinc-500 text-zinc-100 font-text px-2 border-2 border-zinc-500"
+      className="flex h-4 min-w-0 rounded-md placeholder:text-zinc-500 text-zinc-100 font-text px-2 border-2 border-zinc-500"
       {...props} />
   );
 
