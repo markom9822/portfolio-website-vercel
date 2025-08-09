@@ -57,7 +57,7 @@ export const ProjectsSection = ({ projects }: ProjectSectionProps) => {
                 className="text-lg text-zinc-400 font-text"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
-                Projects that I have built in my spare time.
+                Projects that I have built in my spare time or in work.
             </motion.p>
 
             <motion.div
