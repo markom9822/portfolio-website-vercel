@@ -97,6 +97,8 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
         },
     };
 
+    const formattedDate = new Date(publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+
     return (
         <motion.div
             variants={panelVariant}
@@ -111,7 +113,7 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
                         <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition font-text">{title}</h3>
                     </div>
                     <div className="flex flex-row items-center space-x-3">
-                        <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Published: {publishDate}</p>
+                        <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Published: {formattedDate}</p>
                         <div
                             className="p-1 text-zinc-500 group-hover:text-zinc-300 transition">
                             {isOpen ? <FaChevronUp /> : <FaChevronDown />}
