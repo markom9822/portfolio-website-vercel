@@ -4,7 +4,6 @@ import { motion, stagger } from "motion/react"
 import type { SkillsDB } from '../pages/AdminAboutMe';
 import { getTechUsedFromName } from '../store/techUsedOptions';
 
-
 type AboutSectionProps = {
 
     aboutMeContent: AboutMeContentDB[],
@@ -12,39 +11,6 @@ type AboutSectionProps = {
 }
 
 export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
-
-    /*const skills = [
-        {
-            title: "C#",
-            experience: 3,
-            icon: csIcon,
-        },
-        {
-            title: "Unity",
-            experience: 3,
-            icon: unityIcon,
-        },
-        {
-            title: "React/React Native",
-            experience: 2,
-            icon: reactIcon,
-        },
-        {
-            title: "Typescript",
-            experience: 2,
-            icon: typescriptIcon,
-        },
-        {
-            title: "C++",
-            experience: 1,
-            icon: cppIcon,
-        },
-        {
-            title: "Python",
-            experience: 1,
-            icon: pythonIcon,
-        },
-    ];*/
 
     const containerVariant = {
         hidden: {},
