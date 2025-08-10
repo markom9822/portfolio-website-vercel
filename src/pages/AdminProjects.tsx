@@ -39,35 +39,6 @@ export interface ProjectDB {
 }
 
 export const AdminProjects = () => {
-
-
-    /*const projects = [
-        {
-            title: "This portfolio website!",
-            description: "A portfolio website built from scratch using React, Vite and Tailwind CSS.",
-            projectLink: "https://github.com/markom9822/portfolio-website-vercel",
-            startDate: new Date(2025, 6, 28),
-            image: portfolioWebsiteImage,
-            techUsed: [reactIcon, viteIcon, typescriptIcon, tailwindCSSIcon, gitIcon, figmaIcon],
-        },
-        {
-            title: "MarkNote App",
-            description: "A personal desktop Markdown note taking application developed using React and Electron.",
-            projectLink: "https://github.com/markom9822/MarkNote-App",
-            startDate: new Date(2024, 2, 29),
-            image: markNoteImage,
-            techUsed: [reactIcon, electronIcon, typescriptIcon, tailwindCSSIcon, markdownIcon, jotaiIcon, codemirrorIcon, gitIcon],
-        },
-        {
-            title: "Rugby Radar App",
-            description: "A sports mobile application built with React Native and Expo. Provides real-time information on fixtures, stats, standings and more from 10+ rugby leagues around the world.",
-            projectLink: "https://github.com/markom9822/rugbyRadar_app",
-            startDate: new Date(2024, 6, 12),
-            image: rugbyRadarImage,
-            techUsed: [reactIcon, typescriptIcon, expoIcon, gitIcon, figmaIcon],
-        },
-    ];*/
-
     const [projectPanelTitle, setProjectPanelTitle] = useState("");
     const [projectPanelDesc, setProjectPanelDesc] = useState("");
 
@@ -286,7 +257,6 @@ export const AdminProjects = () => {
                                         onUpdateProject={updateProjectInDatabase} onDeleteProject={deleteProjectInDatabase} />
                                 </AddPanel>
                             </div>
-
                         </div>
                     )}
                 </div>
@@ -373,7 +343,6 @@ export const ProjectDialogPanel = ({
     const handleChangeDesc = (event: ChangeEvent<HTMLTextAreaElement>) => { setCurrentDescValue(event.target.value) };
     const handleChangeLink = (event: ChangeEvent<HTMLInputElement>) => { setCurrentLinkValue(event.target.value) };
     const handleChangeStartDate = (event: ChangeEvent<HTMLInputElement>) => { setCurrentStartDateValue(event.target.value) };
-    //const handleChangeTechUsed = (event: ChangeEvent<HTMLInputElement>) => { setCurrentTechUsedValue(event.target.value) };
     const handleChangeImageName = (event: ChangeEvent<HTMLInputElement>) => { setCurrentImageNameValue(event.target.value) };
     const handleChangeIsWork = (event: ChangeEvent<HTMLInputElement>) => { setCurrentIsWorkValue(event.target.checked) };
 
@@ -412,8 +381,7 @@ export const ProjectDialogPanel = ({
             <div className='flex flex-row w-1/2 items-center space-x-3'>
                 <p className='text-sm font-text text-zinc-300'>Is Work Project</p>
                 <CheckboxField className='' placeholder='Project image name' type='checkbox' checked={currentIsWorkValue} OnInputChanged={handleChangeIsWork} />
-            </div>
-            
+            </div> 
 
             {warning && <div className="text-red-500 font-text">{warning}</div>}
 

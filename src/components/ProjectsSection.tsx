@@ -7,7 +7,6 @@ import type { ProjectDB } from "../pages/AdminProjects";
 import { getTechUsedFromName } from "../store/techUsedOptions";
 
 type ProjectSectionProps = {
-
     projects: ProjectDB[]
 }
 
@@ -70,9 +69,7 @@ export const ProjectsSection = ({ projects }: ProjectSectionProps) => {
 
                     <ProjectPanel key={index} title={title} description={description} projectLink={projectLink}
                         startDate={startDate} techUsed={techUsed} imageName={imageName} isWork={isWork} index={index} />
-
                 ))}
-
             </motion.div>
         </motion.div>
     )
@@ -146,13 +143,11 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, techU
                     <ProjectInfoPanel description={description} projectLink={projectLink} imageName={imageName} techUsed={techUsed} isWork={isWork} />
                 ) : null}
             </AnimatePresence>
-
         </motion.div>
     )
 }
 
 type ProjectInfoPanelProps = {
-
     description: string,
     projectLink: string,
     imageName: string,
@@ -212,7 +207,6 @@ export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed
                 </div>
             </div>
 
-
             <div className="flex flex-col space-y-2 w-full" key="tech">
 
                 <h3 className="font-text text-xs text-zinc-400 w-full">TECH USED:</h3>
@@ -237,9 +231,10 @@ export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed
                 <div className="flex flex-row space-x-2 items-center hover:text-purple-300 transition my-1 w-full">
 
                     {isWork ? (
-                        <><p>Read More</p>
-                            <GoArrowUpRight size={25} /></>
-
+                        <>
+                            <p>Read More</p>
+                            <GoArrowUpRight size={25} />
+                        </>
                     ) : (
                         <>
                             {githubIcon}

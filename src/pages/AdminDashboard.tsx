@@ -16,7 +16,6 @@ export interface AboutMeContentDB {
     content: string,
 }
 
-
 export const AdminDashboard = () => {
 
     const navigate = useNavigate();
@@ -108,9 +107,7 @@ export const AdminDashboard = () => {
 
                             <DashboardCard key={index} title={title} description={description} Icon={icon} route={route} navigateFunction={navigate} />
                         ))}
-
                     </div>
-
                 </div>
             </div>
         </div>

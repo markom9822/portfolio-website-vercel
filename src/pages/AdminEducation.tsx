@@ -12,7 +12,6 @@ import { db } from "../firebase/firebaseConfig";
 import { AdminProjectPanel } from './AdminPanelItem';
 import { fireStoreCollections } from '../firebase/fireStoreDatabaseCollections';
 
-
 export type EducationFormProps = {
 
     title: string,
@@ -36,28 +35,7 @@ export interface EducationDB {
 
 
 export const AdminEducation = () => {
-
-    /*const educations = [
-        {
-            title: "Imperial College London",
-            subtitle: "MSc - Biomedical Engineering, Neurotechnology",
-            startDate: new Date(2021, 9, 1),
-            endDate: new Date(2022, 9, 1),
-            content: "Graduated with Merit and received Department of Bioengineering Scholarship.\n" +
-                "Masters Thesis: Sensory augmentation with a third eye using Virtual Reality, published in the 2023 IEEE International Conference on Robot and Human Interactive Communication.",
-            icon: iclLogo,
-        },
-        {
-            title: "University College Dublin",
-            subtitle: "BEng - Biomedical Engineering",
-            startDate: new Date(2017, 9, 1),
-            endDate: new Date(2021, 9, 1),
-            content: "First Class Honors (GPA: 3.72/4.20).\n" +
-                "Final Year Thesis: Preliminary and final technical report on sleep stage prediction from wearable sensors using machine learning coded in Python.",
-            icon: ucdLogo,
-        },
-    ];*/
-
+    
     const [educationPanelTitle, setEducationPanelTitle] = useState("");
     const [educationPanelDesc, setEducationPanelDesc] = useState("");
 

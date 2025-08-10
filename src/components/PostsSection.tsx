@@ -4,9 +4,7 @@ import { GoArrowUpRight } from "react-icons/go";
 import { motion, stagger, AnimatePresence } from "motion/react"
 import type { PostDB } from "../pages/AdminPosts";
 
-
 type PostsSectionProps = {
-
     posts: PostDB[]
 }
 
@@ -73,7 +71,6 @@ export const PostsSection = ({ posts }: PostsSectionProps) => {
     )
 }
 
-
 type BlogPostPanelProps = {
 
     title: string,
@@ -132,8 +129,6 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
     )
 }
 
-
-
 type BlogPostInfoPanelProps = {
 
     description: string,
@@ -158,7 +153,6 @@ export const BlogPostInfoPanel = ({ description, blogLink, imageName }: BlogPost
             transition: { duration: 0.2 }
         },
     };
-
 
     return (
         <motion.div 
@@ -205,10 +199,7 @@ export const BlogPostInfoPanel = ({ description, blogLink, imageName }: BlogPost
                     <p>Read more</p>
                     <GoArrowUpRight size={25} />
                 </div>
-
             </a>
         </motion.div>
     )
-
-
 }

@@ -1,4 +1,3 @@
-
 import { useEffect, useState, type ChangeEvent } from 'react';
 import { AlertDialog } from "radix-ui";
 import { TextAreaField } from '../ui/TextAreaField';
@@ -15,15 +14,12 @@ import { InputField } from '../ui/InputField';
 import { getTechNamesArray } from '../store/techUsedOptions';
 import { TagsInput } from '../ui/TagsInput';
 
-
 export interface AboutMeContentDB {
     id: string;
-
     content: string,
 }
 
 export type SkillsFormProps = {
-
     title: string,
     experience: string,
     techUsed: string[],
@@ -36,7 +32,6 @@ export interface SkillsDB {
     experience: string,
     techUsed: string[],
 }
-
 
 export const AdminAboutMe = () => {
 
@@ -116,7 +111,6 @@ export const AdminAboutMe = () => {
     }
 
     // CRUD System
-
     const readAboutMeContentFromDatabase = async (): Promise<void> => {
 
         console.log("Trying to read about me content from database")
@@ -209,14 +203,12 @@ export const AdminAboutMe = () => {
         readSkillsFromDatabase();
     }
 
-
     // read projects from database initially
     useEffect(() => {
         readAboutMeContentFromDatabase();
 
         readSkillsFromDatabase();
     }, []);
-
 
     const handleChangeAboutMeContent = (event: ChangeEvent<HTMLTextAreaElement>) => { setCurrentAboutMeValue(event.target.value) };
 
@@ -312,7 +304,6 @@ export const SkillDialogPanel = ({
     currentPanelAction, panelTitle, panelDesc, cancelButtonName, actionButtonName, skillForm, skillID, isDeleteSkillPanel,
     setDialogOpen, onCreateSkill, onUpdateSkill, onDeleteSkill }: SkillDialogPanelProps) => {
 
-
     const [currentTitleValue, setCurrentTitleValue] = useState(skillForm.title);
     const [currentExperienceValue, setCurrentExperienceValue] = useState(skillForm.experience);
     const [currentTechUsedValue, setCurrentTechUsedValue] = useState<string[]>(skillForm.techUsed);
@@ -403,7 +394,6 @@ export const SkillDialogPanel = ({
     )
 }
 
-
 type AdminAboutMeContentProps = {
 
     OnChangesSaved: () => void,
@@ -427,7 +417,6 @@ export const AdminAboutMeContent = ({ OnChangesSaved, contentValue, handleInputC
                     Save changes
                 </button>
             </div>
-
         </div>
     )
 }
