@@ -51,7 +51,7 @@ export const ExperienceSection = ({ experiences }: ExperienceSectionProps) => {
             </motion.h2>
 
             <motion.p
-                className="text-lg text-zinc-400 font-text w-full"
+                className="text-lg text-zinc-800 font-text w-full"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
 
@@ -110,15 +110,15 @@ export const ExperiencePanel = ({ companyName, companyIconName, companyLocation,
 
     return (
         <div
-            className="group rounded shadow border-2 border-zinc-700 transition hover:border-zinc-400 p-4 w-full">
+            className="group rounded shadow border-2 border-zinc-500 transition hover:border-zinc-900 p-4 w-full">
             <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-col mb-4 group-hover:translate-x-1 transition space-y-1">
-                    <h2 className="text-2xl text-zinc-300 font-text mb-1 group-hover:text-zinc-100 transition">{companyName}</h2>
+                    <h2 className="text-2xl text-zinc-700 font-text mb-1 group-hover:text-zinc-900 transition">{companyName}</h2>
 
-                    {showTotalDuration && (<p className="font-text text-sm text-zinc-400 group-hover:text-zinc-200 transition">[ {durationText} ]</p>)}
+                    {showTotalDuration && (<p className="font-text text-sm text-zinc-700 group-hover:text-zinc-900 transition">[ {durationText} ]</p>)}
 
                     <div className="flex flex-row items-center space-x-3">
-                        <p className="font-text text-sm text-zinc-400 group-hover:text-zinc-200 transition">{companyLocation.toUpperCase()}</p>
+                        <p className="font-text text-sm text-zinc-700 group-hover:text-zinc-900 transition">{companyLocation.toUpperCase()}</p>
                         <div className="opacity-40 group-hover:opacity-100 transition">
                             {getFlagFromName(country)?.icon}
                         </div>
@@ -126,7 +126,7 @@ export const ExperiencePanel = ({ companyName, companyIconName, companyLocation,
 
                 </div>
 
-                <div className="flex items-center opacity-60 group-hover:opacity-100 transition">
+                <div className="flex items-center opacity-60 group-hover:opacity-100 transition border-2 border-zinc-800 rounded">
                     <a href={companyWebsite} target="_blank">
                         <img title={companyName} width="70" height="70" style={{ borderRadius: '5px' }} src={companyIconName}>
                         </img>
@@ -166,13 +166,13 @@ export const PositionPanel = ({ positionName, content, positionStartDate, positi
 
     return (
         <div className="flex flex-col space-y-3">
-            <h3 className="text-lg text-zinc-200 mb-2 font-text">{positionName}</h3>
+            <h3 className="text-lg text-zinc-800 mb-2 font-text">{positionName}</h3>
             <div className="flex flex-row space-x-4">
-                <p className="font-text text-sm text-zinc-300">{formattedStartDate} - {formattedEndDate}</p>
-                <p className="font-text text-sm text-zinc-400">[ {durationText} ]</p>
+                <p className="font-text text-sm text-zinc-800">{formattedStartDate} - {formattedEndDate}</p>
+                <p className="font-text text-sm text-zinc-700">[ {durationText} ]</p>
             </div>
 
-            <p className="text-sm text-zinc-400 mb-2 font-text">
+            <p className="text-sm text-zinc-800 mb-2 font-text">
                 {content.split('\n').map((line, index, arr) => (
                     <Fragment key={index}>
                         {line}

@@ -53,7 +53,7 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
             </motion.h2>
 
             <motion.p
-                className="text-base text-zinc-400 font-text"
+                className="text-base text-zinc-800 font-text"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}
             >
@@ -119,12 +119,12 @@ export const SkillPanel = ({ title, experience, maxExperienceLevel, tech }: Skil
 
                 <div className='flex flex-col w-full'>
                     <div className='flex flex-row justify-between'>
-                        <h3 className="text-lg font-semibold text-zinc-200 mb-2 font-text">{title}</h3>
-                        <h3 className="text-base text-zinc-200 mb-2 font-text">{experienceText}</h3>
+                        <h3 className="text-lg font-semibold text-zinc-800 mb-2 font-text">{title}</h3>
+                        <h3 className="text-base text-zinc-800 mb-2 font-text">{experienceText}</h3>
                     </div>
                     <div className="h-2.5 relative">
                         <div className="bg-[#9e75f0] h-2.5 rounded relative z-10" style={{ width: experienceWidth }}></div>
-                        <div className="bg-zinc-800 h-2.5 rounded absolute bottom-0 left-0 z-0" style={{ width: "100%" }}></div>
+                        <div className="bg-zinc-300 h-2.5 rounded absolute bottom-0 left-0 z-0" style={{ width: "100%" }}></div>
                     </div>
                 </div>
             </div>

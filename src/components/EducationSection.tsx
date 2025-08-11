@@ -50,7 +50,7 @@ export const EducationSection = ({ educations }: EducationSectionProps) => {
             </motion.h2>
 
             <motion.p
-                className="text-lg text-zinc-400 font-text"
+                className="text-lg text-zinc-800 font-text"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
                 My educational background.
@@ -88,12 +88,12 @@ export const EducationPanel = ({ title, subtitle, content, imageName, startDate,
 
     return (
         <div
-            className="group rounded shadow border-2 border-zinc-700 transition hover:border-zinc-400 p-4"
+            className="group rounded shadow border-2 border-zinc-400 transition hover:border-zinc-700 p-4"
         >
             <div className="flex flex-row justify-between">
                 <div className="flex flex-col mb-5 group-hover:translate-x-1 transition">
-                    <h2 className="text-2xl text-zinc-300 font-text mb-1 group-hover:text-zinc-100 transition">{title}</h2>
-                    <p className="font-text text-sm text-zinc-400 group-hover:text-zinc-200 transition">{subtitle.toUpperCase()} [ {startYear} - {endYear} ]</p>
+                    <h2 className="text-2xl text-zinc-700 font-text mb-1 group-hover:text-zinc-800 transition">{title}</h2>
+                    <p className="font-text text-sm text-zinc-700 group-hover:text-zinc-800 transition">{subtitle.toUpperCase()} [ {startYear} - {endYear} ]</p>
                 </div>
 
                 <div className="flex items-center opacity-60 group-hover:opacity-100 transition">
@@ -104,7 +104,7 @@ export const EducationPanel = ({ title, subtitle, content, imageName, startDate,
 
             </div>
 
-            <p className="text-sm text-zinc-400 font-text">
+            <p className="text-sm text-zinc-800 font-text">
                 {content.split('\n').map((line, index, arr) => (
                     <Fragment key={index}>
                         {line}

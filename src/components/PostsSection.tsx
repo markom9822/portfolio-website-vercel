@@ -50,7 +50,7 @@ export const PostsSection = ({ posts }: PostsSectionProps) => {
             </motion.h2>
 
             <motion.p
-                className="text-lg text-zinc-400 font-text"
+                className="text-lg text-zinc-800 font-text"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
                 Blog posts on topics that I have interest in.
@@ -106,13 +106,13 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
                 <div className="border-b-2 border-b-zinc-500 flex flex-row justify-between items-center w-full py-2">
 
                     <div className="flex flex-row items-center space-x-6">
-                        <div className="px-2.5 py-1 text-sm bg-zinc-900 group-hover:bg-zinc-700 font-bold font-text text-zinc-400 group-hover:text-zinc-300 rounded transition">{index + 1}</div>
-                        <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition font-text">{title}</h3>
+                        <div className="px-2.5 py-1 text-sm bg-zinc-200 group-hover:bg-zinc-700 font-bold font-text text-zinc-400 group-hover:text-zinc-300 rounded transition">{index + 1}</div>
+                        <h3 className="text-xl font-semibold text-zinc-600 group-hover:text-zinc-900 group-hover:translate-x-1 transition font-text">{title}</h3>
                     </div>
                     <div className="flex flex-row items-center space-x-3">
-                        <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Published: {formattedDate}</p>
+                        <p className="font-text text-sm p-1 text-zinc-700 group-hover:text-zinc-800 transition">Published: {formattedDate}</p>
                         <div
-                            className="p-1 text-zinc-500 group-hover:text-zinc-300 transition">
+                            className="p-1 text-zinc-700 group-hover:text-zinc-800 transition">
                             {isOpen ? <FaChevronUp /> : <FaChevronDown />}
                         </div>
                     </div>
@@ -165,7 +165,7 @@ export const BlogPostInfoPanel = ({ description, blogLink, imageName }: BlogPost
 
             <div className="flex flex-row w-full" key="content">
 
-                <p className="text-sm text-zinc-400 mb-6 font-text w-2/3 p-1">
+                <p className="text-sm text-zinc-900 mb-6 font-text w-2/3 p-1">
                     {description.split('\n').map((line, index, arr) => (
                         <Fragment key={index}>
                             {line}
@@ -195,7 +195,7 @@ export const BlogPostInfoPanel = ({ description, blogLink, imageName }: BlogPost
                 key="link"
                 style={{ color: '#9e75f0' }}
             >
-                <div className="flex flex-row space-x-1 items-center hover:text-purple-300 transition">
+                <div className="flex flex-row space-x-1 items-center hover:text-purple-700 transition">
                     <p>Read more</p>
                     <GoArrowUpRight size={25} />
                 </div>

@@ -9,7 +9,7 @@ export const ReachOutSection = () => {
                 reach out
             </h2>
 
-            <p className="text-lg text-zinc-400 font-text">
+            <p className="text-lg text-zinc-800 font-text">
                 Not much here yet.                
             </p>
         </div>

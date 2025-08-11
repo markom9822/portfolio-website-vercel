@@ -53,7 +53,7 @@ export const ProjectsSection = ({ projects }: ProjectSectionProps) => {
             </motion.h2>
 
             <motion.p
-                className="text-lg text-zinc-400 font-text"
+                className="text-lg text-zinc-800 font-text"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
                 Projects that I have built in my spare time or in work.
@@ -120,8 +120,8 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, techU
                 <div className="border-b-2 border-b-zinc-500 flex flex-row justify-between items-center w-full py-2">
 
                     <div className="flex flex-row items-center space-x-6">
-                        <div className="px-2.5 py-1 text-sm bg-zinc-900 group-hover:bg-zinc-700 font-bold font-text text-zinc-400 group-hover:text-zinc-300 rounded transition">{index + 1}</div>
-                        <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition font-text">{title}</h3>
+                        <div className="px-2.5 py-1 text-sm bg-zinc-200 group-hover:bg-zinc-700 font-bold font-text text-zinc-400 group-hover:text-zinc-300 rounded transition">{index + 1}</div>
+                        <h3 className="text-xl font-semibold text-zinc-600 group-hover:text-zinc-900 group-hover:translate-x-1 transition font-text">{title}</h3>
 
                         <div className={tagClass}>
                             <p>{tagText}</p>
@@ -129,9 +129,9 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, techU
                     </div>
 
                     <div className="flex flex-row items-center space-x-3">
-                        <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Started: {formattedDate}</p>
+                        <p className="font-text text-sm p-1 text-zinc-700 group-hover:text-zinc-800 transition">Started: {formattedDate}</p>
                         <div
-                            className="p-1 text-zinc-500 group-hover:text-zinc-300 transition">
+                            className="p-1 text-zinc-700 group-hover:text-zinc-800 transition">
                             {isOpen ? <FaChevronUp /> : <FaChevronDown />}
                         </div>
                     </div>
@@ -184,7 +184,7 @@ export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed
             <div className="flex flex-row w-full" key="content">
 
                 <div className="w-2/3 p-1">
-                    <p className="text-sm text-zinc-400 mb-6 font-text w-full">
+                    <p className="text-sm text-zinc-900 mb-6 font-text w-full">
                         {description.split('\n').map((line, index, arr) => (
                             <Fragment key={index}>
                                 {line}
@@ -209,7 +209,7 @@ export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed
 
             <div className="flex flex-col space-y-2 w-full" key="tech">
 
-                <h3 className="font-text text-xs text-zinc-400 w-full">TECH USED:</h3>
+                <h3 className="font-text text-xs text-zinc-800 w-full">TECH USED:</h3>
 
                 <div className="w-2/3 flex flex-row flex-wrap space-x-1 space-y-2 mb-3 p-1">
                     {techUsed.map((name, index) => (
@@ -228,7 +228,7 @@ export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed
                 key="link"
                 style={{ color: '#9e75f0' }}
             >
-                <div className="flex flex-row space-x-2 items-center hover:text-purple-300 transition my-1 w-full">
+                <div className="flex flex-row space-x-2 items-center hover:text-purple-700 transition my-1 w-full">
 
                     {isWork ? (
                         <>

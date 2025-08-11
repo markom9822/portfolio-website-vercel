@@ -267,12 +267,7 @@ export function App() {
 
         <main
           ref={contentContainerRef}
-          className="flex-1 h-screen w-4xl overflow-y-auto p-6 md:p-10 
-        [&::-webkit-scrollbar]:[width:10px]
-      [&::-webkit-scrollbar-thumb]:bg-zinc-600
-        [&::-webkit-scrollbar-thumb]:rounded-xs
-        [&::-webkit-scrollbar-corner]:bg-zinc-900
-        overflow-x-hidden text-zinc-900">
+          className="flex-1 h-screen w-4xl overflow-y-auto p-6 md:p-10 overflow-x-hidden text-zinc-900">
           {handleContentsSection(activeTab)}
 
           <motion.div
