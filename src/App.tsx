@@ -271,10 +271,10 @@ export function App() {
           ref={contentContainerRef}
           className="flex-1 h-screen w-4xl overflow-y-auto overflow-x-hidden text-zinc-900 bg-emerald-200 rounded">
 
-          <div className='flex flex-row py-5'>
+          <div className='flex flex-row py-5 w-full'>
             <PageBinding />
 
-            <div className='p-4'>
+            <div className='p-4 w-11/12'>
               {handleContentsSection(activeTab)}
 
               <div
