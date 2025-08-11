@@ -5,17 +5,15 @@ type InputFieldProps = {
     className: string,
     placeholder: string,
     type:  React.HTMLInputTypeAttribute,
-    value?: string,
-    checked?: boolean,
+    value: string,
     OnInputChanged?: (event: React.ChangeEvent<HTMLInputElement>) => void,
 
 }
 
-export const InputField = ({ className, placeholder, type, value, checked, OnInputChanged, ...props }: InputFieldProps) => {
+export const InputField = ({ className, placeholder, type, value, OnInputChanged, ...props }: InputFieldProps) => {
 
     return (
     <input
-      checked={checked}
       type={type}
       data-slot="input"
       value={value}

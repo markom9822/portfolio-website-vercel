@@ -250,7 +250,7 @@ export const fireBaseIcon = (
 export const unityIcon = (
 
   <a href="https://unity.com/" target="_blank">
-    <img title="Unity" style={{ width: 45, height: 45 }} src="https://i.redd.it/tu3gt6ysfxq71.png">
+    <img title="Unity" width='50' height='50' src="https://i.redd.it/tu3gt6ysfxq71.png">
     </img>
   </a>
 )
