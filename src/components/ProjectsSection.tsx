@@ -119,17 +119,17 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, techU
                 className="group flex flex-row justify-between items-center p-2 py-4 w-full rounded">
                 <div className="border-b-2 border-b-zinc-500 flex flex-row justify-between items-center w-full py-2">
 
-                    <div className="flex flex-row items-center space-x-6">
-                        <div className="px-2.5 py-1 text-sm bg-zinc-200 group-hover:bg-zinc-700 font-bold font-text text-zinc-400 group-hover:text-zinc-300 rounded transition">{index + 1}</div>
-                        <h3 className="text-xl font-semibold text-zinc-600 group-hover:text-zinc-900 group-hover:translate-x-1 transition font-text">{title}</h3>
+                    <div className="flex flex-row items-center space-x-3">
+                        <div className="px-2.5 py-1 text-sm font-bold font-text border-2 border-zinc-400 group-hover:border-zinc-800 text-zinc-500 group-hover:text-zinc-900 rounded transition">{index + 1}</div>
+                        <h3 className="text-base font-semibold text-zinc-600 group-hover:text-zinc-900 group-hover:translate-x-1 transition font-text">{title}</h3>
 
                         <div className={tagClass}>
                             <p>{tagText}</p>
                         </div>
                     </div>
 
-                    <div className="flex flex-row items-center space-x-3">
-                        <p className="font-text text-sm p-1 text-zinc-700 group-hover:text-zinc-800 transition">Started: {formattedDate}</p>
+                    <div className="flex flex-row items-center space-x-3 text-xs">
+                        <p className="font-text p-1 text-zinc-700 group-hover:text-zinc-800 transition">Started: {formattedDate}</p>
                         <div
                             className="p-1 text-zinc-700 group-hover:text-zinc-800 transition">
                             {isOpen ? <FaChevronUp /> : <FaChevronDown />}
