@@ -38,25 +38,17 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
 
 
     return (
-        <motion.div
-            initial='hidden'
-            animate='show'
-            variants={containerVariant}
+        <div
             className="space-y-7 w-full">
 
-            <motion.h2
+            <h2
                 className="text-4xl font-bold font-text"
-                variants={itemVariant}
-                animate={{ transition: { ease: "easeOut" } }}
             >
                 about me
-            </motion.h2>
+            </h2>
 
-            <motion.p
-                className="text-base text-zinc-800 font-text"
-                variants={itemVariant}
-                animate={{ transition: { ease: "easeOut" } }}
-            >
+            <p
+                className="text-base text-zinc-800 font-text">
                 {aboutMeContent[0].content.split('\n').map((line, index, arr) => (
                     <Fragment key={index}>
                         {line}
@@ -67,13 +59,10 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
                         )}
                     </Fragment>
                 ))}
-            </motion.p>
+            </p>
 
-            <motion.div
-                className='w-full'
-                variants={itemVariant}
-                animate={{ transition: { ease: "easeOut" } }}
-            >
+            <div
+                className='w-full'>
                 <h2 className="text-2xl font-bold font-text mb-6">
                     skills
                 </h2>
@@ -92,8 +81,8 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
                     ))}
 
                 </div>
-            </motion.div>
-        </motion.div>
+            </div>
+        </div>
     )
 }
 

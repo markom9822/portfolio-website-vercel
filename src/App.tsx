@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import profilePic from '/images/profile_photo_small.png'
 import './App.css'
 import { LuBriefcaseBusiness } from "react-icons/lu";
@@ -25,6 +25,7 @@ import type { PostDB } from './pages/AdminPosts';
 import type { EducationDB } from './pages/AdminEducation';
 import type { SkillsDB } from './pages/AdminAboutMe';
 import type { ExperienceDB } from './pages/AdminExperience';
+import { PageBinding } from './components/PageBindings';
 
 export function App() {
 
@@ -58,6 +59,7 @@ export function App() {
   const [skills, setSkills] = useState<SkillsDB[]>([]);
 
   const contentContainerRef = useRef<HTMLDivElement | null>(null);
+  const [containerHeight, setContainerHeight] = useState<number | undefined>();
 
   const tabs = [
     { label: "about", Icon: BsInfoCircle },
@@ -267,40 +269,43 @@ export function App() {
 
         <main
           ref={contentContainerRef}
-          className="flex-1 h-screen w-4xl overflow-y-auto p-6 md:p-10 overflow-x-hidden text-zinc-900">
-          {handleContentsSection(activeTab)}
+          className="flex-1 h-screen w-4xl overflow-y-auto overflow-x-hidden text-zinc-900 bg-emerald-200 rounded">
 
-          <motion.div
-            className='flex justify-center space-x-5 pt-3 mt-6 border-t border-zinc-400 text-zinc-800'
-            initial="hidden"
-            animate="visible">
+          <div className='flex flex-row py-5'>
+            <PageBinding />
 
-            <motion.a
-              href="https://github.com/markom9822"
-              target="_blank"
-              rel="noreferrer"
-              className="transition-colors hover:text-zinc-600"
-              aria-label="Github"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ y: 0, opacity: 1, transition: { type: 'spring', stiffness: 200, damping: 30 } }}
-            >
-              {githubIcon}
-            </motion.a>
+            <div className='p-4'>
+              {handleContentsSection(activeTab)}
 
-            <motion.a
-              href="https://www.linkedin.com/in/marko-meara/"
-              target="_blank"
-              rel="noreferrer"
-              className="transition-colors hover:text-zinc-600"
-              aria-label="LinkedIn"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ y: 0, opacity: 1, transition: { type: 'spring', stiffness: 200, damping: 30 } }}
-            >
-              {linkedinIcon}
-            </motion.a>
-          </motion.div>
+              <div
+                className='flex justify-center space-x-5 pt-3 mt-6 border-t border-zinc-400 text-zinc-800'
+                >
+
+                <a
+                  href="https://github.com/markom9822"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="transition-colors hover:text-zinc-600"
+                  aria-label="Github"
+                >
+                  {githubIcon}
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/in/marko-meara/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="transition-colors hover:text-zinc-600"
+                  aria-label="LinkedIn"
+                  
+                >
+                  {linkedinIcon}
+                </a>
+              </div>
+
+            </div>
+          </div>
         </main>
-
       </div>
     )
   }
