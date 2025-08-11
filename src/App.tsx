@@ -1,5 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import profilePic from '/images/profile_photo_small.png'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import { LuBriefcaseBusiness } from "react-icons/lu";
 import { GrProjects } from "react-icons/gr";
@@ -7,8 +6,6 @@ import { IoSchoolOutline } from "react-icons/io5";
 import { MdOutlineLocalPostOffice } from "react-icons/md";
 import { SiMinutemailer } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
-import { motion } from "motion/react"
-import { githubIcon, linkedinIcon, } from "./components/Icons";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase/firebaseConfig";
 
@@ -26,6 +23,8 @@ import type { EducationDB } from './pages/AdminEducation';
 import type { SkillsDB } from './pages/AdminAboutMe';
 import type { ExperienceDB } from './pages/AdminExperience';
 import { PageBinding } from './components/PageBindings';
+import { FolderTab } from './components/FolderTab';
+import paperClip from '/images/paperclip_less.png'
 
 export function App() {
 
@@ -59,7 +58,6 @@ export function App() {
   const [skills, setSkills] = useState<SkillsDB[]>([]);
 
   const contentContainerRef = useRef<HTMLDivElement | null>(null);
-  const [containerHeight, setContainerHeight] = useState<number | undefined>();
 
   const tabs = [
     { label: "about", Icon: BsInfoCircle },
@@ -238,74 +236,40 @@ export function App() {
   const renderDesktop = () => {
 
     return (
-      <div className='flex flex-col items-center min-h-screen text-zinc-900 bg-amber-50'>
+      <div
+        ref={contentContainerRef}
+        className='flex flex-col w-full items-start justify-center min-h-screen text-zinc-900 bg-white'>
 
-        <nav className='flex flex-row w-4xl justify-center space-x-2 relative z-0'>
-          {tabs.map(({ label, Icon }) => (
+        <div className='flex flex-col justify-start w-full'>
 
-            <div
-              key={label}
-              className='relative z-0'>
+          <nav className='flex flex-row w-full justify-center space-x-2 z-0'>
+            {tabs.map(({ label, Icon }, index) => (
+              <FolderTab key={index} label={label} activeTab={activeTab} handleTabPressed={handleTabButtonPressed} Icon={Icon} />
+            ))}
+          </nav>
 
-              {activeTab === label && (
-                <motion.div
-                  layoutId="highlight"
-                  className="absolute inset-0 bg-zinc-800/10 rounded z-[-1]"
-                  transition={{ type: "spring", stiffness: 500, damping: 40 }}
-                />
-              )}
-              <button
-                onClick={() => handleTabButtonPressed(label)}
-                className={`flex text-base items-center space-x-5 px-4 py-1.5 w-full rounded duration-200 cursor-pointer ${activeTab === label
-                  ? "text-zinc-900"
-                  : "hover:bg-zinc-300 text-zinc-600/80"
-                  }`}
-              >
-                <span className='font-text'>{label}</span>
-              </button>
+          <div className="relative w-full flex min-h-screen justify-center items-start bg-[#e9e9e9] shadow-xl">
+
+            <div className='absolute left-28 -top-3'>
+              <img
+              width={50} 
+              height={50}
+              src={paperClip}/>
             </div>
-          ))}
-        </nav>
 
-        <main
-          ref={contentContainerRef}
-          className="flex-1 h-screen w-4xl overflow-y-auto overflow-x-hidden text-zinc-900 bg-emerald-200 rounded">
+            <div className='flex w-full flex-row py-5 text-zinc-900 bg-emerald-200 rounded mb-4 mt-2 mx-4 shadow-md'>
 
-          <div className='flex flex-row py-5 w-full'>
-            <PageBinding />
+              <PageBinding />
 
-            <div className='p-4 w-11/12'>
-              {handleContentsSection(activeTab)}
+              <div className='p-4 w-11/12'>
+                {handleContentsSection(activeTab)}
 
-              <div
-                className='flex justify-center space-x-5 pt-3 mt-6 border-t border-zinc-400 text-zinc-800'
-                >
-
-                <a
-                  href="https://github.com/markom9822"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="transition-colors hover:text-zinc-600"
-                  aria-label="Github"
-                >
-                  {githubIcon}
-                </a>
-
-                <a
-                  href="https://www.linkedin.com/in/marko-meara/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="transition-colors hover:text-zinc-600"
-                  aria-label="LinkedIn"
-                  
-                >
-                  {linkedinIcon}
-                </a>
+                <div className="mt-15 mb-3 bg-[url('/images/dash_line.svg')] bg-cover w-full lg:h-1 sm:h-0.5"/> 
               </div>
-
             </div>
           </div>
-        </main>
+        </div>
+
       </div>
     )
   }

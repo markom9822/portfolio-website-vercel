@@ -3,6 +3,8 @@ import type { AboutMeContentDB } from '../pages/AdminDashboard';
 import { motion, stagger } from "motion/react"
 import type { SkillsDB } from '../pages/AdminAboutMe';
 import { getTechUsedFromName } from '../store/techUsedOptions';
+import profilePic from '/images/profile_photo_small.png'
+
 
 type AboutSectionProps = {
 
@@ -32,38 +34,66 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
 
     const maxExperienceLevel = Math.max(...skills.map(skill => Number(skill.experience)));
 
-     const sortedSkills = skills.sort((a, b) => {
+    const sortedSkills = skills.sort((a, b) => {
         return Number(b.experience) - Number(a.experience);
     });
 
 
     return (
-        <div
+        <motion.div
+            initial='hidden'
+            animate='show'
+            variants={containerVariant}
             className="space-y-7 w-full">
 
-            <h2
-                className="text-4xl font-bold font-text"
+            <motion.h2
+                className="sm:text-xl md:text-3xl lg:text-5xl font-bold font-text"
+                variants={itemVariant}
+                animate={{ transition: { ease: "easeOut" } }}
             >
                 about me
-            </h2>
+            </motion.h2>
 
-            <p
-                className="text-base text-zinc-800 font-text">
-                {aboutMeContent[0].content.split('\n').map((line, index, arr) => (
-                    <Fragment key={index}>
-                        {line}
-                        {index < arr.length - 1 && (
-                            <>
-                                <br />
-                            </>
-                        )}
-                    </Fragment>
-                ))}
-            </p>
+            <motion.div
+                className='w-full flex flex-row'
+                variants={itemVariant}
+                animate={{ transition: { ease: "easeOut" } }}
+            >
 
-            <div
-                className='w-full'>
-                <h2 className="text-2xl font-bold font-text mb-6">
+                <motion.p
+                    className="sm:text-sm md:text-lg lg:text-2xl text-zinc-800 pr-10 w-2/3 font-text"
+                    variants={itemVariant}
+                    animate={{ transition: { ease: "easeOut" } }}
+                >
+                    {aboutMeContent[0].content.split('\n').map((line, index, arr) => (
+                        <Fragment key={index}>
+                            {line}
+                            {index < arr.length - 1 && (
+                                <>
+                                    <br />
+                                </>
+                            )}
+                        </Fragment>
+                    ))}
+                </motion.p>
+
+                <motion.div className='flex justify-center w-1/3 aspect-square'>
+                    <motion.img 
+                    src={profilePic} 
+                    style={{ }}
+                    className="w-full h-full object-contain opacity-90 " />
+                </motion.div>
+
+            </motion.div>
+
+            <motion.div className="my-8 bg-[url('/images/dash_line.svg')] bg-cover w-full lg:h-1 sm:h-0.5" />
+
+            <motion.div
+                className='w-full'
+                variants={itemVariant}
+                animate={{ transition: { ease: "easeOut" } }}
+            >
+                <h2 className="sm:text-2xl md:text-3xl lg:text-4xl font-bold font-text mb-6">
                     skills
                 </h2>
 
@@ -81,8 +111,8 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
                     ))}
 
                 </div>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     )
 }
 
@@ -107,13 +137,13 @@ export const SkillPanel = ({ title, experience, maxExperienceLevel, tech }: Skil
                 {getTechUsedFromName(tech)?.icon}
 
                 <div className='flex flex-col w-full'>
-                    <div className='flex flex-row justify-between'>
-                        <h3 className="text-lg font-semibold text-zinc-800 mb-2 font-text">{title}</h3>
-                        <h3 className="text-base text-zinc-800 mb-2 font-text">{experienceText}</h3>
+                    <div className='flex flex-row justify-between sm:text-base md:text-lg lg:text-2xl'>
+                        <h3 className="font-semibold text-zinc-800 mb-2 font-text">{title}</h3>
+                        <h3 className="text-zinc-800 mb-2 font-text">{experienceText}</h3>
                     </div>
                     <div className="h-2.5 relative">
-                        <div className="bg-[#9e75f0] h-2.5 rounded relative z-10" style={{ width: experienceWidth }}></div>
-                        <div className="bg-zinc-300 h-2.5 rounded absolute bottom-0 left-0 z-0" style={{ width: "100%" }}></div>
+                        <div className="bg-emerald-900 h-2.5 rounded-sm relative z-10" style={{ width: experienceWidth }}></div>
+                        <div className="bg-emerald-300 h-2.5 rounded-sm absolute bottom-0 left-0 z-0" style={{ width: "100%" }}></div>
                     </div>
                 </div>
             </div>
