@@ -4,6 +4,7 @@ import { motion, stagger } from "motion/react"
 import type { SkillsDB } from '../pages/AdminAboutMe';
 import { getTechUsedFromName } from '../store/techUsedOptions';
 import profilePic from '/images/profile_photo_small.png'
+import tape from '/images/tape.png'
 
 
 type AboutSectionProps = {
@@ -77,11 +78,13 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
                     ))}
                 </motion.p>
 
-                <motion.div className='flex justify-center w-1/3 aspect-square'>
+                <motion.div className='relative flex justify-center w-1/3'>
+                    
                     <motion.img 
                     src={profilePic} 
                     style={{ }}
-                    className="w-full h-full object-contain opacity-90 " />
+                    className=" relative w-full h-full object-contain opacity-90 " />
+
                 </motion.div>
 
             </motion.div>
