@@ -13,6 +13,9 @@ import { DeleteItemPanel } from '../components/DeleteItemPanel';
 import { InputField } from '../ui/InputField';
 import { getTechNamesArray } from '../store/techUsedOptions';
 import { TagsInput } from '../ui/TagsInput';
+import { PageBinding } from '../components/PageBindings';
+import paperClip from '/images/paperclip_less.png'
+
 
 export interface AboutMeContentDB {
     id: string;
@@ -214,7 +217,7 @@ export const AdminAboutMe = () => {
 
     return (
         <AlertDialog.Root open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <div className="min-h-screen bg-[#0f0f0f] text-white p-6 font-text">
+            <div className="min-h-screen bg-white text-zinc-900 p-6">
                 <div className="max-w-5xl mx-auto space-y-12">
 
                     {loading ? (
@@ -225,56 +228,69 @@ export const AdminAboutMe = () => {
                             <div className='flex items-center relative w-full'>
                                 <button
                                     onClick={() => navigate('/admin/dashboard')}
-                                    className='duration-200 cursor-pointer absolute left-0 flex flex-row items-center space-x-2 text-zinc-400 hover:text-zinc-200'>
+                                    className='duration-200 cursor-pointer absolute left-0 flex font-title flex-row items-center space-x-2 text-zinc-800 hover:text-zinc-700'>
                                     <FaArrowLeft />
                                     <p>Dashboard</p>
                                 </button>
-                                <h1 className=" relative mx-auto text-4xl font-bold font-text tracking-tight">
+                                <h1 className=" relative mx-auto text-4xl font-bold font-title tracking-tight">
                                     About Me
                                 </h1>
                             </div>
 
-                            <div
-                                className="flex flex-col w-full space-y-2">
+                            <div className="bg-[#e9e9e9] rounded relative w-full">
 
-                                <AdminAboutMeContent OnChangesSaved={() => updateAboutMeContentInDatabase(currentAboutMeValue, aboutMeContent[0].id)}
-                                    contentValue={currentAboutMeValue} handleInputChanged={handleChangeAboutMeContent} />
+                                <div className='flex flex-row bg-emerald-200 p-4 rounded justify-center mx-4 my-1'>
 
-                                {allSkills.length == 0 ? (<p className='text-center text-2xl text-zinc-500'>No Skills Yet</p>) : (
-                                    <>
-                                        <h2 className='text-xl mt-4 px-3'>Skills</h2>
+                                    <div className='absolute w-1/30 left-1/12 sm:left-1/12 md:left-1/15 lg:left-1/13 top-1/400 sm:-top-1/400 md:-top-1/180 lg:-top-1/140 z-10'>
+                                        <img
+                                            src={paperClip} />
+                                    </div>
 
-                                        {allSkills.map(({ id, title, experience, techUsed }, index) => (
+                                    <PageBinding />
 
-                                            <AdminProjectPanel key={index}
-                                                title={title}
-                                                date={experience.toString()} index={index}
-                                                OnPressEdit={() => handlePressEditSkill(id, title, experience, techUsed)}
-                                                OnPressDelete={() => handlePressDeleteSkill(id, title)} />
+                                    <div
+                                        className="flex flex-col space-y-2 justify-center w-11/12">
 
-                                        ))}
-                                    </>
-                                )}
+                                        <AdminAboutMeContent OnChangesSaved={() => updateAboutMeContentInDatabase(currentAboutMeValue, aboutMeContent[0].id)}
+                                            contentValue={currentAboutMeValue} handleInputChanged={handleChangeAboutMeContent} />
 
+                                        {allSkills.length == 0 ? (<p className='text-center text-2xl text-zinc-800'>No Skills Yet</p>) : (
+                                            <>
+                                                <h2 className='text-xl mt-4 px-3'>Skills</h2>
+
+                                                {allSkills.map(({ id, title, experience, techUsed }, index) => (
+
+                                                    <AdminProjectPanel key={index}
+                                                        title={title}
+                                                        date={experience.toString()} index={index}
+                                                        OnPressEdit={() => handlePressEditSkill(id, title, experience, techUsed)}
+                                                        OnPressDelete={() => handlePressDeleteSkill(id, title)} />
+
+                                                ))}
+                                            </>
+                                        )}
+
+                                        <div className='flex justify-center'>
+                                            <AlertDialog.Trigger asChild>
+                                                <button
+                                                    onClick={() => handlePressAddNewSkill()}
+                                                    className='p-3 text-lg font-type-bold duration-200 cursor-pointer border-2 border-zinc-800 hover:border-zinc-700 transition rounded'>
+                                                    <p>Add New Skill</p>
+                                                </button>
+                                            </AlertDialog.Trigger>
+
+                                            <AddPanel>
+                                                <SkillDialogPanel currentPanelAction={currentPanelAction} panelTitle={skillPanelTitle} panelDesc={skillPanelDesc}
+                                                    cancelButtonName='Cancel' actionButtonName={actionButtonName} skillForm={skillForm} skillID={skillID}
+                                                    isDeleteSkillPanel={isDeletePanel}
+                                                    setDialogOpen={setIsDialogOpen} onCreateSkill={createSkillInDatabase}
+                                                    onUpdateSkill={updateSkillInDatabase} onDeleteSkill={deleteSkillInDatabase} />
+                                            </AddPanel>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div>
-                                <AlertDialog.Trigger asChild>
-                                    <button
-                                        onClick={() => handlePressAddNewSkill()}
-                                        className='p-3 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 transition rounded'>
-                                        <p>Add New Skill</p>
-                                    </button>
-                                </AlertDialog.Trigger>
-
-                                <AddPanel>
-                                    <SkillDialogPanel currentPanelAction={currentPanelAction} panelTitle={skillPanelTitle} panelDesc={skillPanelDesc}
-                                        cancelButtonName='Cancel' actionButtonName={actionButtonName} skillForm={skillForm} skillID={skillID}
-                                        isDeleteSkillPanel={isDeletePanel}
-                                        setDialogOpen={setIsDialogOpen} onCreateSkill={createSkillInDatabase}
-                                        onUpdateSkill={updateSkillInDatabase} onDeleteSkill={deleteSkillInDatabase} />
-                                </AddPanel>
-                            </div>
                         </div>
                     )}
                 </div>
@@ -364,11 +380,11 @@ export const SkillDialogPanel = ({
 
     return (
         <>
-            <AlertDialog.Title className='text-3xl font-bold mb-2 text-zinc-200 font-text'>
+            <AlertDialog.Title className='text-3xl font-bold mb-2 text-zinc-800 font-title'>
                 {panelTitle}
             </AlertDialog.Title>
 
-            <AlertDialog.Description className='text-sm font-text text-zinc-400'>
+            <AlertDialog.Description className='text-base font-type-bold text-zinc-800'>
                 {panelDesc}
             </AlertDialog.Description>
 
@@ -376,17 +392,17 @@ export const SkillDialogPanel = ({
             <InputField className='' placeholder='Skill experience (yrs)' type='text' value={currentExperienceValue} OnInputChanged={handleChangeExperience} />
             <TagsInput tagOptions={techUsedOptions} value={currentTechUsedValue} onValueChanged={(value) => setCurrentTechUsedValue(value)} tagLimit={1} />
 
-            {warning && <div className="text-red-500 font-text">{warning}</div>}
+            {warning && <div className="text-red-500 font-title">{warning}</div>}
 
             <div style={{ display: "flex", gap: 25, justifyContent: "flex-end" }}>
                 <AlertDialog.Cancel asChild>
-                    <button className="font-text text-zinc-400 rounded hover:text-zinc-200 px-2 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 transition">
+                    <button className="font-title text-zinc-800 rounded hover:text-zinc-700 px-2 duration-200 cursor-pointer border-2 border-zinc-800 hover:border-zinc-700 transition">
                         {cancelButtonName}
                     </button>
                 </AlertDialog.Cancel>
                 <button
                     onClick={handlePressActionButton}
-                    className="font-text text-zinc-400 rounded hover:text-zinc-200 px-2 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 transition">
+                    className="font-title text-zinc-800 rounded hover:text-zinc-700 px-2 duration-200 cursor-pointer border-2 border-zinc-800 hover:border-zinc-700 transition">
                     {actionButtonName}
                 </button>
             </div>
@@ -405,15 +421,15 @@ type AdminAboutMeContentProps = {
 export const AdminAboutMeContent = ({ OnChangesSaved, contentValue, handleInputChanged }: AdminAboutMeContentProps) => {
 
     return (
-        <div className="flex flex-col space-y-2 font-text mx-3 w-full">
+        <div className="flex flex-col space-y-2 font-title w-full">
 
-            <h2 className="text-xl">About me header</h2>
+            <h2 className="text-xl font-title">About me header</h2>
 
-            <div>
+            <div className='w-full'>
                 <TextAreaField minHeight={200} className="" placeholder="About me text" value={contentValue} OnInputChanged={handleInputChanged} />
                 <button
                     onClick={OnChangesSaved}
-                    className="text-sm rounded px-2 my-2 text-zinc-400 hover:text-zinc-200 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 transition">
+                    className="text-sm rounded px-2 my-2 text-zinc-800 hover:text-zinc-700 duration-200 cursor-pointer border-2 border-zinc-800 hover:border-zinc-00 transition">
                     Save changes
                 </button>
             </div>

@@ -19,7 +19,7 @@ export const InputField = ({ className, placeholder, type, value, OnInputChanged
       value={value}
       onChange={OnInputChanged}
       placeholder={placeholder}
-      className="flex h-9 w-full min-w-0 rounded-md placeholder:text-zinc-500 text-zinc-100 font-text px-2 border-2 border-zinc-500"
+      className="flex h-9 w-full min-w-0 rounded-md placeholder:text-zinc-700 text-zinc-900 bg-emerald-100 font-text px-2"
       {...props} />
   );
 

@@ -43,21 +43,21 @@ export const PostsSection = ({ posts }: PostsSectionProps) => {
             variants={containerVariant}>
 
             <motion.h2
-                className="text-4xl font-bold font-text"
+                className="text-xl sm:text-xl md:text-3xl lg:text-5xl font-bold font-title"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
-                posts
+                Posts
             </motion.h2>
 
             <motion.p
-                className="text-lg text-zinc-400 font-text"
+                className="text-sm sm:text-sm md:text-lg lg:text-2xl text-zinc-800 font-type-bold"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
                 Blog posts on topics that I have interest in.
             </motion.p>
 
             <motion.div
-                className="mt-10 flex flex-col w-full"
+                className="flex flex-col w-full"
                 initial='hidden'
                 animate='show'
                 variants={containerVariant}>
@@ -103,16 +103,16 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="group flex flex-row justify-between items-center p-2 py-4 w-full rounded">
-                <div className="border-b-2 border-b-zinc-500 flex flex-row justify-between items-center w-full py-2">
+                <div className="border-b-3 border-dashed border-b-zinc-600 flex flex-row justify-between items-center w-full py-2">
 
                     <div className="flex flex-row items-center space-x-6">
-                        <div className="px-2.5 py-1 text-sm bg-zinc-900 group-hover:bg-zinc-700 font-bold font-text text-zinc-400 group-hover:text-zinc-300 rounded transition">{index + 1}</div>
-                        <h3 className="text-xl font-semibold text-zinc-400 group-hover:text-zinc-300 group-hover:translate-x-1 transition font-text">{title}</h3>
+                        <div className="px-2.5 py-1 text-xs sm:text-xs md:text-sm lg:text-base font-bold font-title border-2 border-zinc-400 group-hover:border-zinc-800 text-zinc-500 group-hover:text-zinc-900 rounded transition">{index + 1}</div>
+                        <h3 className="text-lg sm:text-lg md:text-xl lg:text-2xl font-semibold text-zinc-600 group-hover:text-zinc-900 group-hover:translate-x-1 transition font-type-bold ">{title}</h3>
                     </div>
-                    <div className="flex flex-row items-center space-x-3">
-                        <p className="font-text text-sm p-1 text-zinc-400 group-hover:text-zinc-300 transition">Published: {formattedDate}</p>
+                    <div className="flex flex-row items-center space-x-3 text-sm sm:text-sm md:text-base lg:text-lg">
+                        <p className="font-type-bold  p-1 text-zinc-700 group-hover:text-zinc-800 transition">Published: {formattedDate}</p>
                         <div
-                            className="p-1 text-zinc-500 group-hover:text-zinc-300 transition">
+                            className="p-1 text-zinc-700 group-hover:text-zinc-800 transition">
                             {isOpen ? <FaChevronUp /> : <FaChevronDown />}
                         </div>
                     </div>
@@ -165,7 +165,7 @@ export const BlogPostInfoPanel = ({ description, blogLink, imageName }: BlogPost
 
             <div className="flex flex-row w-full" key="content">
 
-                <p className="text-sm text-zinc-400 mb-6 font-text w-2/3 p-1">
+                <p className="text-sm sm:text-sm md:text-base lg:text-lg text-zinc-900 mb-6 font-type-bold w-2/3 p-1">
                     {description.split('\n').map((line, index, arr) => (
                         <Fragment key={index}>
                             {line}
@@ -178,7 +178,7 @@ export const BlogPostInfoPanel = ({ description, blogLink, imageName }: BlogPost
                     ))}
                 </p>
 
-                <div className="w-1/3 flex items-center justify-center border-l-2 border-l-zinc-500">
+                <div className="w-1/3 flex items-center justify-center border-dashed border-l-2 border-l-zinc-500">
                     <img
                         src={`/images/${imageName}`}
                         alt="Post"
@@ -191,11 +191,11 @@ export const BlogPostInfoPanel = ({ description, blogLink, imageName }: BlogPost
                 href={blogLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-text"
+                className="font-type-bold  text-base sm:text-base md:text-lg lg:text-xl"
                 key="link"
                 style={{ color: '#9e75f0' }}
             >
-                <div className="flex flex-row space-x-1 items-center hover:text-purple-300 transition">
+                <div className="flex flex-row space-x-1 items-center hover:text-purple-700 transition">
                     <p>Read more</p>
                     <GoArrowUpRight size={25} />
                 </div>

@@ -10,7 +10,7 @@ type TextAreaFieldProps = {
 
 export const TextAreaField = ({ className, placeholder, value, minHeight = 100, OnInputChanged, ...props }: TextAreaFieldProps) => {
 
-    const inputClassName = `flex text-sm w-full min-w-0 rounded-md placeholder:text-zinc-500 text-zinc-100 font-text px-2 border-2 border-zinc-500`;
+    const inputClassName = `flex text-base w-full min-w-0 rounded-md placeholder:text-zinc-700 text-zinc-800 font-type-bold p-2 border-dashed border-3 border-zinc-800`;
 
     return (
     <textarea

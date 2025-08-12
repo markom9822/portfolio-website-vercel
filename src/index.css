@@ -151,12 +151,44 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "TypeFont Regular";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/fonts/typeFont-reg.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TypeFont Bold";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/fonts/typeFont-bold.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Helvetica Bold";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/fonts/helvetica-now-bold.woff2") format("woff2");
+  font-display: swap;
+}
+
 .font-martian {
   font-family: "Martian Mono", monospace;
 }
 
 .font-title {
-  font-family: "PTSerif-Bold", serif;
+  font-family: "Helvetica Bold", sans-serif;
+}
+
+.font-type-reg {
+  font-family: "TypeFont Regular", serif;
+}
+
+.font-type-bold {
+  font-family: "TypeFont Bold", serif;
 }
 
 .font-fancy {
@@ -187,11 +219,7 @@ body {
   animation: marquee 20s linear infinite;
 }
 
-::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-}
-
 input[type="date"] {
-  color: rgb(124, 122, 122); /* Set your desired color */
+  color: rgb(71, 70, 70); /* Set your desired color */
 }
 

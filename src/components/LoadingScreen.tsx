@@ -21,13 +21,13 @@ export default function LoaderScreen({
                 <style>{`
           * { margin: 0; padding: 0; box-sizing: border-box; }
           html, body, #root { width: 100%; height: 100%; }
-          body { background-color: #111; }
+          body { background-color: #FFFFFF; }
         `}</style>
             )}
 
             <style>{`
         .loader-container-inline {
-          height: 200px;
+          height: 100vh;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -44,14 +44,14 @@ export default function LoaderScreen({
         .logo {
           font-size: ${size}px;
           font-weight: 300;
-          color: white;
+          color: black;
           animation: gelatine 0.8s infinite;
           font-family: 'LeckerliOne Regular', sans-serif;
         }
         .tagline {
           margin-top: 12px;
           font-size: 18px;
-          color: #aaa;
+          color: black;
           letter-spacing: 0.5px;
         }
         @keyframes gelatine {

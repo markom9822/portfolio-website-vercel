@@ -43,10 +43,10 @@ export const TagsInput = ({ tagOptions, value, onValueChanged, tagLimit }: TagIn
     };
 
     return (
-        <div className="p-2 border-2 border-zinc-500 rounded-lg font-text">
+        <div className="p-2 border-2 rounded-lg font-text bg-emerald-100 text-zinc-800">
             <div className="flex flex-wrap space-x-2">
                 {value.map((tag, idx) => (
-                    <div key={tag} className="bg-zinc-200 flex items-center px-2 py-1 rounded-2xl text-sm my-1">
+                    <div key={tag} className="bg-emerald-200 flex items-center px-2 py-1 rounded-2xl text-sm my-1">
                         <span>{tag}</span>
                         <span
                             style={{ cursor: 'pointer', marginLeft: 8 }}
@@ -61,7 +61,7 @@ export const TagsInput = ({ tagOptions, value, onValueChanged, tagLimit }: TagIn
                     value={input}
                     onChange={handleInputChange}
                     placeholder="Add tech used"
-                    className="flex text-sm font-text text-zinc-200"
+                    className="flex text-sm font-text text-zinc-800 placeholder:text-zinc-700"
                     style={{ flex: 1, border: 'none', outline: 'none', minWidth: 100 }}
                     onBlur={() => setTimeout(() => setShowSuggestions(false), 100)}
                     onFocus={() => setShowSuggestions(input.length > 0 && filteredSuggestions.length > 0)}
@@ -69,7 +69,7 @@ export const TagsInput = ({ tagOptions, value, onValueChanged, tagLimit }: TagIn
             </div>
             {showSuggestions && filteredSuggestions.length > 0 && (
                 <ul 
-                className="bg-zinc-300 z-1000 mt-2 mb-2"
+                className="bg-emerald-300 z-1000 mt-2 mb-2"
                 style={{
                     position: 'absolute',
                     border: '1px solid #ccc',
@@ -81,7 +81,7 @@ export const TagsInput = ({ tagOptions, value, onValueChanged, tagLimit }: TagIn
                         <li
                             key={suggestion}
                             style={{ padding: 8, cursor: 'pointer' }}
-                            className="bg-zinc-200 hover:bg-zinc-400 transition"
+                            className="bg-emerald-300 hover:bg-emerald-400 transition"
                             onMouseDown={() => handleSuggestionClick(suggestion)}
                         >
                             {suggestion}

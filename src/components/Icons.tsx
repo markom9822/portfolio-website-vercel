@@ -9,7 +9,7 @@ export const githubIcon = (
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className="icon icon-tabler icons-tabler-outline icon-tabler-brand-github"
+    className="icon icon-tabler icons-tabler-outline icon-tabler-brand-github "
   >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
@@ -39,8 +39,9 @@ export const linkedinIcon = (
 
 export const csIcon = (
 
-  <a href="https://dotnet.microsoft.com/en-us/languages/csharp#:~:text=C%23%20is%20a%20modern%2C%20innovative,5%20programming%20languages%20on%20GitHub." target="_blank">
-    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 256 288" version="1.1" preserveAspectRatio="xMidYMid">
+  <a href="https://dotnet.microsoft.com/en-us/languages/csharp#:~:text=C%23%20is%20a%20modern%2C%20innovative,5%20programming%20languages%20on%20GitHub." 
+  className="w-8 h-8 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12" target="_blank">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 288" version="1.1" className="aspect-square" preserveAspectRatio="xMidYMid">
       <title>C#</title>
       <g>
         <path d="M255.569,84.452376 C255.567,79.622376 254.534,75.354376 252.445,71.691376 C250.393,68.089376 247.32,65.070376 243.198,62.683376 C209.173,43.064376 175.115,23.505376 141.101,3.86637605 C131.931,-1.42762395 123.04,-1.23462395 113.938,4.13537605 C100.395,12.122376 32.59,50.969376 12.385,62.672376 C4.064,67.489376 0.015,74.861376 0.013,84.443376 C0,123.898376 0.013,163.352376 0,202.808376 C0,207.532376 0.991,211.717376 2.988,215.325376 C5.041,219.036376 8.157,222.138376 12.374,224.579376 C32.58,236.282376 100.394,275.126376 113.934,283.115376 C123.04,288.488376 131.931,288.680376 141.104,283.384376 C175.119,263.744376 209.179,244.186376 243.209,224.567376 C247.426,222.127376 250.542,219.023376 252.595,215.315376 C254.589,211.707376 255.582,207.522376 255.582,202.797376 C255.582,202.797376 255.582,123.908376 255.569,84.452376" fill="#A179DC" fillRule="nonzero" />
@@ -54,8 +55,8 @@ export const csIcon = (
 )
 
 export const cppIcon = (
-  <a href="https://cplusplus.com/" target="_blank">
-    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 306 344.35" enableBackground="new 0 0 306 344.35">
+  <a href="https://cplusplus.com/" target="_blank" className="w-8 h-8 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 306 344.35" enableBackground="new 0 0 306 344.35" className="aspect-square">
     <title>C++</title>
       <path fill="#00599C" d="M302.107,258.262c2.401-4.159,3.893-8.845,3.893-13.053V99.14c0-4.208-1.49-8.893-3.892-13.052L153,172.175  L302.107,258.262z" />
       <path fill="#004482" d="M166.25,341.193l126.5-73.034c3.644-2.104,6.956-5.737,9.357-9.897L153,172.175L3.893,258.263  c2.401,4.159,5.714,7.793,9.357,9.896l126.5,73.034C147.037,345.401,158.963,345.401,166.25,341.193z" />
@@ -74,11 +75,11 @@ export const cppIcon = (
 )
 
 export const reactIcon = (
-  <a href="https://react.dev" target="_blank">
-    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="-11.5 -10.23174 23 20.46348">
+  <a href="https://react.dev" target="_blank" className="w-8 h-8 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-11.5 -10.23174 23 20.46348" className="aspect-square">
       <title>React</title>
-      <circle cx="0" cy="0" r="2.05" fill="#61dafb" />
-      <g stroke="#61dafb" strokeWidth="1" fill="none">
+      <circle cx="0" cy="0" r="2.05" fill="#3796b0" />
+      <g stroke="#3796b0" strokeWidth="1" fill="none">
         <ellipse rx="11" ry="4.2" />
         <ellipse rx="11" ry="4.2" transform="rotate(60)" />
         <ellipse rx="11" ry="4.2" transform="rotate(120)" />
@@ -88,8 +89,8 @@ export const reactIcon = (
 )
 
 export const typescriptIcon = (
-  <a href="https://www.typescriptlang.org/" target="_blank">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="45" height="45" viewBox="0 0 512 512">
+  <a href="https://www.typescriptlang.org/" target="_blank" className="w-8 h-8 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 512 512" className="aspect-square">
       <title>Typescript</title>
       <rect fill="#3178c6" height="512" rx="50" width="512" />
       <rect fill="#3178c6" height="512" rx="50" width="512" />
@@ -100,8 +101,8 @@ export const typescriptIcon = (
 )
 
 export const viteIcon = (
-  <a href="https://vite.dev/" target="_blank">
-    <svg viewBox="0 0 128 128" width="45" height="45">
+  <a href="https://vite.dev/" target="_blank" className="w-8 h-8 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12">
+    <svg viewBox="0 0 128 128" className="aspect-square">
       <title>Vite</title>
       <defs className="__web-inspector-hide-shortcut__">
         <linearGradient id="a" x1="6" x2="235" y1="33" y2="344" gradientTransform="translate(0 .937) scale(.3122)" gradientUnits="userSpaceOnUse">
@@ -123,8 +124,8 @@ export const viteIcon = (
 )
 
 export const tailwindCSSIcon = (
-  <a href="https://tailwindcss.com/" target="_blank">
-    <svg viewBox="0 0 128 128" width="45" height="45">
+  <a href="https://tailwindcss.com/" target="_blank" className="w-8 h-8 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12">
+    <svg viewBox="0 0 128 128" className="aspect-square">
       <title>Tailwind CSS</title>
       <path d="M64.004 25.602c-17.067 0-27.73 8.53-32 25.597 6.398-8.531 13.867-11.73 22.398-9.597 4.871 1.214 8.352 4.746 12.207 8.66C72.883 56.629 80.145 64 96.004 64c17.066 0 27.73-8.531 32-25.602-6.399 8.536-13.867 11.735-22.399 9.602-4.87-1.215-8.347-4.746-12.207-8.66-6.27-6.367-13.53-13.738-29.394-13.738zM32.004 64c-17.066 0-27.73 8.531-32 25.602C6.402 81.066 13.87 77.867 22.402 80c4.871 1.215 8.352 4.746 12.207 8.66 6.274 6.367 13.536 13.738 29.395 13.738 17.066 0 27.73-8.53 32-25.597-6.399 8.531-13.867 11.73-22.399 9.597-4.87-1.214-8.347-4.746-12.207-8.66C55.128 71.371 47.868 64 32.004 64zm0 0" fill="#38bdf8">
       </path>
@@ -133,8 +134,8 @@ export const tailwindCSSIcon = (
 )
 
 export const markdownIcon = (
-  <a href="https://www.markdownguide.org/" target="_blank">
-    <svg viewBox="0 0 128 128" fill="currentColor" width="45" height="45">
+  <a href="https://www.markdownguide.org/" target="_blank" className="w-8 h-8 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12">
+    <svg viewBox="0 0 128 128" fill="currentColor" className="aspect-square">
       <title>Markdown</title>
       <path d="M11.95 24.348c-5.836 0-10.618 4.867-10.618 10.681v57.942c0 5.814 4.782 10.681 10.617 10.681h104.102c5.835 0 10.617-4.867 10.617-10.681V35.03c0-5.814-4.783-10.681-10.617-10.681H14.898l-.002-.002H11.95zm-.007 9.543h104.108c.625 0 1.076.423 1.076 1.14v57.94c0 .717-.453 1.14-1.076 1.14H11.949c-.623 0-1.076-.423-1.076-1.14V35.029c0-.715.451-1.135 1.07-1.138z"></path>
       <path d="M20.721 84.1V43.9H32.42l11.697 14.78L55.81 43.9h11.696v40.2H55.81V61.044l-11.694 14.78-11.698-14.78V84.1H20.722zm73.104 0L76.28 64.591h11.697V43.9h11.698v20.69h11.698z">
@@ -145,8 +146,8 @@ export const markdownIcon = (
 )
 
 export const electronIcon = (
-  <a href="https://www.electronjs.org/" target="_blank">
-    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 256 256">
+  <a href="https://www.electronjs.org/" target="_blank" className="w-8 h-8 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" className="aspect-square">
       <title>Electron</title>
       <g fill="none" fill-rule="evenodd">
         <circle fill="#2B2E3A" cx="128" cy="128" r="128" />
@@ -164,7 +165,6 @@ export const electronIcon = (
 export const jotaiIcon = (
   <a href="https://jotai.org/" target="_blank">
     <img
-      style={{ width: 45, height: 45 }}
       src="https://cdn.candycode.com/jotai/jotai-mascot.png"
       title="Jotai">
     </img>
@@ -173,8 +173,8 @@ export const jotaiIcon = (
 )
 
 export const codemirrorIcon = (
-  <a href="https://codemirror.net/" target="_blank">
-    <svg xmlns="http://www.w3.org/2000/svg" height="45" viewBox="-30.5 36 655.1 578.3" width="45">
+  <a href="https://codemirror.net/" target="_blank" className="w-8 h-8 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-30.5 36 655.1 578.3" className="aspect-square">
       <title>Codemirror</title>
       <path d="m292.4 53.2s8.7 18.6-3.6 39.2c-6.2 10.2-163.1 43.6-224.3 128.6-37.5 58.7-95 228.7 88.7 341.2 82.5 42.5 117.5 41.2 117.5 41.2s-55-38.7-20-65 86.2-38.7 100-75c16.2 12.5 42.5 38.7 67.5 36.2-2.5-16.2-8.7-22.5 11.2-25s30-2.5 30-2.5-18.7-15-40-16.2-61.2-42.5-60-60c26.2-15 60-40 80-32.5s40 20 43.7 31.2c0 7.5-3.7 20 12.5 10s12.5-16.2 18.7-30 7.5-16.2-6.2-27.5-46.2-37.5-72.5-30-81.2 28.7-108.7 2.5c11.2-25 28.7-65 20-92.5 16.2-12.5 35-26.2 37.5-48.7 18.7-2.5 58.7-13.7 51.2-33.7s-60.7-108.7-142-91.2" fill="#fff" />
       <path d="m551.9 257.4c13.7-36.2 36.2-97.5 15-100s-45 55-51.2 70-31.2 90-17.5 100 53.7-70 53.7-70" fill="#fff" />
@@ -198,17 +198,40 @@ export const codemirrorIcon = (
 )
 
 export const expoIcon = (
-  <a href="https://expo.dev/" target="_blank">
-    <svg viewBox="0 0 71 20" height="45" width="45" fill="none" role="img" className="icon-md w-[74px] text-default max-md-gutters:hidden">
+  <a href="https://expo.dev/" target="_blank" className="w-8 h-8 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 -0.010658198738520475 29.979048832700347 32.01961648081533" className="aspect-square">
       <title>Expo</title>
-      <path d="M9.258 6.342c.158-.23.331-.26.472-.26.14 0 .374.03.532.26 2.06 2.806 6.332 10.208 6.727 10.611.585.597 1.388.225 1.854-.452.46-.667.587-1.135.587-1.634 0-.34-6.653-12.614-7.324-13.636C11.462.248 11.252 0 10.15 0h-.825c-1.1 0-1.259.248-1.903 1.23C6.75 2.254.097 14.528.097 14.868c0 .5.127.967.587 1.634.466.677 1.269 1.05 1.854.452.395-.403 4.661-7.805 6.72-10.61zm14.941-5.237v15.344h9.35v-3.113h-6.125v-3.244h5.45V6.98h-5.45V4.218h6.125V1.105h-9.35zM46.25 16.449l-3.88-5.568 3.619-5.195h-3.662L40.54 8.23l-1.765-2.543h-3.706l3.618 5.217-3.857 5.546h3.661l2.027-2.915 2.027 2.915h3.705zm7.572-10.982c-1.482 0-2.637.614-3.378 1.732V5.686H47.37V20h3.073v-5.063c.74 1.117 1.896 1.731 3.378 1.731 2.768 0 4.97-2.52 4.97-5.611 0-3.091-2.202-5.59-4.97-5.59zm-.697 8.242c-1.504 0-2.681-1.14-2.681-2.652 0-1.49 1.177-2.653 2.68-2.653 1.483 0 2.681 1.184 2.681 2.653 0 1.49-1.198 2.652-2.68 2.652zm12.188-8.242c-3.16 0-5.558 2.411-5.558 5.612 0 3.2 2.397 5.59 5.557 5.59 3.139 0 5.558-2.39 5.558-5.59 0-3.2-2.42-5.612-5.558-5.612zm0 2.96c1.438 0 2.55 1.117 2.55 2.652 0 1.49-1.112 2.63-2.55 2.63-1.46 0-2.55-1.14-2.55-2.63 0-1.535 1.09-2.653 2.55-2.653z" fill="currentColor">
-      </path></svg>
+    <path d="M.25 8.32l2.71 1.576 13.963-8.07L14.184.25z" fill="#fff"/>
+    <path clip-rule="evenodd" d="M14.059.034a.25.25 0 0 1 .25 0l2.739 1.576a.25.25 0 0 1 0 .434L3.086 10.113a.25.25 0 0 1-.251 0L.125 8.535a.25.25 0 0 1 0-.433L14.059.033zm.125.506L.75 8.32l2.212 1.286 13.46-7.779z" fill="#000" fill-rule="evenodd"/>
+    <path d="M.25 8.32v16.137l2.74 1.576-.03-16.137L.25 8.319z" fill="#fff"/>
+    <g fill="#000">
+    <path clip-rule="evenodd" d="M.126 8.102a.25.25 0 0 1 .25 0l2.71 1.577a.25.25 0 0 1 .125.216l.029 16.138a.25.25 0 0 1-.376.218L.126 24.674A.25.25 0 0 1 0 24.457V8.32a.25.25 0 0 1 .126-.217zm.375.653v15.557L2.738 25.6 2.71 10.04z" fill-rule="evenodd"/>
+    <path d="M2.96 9.896l13.963-8.07v16.139L2.989 26.034 2.961 9.895z"/>
+    <path clip-rule="evenodd" d="M17.048 1.61a.25.25 0 0 1 .125.217v16.138a.25.25 0 0 1-.125.216l-13.933 8.07a.25.25 0 0 1-.376-.217L2.71 9.896a.25.25 0 0 1 .125-.217L16.797 1.61a.25.25 0 0 1 .25 0zM3.21 10.04l.03 15.56 13.433-7.78V2.26l-13.46 7.78z" fill-rule="evenodd"/>
+    </g>
+    <path d="M5.048 11.081l2.71 1.577 13.962-8.07-2.738-1.576-13.934 8.07z" fill="#fff"/>
+    <path clip-rule="evenodd" d="M18.856 2.796a.25.25 0 0 1 .25 0l2.74 1.576a.25.25 0 0 1 0 .434L7.884 12.875a.25.25 0 0 1-.252 0l-2.71-1.577a.25.25 0 0 1 0-.433l13.934-8.07zm.126.506l-13.435 7.78 2.212 1.286 13.46-7.779z" fill="#000" fill-rule="evenodd"/>
+    <path d="M5.048 11.081V27.22l2.739 1.576-.029-16.137-2.71-1.577z" fill="#fff"/>
+    <path clip-rule="evenodd" d="M4.923 10.864a.25.25 0 0 1 .251 0l2.71 1.577a.25.25 0 0 1 .125.216l.028 16.138a.25.25 0 0 1-.375.218l-2.739-1.577a.25.25 0 0 1-.125-.217V11.081a.25.25 0 0 1 .125-.217zm.376.653v15.557l2.236 1.288-.027-15.56-2.21-1.285z" fill="#000" fill-rule="evenodd"/>
+    <path d="M7.758 12.658l13.962-8.07v16.139L7.787 28.796z" fill="#000"/>
+    <path clip-rule="evenodd" d="M21.845 4.372a.25.25 0 0 1 .126.217v16.138a.25.25 0 0 1-.125.216l-13.934 8.07a.25.25 0 0 1-.376-.217l-.028-16.138a.25.25 0 0 1 .125-.217l13.962-8.069a.25.25 0 0 1 .25 0zM8.01 12.802l.027 15.56 13.434-7.78V5.022z" fill="#000" fill-rule="evenodd"/>
+    <path d="M7.763 15.358l5.082 16.392 2.899-.949-5.284-16.412z" fill="#fff"/>
+    <path clip-rule="evenodd" d="M10.57 14.165a.25.25 0 0 1 .129.148l5.283 16.411a.25.25 0 0 1-.16.315l-2.9.949a.25.25 0 0 1-.317-.164L7.524 15.432a.25.25 0 0 1 .155-.31l2.697-.968a.25.25 0 0 1 .195.01zm-2.496 1.348l4.935 15.92 2.42-.793L10.3 14.713l-2.227.8z" fill="#000" fill-rule="evenodd"/>
+    <path d="M21.718 7.9L26.8 24.292l2.899-.949-5.284-16.411z" fill="#fff"/>
+    <path clip-rule="evenodd" d="M24.526 6.707a.25.25 0 0 1 .128.148l5.283 16.412a.25.25 0 0 1-.16.314l-2.9.949a.25.25 0 0 1-.316-.164L21.479 7.974a.25.25 0 0 1 .155-.31l2.697-.968a.25.25 0 0 1 .195.011zm-2.497 1.348l4.935 15.92 2.42-.792-5.128-15.928z" fill="#000" fill-rule="evenodd"/>
+    <path d="M10.46 14.39l13.955-7.458L29.7 23.343l-13.955 7.458-5.284-16.412z" fill="#fff"/>
+    <path clip-rule="evenodd" d="M24.51 6.7a.25.25 0 0 1 .144.155l5.283 16.412a.25.25 0 0 1-.12.297l-13.955 7.458a.25.25 0 0 1-.357-.144l-5.283-16.412a.25.25 0 0 1 .12-.297L24.297 6.71a.25.25 0 0 1 .212-.012zm-13.747 7.812l5.127 15.927 13.506-7.218L24.27 7.294l-13.506 7.218z" fill="#000" fill-rule="evenodd"/>
+    <path d="M10.46 14.39l-2.697.968L21.718 7.9l2.697-.968-13.955 7.457z" fill="#fff"/>
+    <path clip-rule="evenodd" d="M24.644 6.83a.25.25 0 0 1-.11.323L10.577 14.61a.242.242 0 0 1-.033.015l-2.697.969a.25.25 0 0 1-.203-.457L21.6 7.679a.258.258 0 0 1 .034-.015l2.697-.968a.25.25 0 0 1 .313.134z" fill="#000" fill-rule="evenodd"/>
+    <path d="M18.395 13.053l-.941.481-.94.481-.762 11.392 1.85.827 1.41-9.114 7.375 4.623.592-2.073z" fill="#000"/>
+    <path clip-rule="evenodd" d="M18.282 12.83a.25.25 0 0 1 .266.025l8.584 6.616a.25.25 0 0 1 .087.267l-.59 2.074a.25.25 0 0 1-.375.144l-7.053-4.422-1.351 8.738a.25.25 0 0 1-.35.19l-1.85-.826a.25.25 0 0 1-.148-.245l.762-11.392a.25.25 0 0 1 .135-.207zm-1.528 1.344l-.74 11.076 1.39.621 1.36-8.79a.25.25 0 0 1 .38-.174l7.094 4.447.453-1.59-8.323-6.415z" fill="#000" fill-rule="evenodd"/>
+    </svg>
   </a>
 )
 
 export const gitIcon = (
-  <a href="https://git-scm.com/" target="_blank">
-    <svg viewBox="0 0 128 128" width="45" height="45">
+  <a href="https://git-scm.com/" target="_blank" className="w-8 h-8 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12">
+    <svg viewBox="0 0 128 128" className="aspect-square" >
       <title>Git</title>
       <path fill="#F34F29" d="M124.737 58.378L69.621 3.264c-3.172-3.174-8.32-3.174-11.497 0L46.68 14.71l14.518 14.518c3.375-1.139 7.243-.375 9.932 2.314 2.703 2.706 3.461 6.607 2.294 9.993l13.992 13.993c3.385-1.167 7.292-.413 9.994 2.295 3.78 3.777 3.78 9.9 0 13.679a9.673 9.673 0 01-13.683 0 9.677 9.677 0 01-2.105-10.521L68.574 47.933l-.002 34.341a9.708 9.708 0 012.559 1.828c3.778 3.777 3.778 9.898 0 13.683-3.779 3.777-9.904 3.777-13.679 0-3.778-3.784-3.778-9.905 0-13.683a9.65 9.65 0 013.167-2.11V47.333a9.581 9.581 0 01-3.167-2.111c-2.862-2.86-3.551-7.06-2.083-10.576L41.056 20.333 3.264 58.123a8.133 8.133 0 000 11.5l55.117 55.114c3.174 3.174 8.32 3.174 11.499 0l54.858-54.858a8.135 8.135 0 00-.001-11.501z">
       </path>
@@ -225,7 +248,7 @@ export const figmaIcon = (
 
 export const pythonIcon = (
 
-  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="45" height="45" viewBox="0.21 -0.077 110 110" enableBackground="new 0.21 -0.077 110 110">
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0.21 -0.077 110 110" enableBackground="new 0.21 -0.077 110 110">
     <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="63.8159" y1="56.6829" x2="118.4934" y2="1.8225" gradientTransform="matrix(1 0 0 -1 -53.2974 66.4321)">
       <stop offset="0" style={{ stopColor: '#387EB8' }} />
       <stop offset="1" style={{ stopColor: '#366994' }} />
@@ -250,7 +273,7 @@ export const fireBaseIcon = (
 export const unityIcon = (
 
   <a href="https://unity.com/" target="_blank">
-    <img title="Unity" width='50' height='50' src="https://i.redd.it/tu3gt6ysfxq71.png">
+    <img title="Unity" src="https://i.redd.it/tu3gt6ysfxq71.png">
     </img>
   </a>
 )
@@ -263,7 +286,7 @@ export const googleIcon = (
 export const motionIcon = (
 
   <a href="https://motion.dev/" target="_blank">
-    <img title="Motion" width="45" height="45" src="https://user-images.githubusercontent.com/7850794/164965509-2a8dc49e-2ed7-4243-a2c9-481b03bbc31a.png">
+    <img title="Motion" src="https://user-images.githubusercontent.com/7850794/164965509-2a8dc49e-2ed7-4243-a2c9-481b03bbc31a.png">
     </img>
   </a>
 )
@@ -271,11 +294,13 @@ export const motionIcon = (
 export const ukFlagIcon = (
   <img
     src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/2560px-Flag_of_the_United_Kingdom.svg.png"
-    width="25" height="10"></img>
+    className="rounded"
+    ></img>
 )
 
 export const canadaFlagIcon = (
   <img
     src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Canada_%28Pantone%29.svg/1200px-Flag_of_Canada_%28Pantone%29.svg.png"
-    width="25" height="10"></img>
+    className="rounded"
+    ></img>
 )
