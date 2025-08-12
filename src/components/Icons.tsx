@@ -40,7 +40,7 @@ export const linkedinIcon = (
 export const csIcon = (
 
   <a href="https://dotnet.microsoft.com/en-us/languages/csharp#:~:text=C%23%20is%20a%20modern%2C%20innovative,5%20programming%20languages%20on%20GitHub." target="_blank">
-    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 256 288" version="1.1" preserveAspectRatio="xMidYMid">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 288" version="1.1" preserveAspectRatio="xMidYMid">
       <title>C#</title>
       <g>
         <path d="M255.569,84.452376 C255.567,79.622376 254.534,75.354376 252.445,71.691376 C250.393,68.089376 247.32,65.070376 243.198,62.683376 C209.173,43.064376 175.115,23.505376 141.101,3.86637605 C131.931,-1.42762395 123.04,-1.23462395 113.938,4.13537605 C100.395,12.122376 32.59,50.969376 12.385,62.672376 C4.064,67.489376 0.015,74.861376 0.013,84.443376 C0,123.898376 0.013,163.352376 0,202.808376 C0,207.532376 0.991,211.717376 2.988,215.325376 C5.041,219.036376 8.157,222.138376 12.374,224.579376 C32.58,236.282376 100.394,275.126376 113.934,283.115376 C123.04,288.488376 131.931,288.680376 141.104,283.384376 C175.119,263.744376 209.179,244.186376 243.209,224.567376 C247.426,222.127376 250.542,219.023376 252.595,215.315376 C254.589,211.707376 255.582,207.522376 255.582,202.797376 C255.582,202.797376 255.582,123.908376 255.569,84.452376" fill="#A179DC" fillRule="nonzero" />
@@ -55,7 +55,7 @@ export const csIcon = (
 
 export const cppIcon = (
   <a href="https://cplusplus.com/" target="_blank">
-    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 306 344.35" enableBackground="new 0 0 306 344.35">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 306 344.35" enableBackground="new 0 0 306 344.35">
     <title>C++</title>
       <path fill="#00599C" d="M302.107,258.262c2.401-4.159,3.893-8.845,3.893-13.053V99.14c0-4.208-1.49-8.893-3.892-13.052L153,172.175  L302.107,258.262z" />
       <path fill="#004482" d="M166.25,341.193l126.5-73.034c3.644-2.104,6.956-5.737,9.357-9.897L153,172.175L3.893,258.263  c2.401,4.159,5.714,7.793,9.357,9.896l126.5,73.034C147.037,345.401,158.963,345.401,166.25,341.193z" />
@@ -75,7 +75,7 @@ export const cppIcon = (
 
 export const reactIcon = (
   <a href="https://react.dev" target="_blank">
-    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="-11.5 -10.23174 23 20.46348">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-11.5 -10.23174 23 20.46348">
       <title>React</title>
       <circle cx="0" cy="0" r="2.05" fill="#3796b0" />
       <g stroke="#3796b0" strokeWidth="1" fill="none">
@@ -89,7 +89,7 @@ export const reactIcon = (
 
 export const typescriptIcon = (
   <a href="https://www.typescriptlang.org/" target="_blank">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="45" height="45" viewBox="0 0 512 512">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 512 512">
       <title>Typescript</title>
       <rect fill="#3178c6" height="512" rx="50" width="512" />
       <rect fill="#3178c6" height="512" rx="50" width="512" />
@@ -225,7 +225,7 @@ export const figmaIcon = (
 
 export const pythonIcon = (
 
-  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="45" height="45" viewBox="0.21 -0.077 110 110" enableBackground="new 0.21 -0.077 110 110">
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0.21 -0.077 110 110" enableBackground="new 0.21 -0.077 110 110">
     <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="63.8159" y1="56.6829" x2="118.4934" y2="1.8225" gradientTransform="matrix(1 0 0 -1 -53.2974 66.4321)">
       <stop offset="0" style={{ stopColor: '#387EB8' }} />
       <stop offset="1" style={{ stopColor: '#366994' }} />
@@ -250,7 +250,7 @@ export const fireBaseIcon = (
 export const unityIcon = (
 
   <a href="https://unity.com/" target="_blank">
-    <img title="Unity" width='50' height='50' src="https://i.redd.it/tu3gt6ysfxq71.png">
+    <img title="Unity" src="https://i.redd.it/tu3gt6ysfxq71.png">
     </img>
   </a>
 )
