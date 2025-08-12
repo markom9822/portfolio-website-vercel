@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { InputField } from "../ui/InputField";
 import { signInUser, signInWithGoogle } from "../firebase/firebaseAuth";
 import { googleIcon } from "../components/Icons";
+import { PageBinding } from "../components/PageBindings";
+import tape from '/images/tape.png'
 
 
 export const AdminLogin = () => {
@@ -38,38 +40,50 @@ export const AdminLogin = () => {
 
 
     return (
-        <div className="min-h-screen bg-black flex items-center justify-center px-4 font-text">
+        <div className="min-h-screen bg-white flex items-center justify-center px-4 font-title">
             <div
-                className="w-full flex flex-col justify-center max-w-md p-6 bg-zinc-900/60 backdrop-blur-md border border-zinc-700 rounded-2xl shadow-xl space-y-5">
-                <h1 className="text-2xl text-white text-center font-text">
-                    Access the Admin Dashboard
-                </h1>
+                className="relative w-full flex flex-row justify-center max-w-md p-6 bg-emerald-200 backdrop-blur-md rounded-lg shadow-xl space-y-5">
 
-                <div className="space-y-3">
-                    <InputField className='' placeholder='Email' type='email' value={email} OnInputChanged={(e) => setEmail(e.target.value)} />
-                    <InputField className='' placeholder='Password' type='password' value={password} OnInputChanged={(e) => setPassword(e.target.value)} />
+                <img 
+                src={tape} 
+                style={{ }}
+                className="absolute w-full -top-1/15 sm:-top-1/7 md:-top-1/6 lg:-top-1/5 opacity-90" />
 
-                    {loginError && <p className="text-sm text-red-500 text-center">{loginError}</p>}
+                <PageBinding />
+            
+                <div className="px-5 w-11/12">
+                    <h1 className="text-2xl text-zinc-900 text-center py-3">
+                        Access the Admin Dashboard
+                    </h1>
+
+                    <div className="space-y-3">
+                        <InputField className='' placeholder='Email' type='email' value={email} OnInputChanged={(e) => setEmail(e.target.value)} />
+                        <InputField className='' placeholder='Password' type='password' value={password} OnInputChanged={(e) => setPassword(e.target.value)} />
+
+                        {loginError && <p className="text-sm text-red-500 text-center">{loginError}</p>}
+                    </div>
+
+                    <div className="flex flex-col space-y-2 py-5">
+                        <button
+                            onClick={handleSignInPressed}
+                            className="text-zinc-900 bg-emerald-400 p-3 rounded-lg hover:text-zinc-800 duration-200 cursor-pointer transition">
+                            <p className="text-lg font-type-bold">Log In</p>
+                        </button>
+
+                        <p className="text-zinc-800 text-center text-sm">Or</p>
+
+                        <button
+                            onClick={handleSignInWithGooglePressed}
+                            className="text-zinc-800 bg-emerald-300 p-3 rounded-lg hover:text-zinc-700 duration-200 cursor-pointer transition">
+                            <div className="flex flex-row items-center justify-center space-x-3">
+                                {googleIcon}
+                                <p className="text-lg font-type-bold">Sign in with Google</p>
+                            </div>
+                        </button>
+                    </div>
                 </div>
 
-                <div className="flex flex-col space-y-3">
-                    <button
-                        onClick={handleSignInPressed}
-                        className="text-zinc-700 border-2 border-zinc-500 bg-zinc-400 hover:border-zinc-200 p-3 rounded-lg hover:text-zinc-900 duration-200 cursor-pointer transition">
-                        Log In
-                    </button>
 
-                    <p className="text-zinc-200 text-center text-sm">Or</p>
-
-                    <button
-                        onClick={handleSignInWithGooglePressed}
-                        className="text-zinc-400 border-2 border-zinc-500 hover:border-zinc-200 p-3 rounded-lg hover:text-zinc-200 duration-200 cursor-pointer transition">
-                        <div className="flex flex-row items-center justify-center space-x-3">
-                            {googleIcon}
-                            <p>Sign in with Google</p>
-                        </div>
-                    </button>
-                </div>
             </div>
         </div>
     )

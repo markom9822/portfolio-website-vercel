@@ -13,6 +13,9 @@ import { db } from "../firebase/firebaseConfig";
 import { fireStoreCollections } from '../firebase/fireStoreDatabaseCollections';
 import LoaderScreen from '../components/LoadingScreen';
 import { AdminProjectPanel } from './AdminPanelItem';
+import { PageBinding } from '../components/PageBindings';
+import paperClip from '/images/paperclip_less.png'
+
 
 export type ExperiencePositionFormProps = {
 
@@ -193,7 +196,7 @@ export const AdminExperience = () => {
 
     return (
         <AlertDialog.Root open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <div className="min-h-screen bg-[#0f0f0f] text-white p-6 font-text">
+            <div className="min-h-screen bg-white text-zinc-900 p-6">
                 <div className="max-w-5xl mx-auto space-y-12">
 
                     {loading ? (
@@ -204,49 +207,62 @@ export const AdminExperience = () => {
                             <div className='flex items-center relative w-full'>
                                 <button
                                     onClick={() => navigate('/admin/dashboard')}
-                                    className='duration-200 cursor-pointer absolute left-0 flex flex-row items-center space-x-2 text-zinc-400 hover:text-zinc-200'>
+                                    className='duration-200 cursor-pointer absolute left-0 flex font-title flex-row items-center space-x-2 text-zinc-800 hover:text-zinc-700'>
                                     <FaArrowLeft />
                                     <p>Dashboard</p>
                                 </button>
-                                <h1 className=" relative mx-auto text-4xl font-bold font-text tracking-tight">
+                                <h1 className="relative mx-auto text-4xl font-bold font-title tracking-tight">
                                     Experience
                                 </h1>
                             </div>
 
-                            <div
-                                className="mt-10 flex flex-col w-full">
+                            <div className="bg-[#e9e9e9] rounded relative w-full">
 
-                                {allExperiences.length == 0 ? (<p className='text-center text-2xl text-zinc-500'>No Experience Yet</p>) : (
-                                    <>
-                                        {allExperiences.map(({ id, companyName, companyIconName, companyLocation, companyWebsite, positions }, index) => (
+                                <div className='flex flex-row bg-emerald-200 p-4 rounded justify-center mx-4 my-1'>
 
-                                            <AdminProjectPanel key={index}
-                                                title={companyName}
-                                                date={positions[0].positionEndDate} index={index}
-                                                OnPressEdit={() => handlePressEditExperience(id, companyName, companyIconName, companyLocation, companyWebsite, positions)}
-                                                OnPressDelete={() => handlePressDeleteExperience(id, companyName)} />
+                                    <div className='absolute w-1/30 left-1/12 sm:left-1/12 md:left-1/15 lg:left-1/13 top-1/400 sm:-top-1/400 md:-top-1/180 lg:-top-1/140 z-10'>
+                                        <img
+                                            src={paperClip} />
+                                    </div>
 
-                                        ))}
-                                    </>
-                                )}
-                            </div>
+                                    <PageBinding />
 
-                            <div>
-                                <AlertDialog.Trigger asChild>
-                                    <button
-                                        onClick={() => handlePressAddNewExperience()}
-                                        className='p-3 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 transition rounded'>
-                                        <p>Add New Experience</p>
-                                    </button>
-                                </AlertDialog.Trigger>
+                                    <div
+                                        className="flex flex-col space-y-2 justify-center w-11/12">
 
-                                <AddPanel>
-                                    <ExperienceDialogPanel currentPanelAction={currentPanelAction} panelTitle={experiencePanelTitle} panelDesc={experiencePanelDesc}
-                                        cancelButtonName='Cancel' actionButtonName={actionButtonName} experienceForm={experienceForm} experienceID={experienceID}
-                                        isDeleteExpPanel={isDeletePanel}
-                                        setDialogOpen={setIsDialogOpen} onCreateExperience={createExperienceInDatabase}
-                                        onUpdateExperience={updateExperienceInDatabase} onDeleteExperience={deleteExperienceInDatabase} />
-                                </AddPanel>
+                                        {allExperiences.length == 0 ? (<p className='text-center text-2xl text-zinc-500'>No Experience Yet</p>) : (
+                                            <>
+                                                {allExperiences.map(({ id, companyName, companyIconName, companyLocation, companyWebsite, positions }, index) => (
+
+                                                    <AdminProjectPanel key={index}
+                                                        title={companyName}
+                                                        date={positions[0].positionEndDate} index={index}
+                                                        OnPressEdit={() => handlePressEditExperience(id, companyName, companyIconName, companyLocation, companyWebsite, positions)}
+                                                        OnPressDelete={() => handlePressDeleteExperience(id, companyName)} />
+
+                                                ))}
+                                            </>
+                                        )}
+
+                                        <div className='flex justify-center'>
+                                            <AlertDialog.Trigger asChild>
+                                                <button
+                                                    onClick={() => handlePressAddNewExperience()}
+                                                    className='p-3 text-lg font-type-bold duration-200 cursor-pointer border-2 border-zinc-800 hover:border-zinc-700 transition rounded'>
+                                                    <p>Add New Experience</p>
+                                                </button>
+                                            </AlertDialog.Trigger>
+
+                                            <AddPanel>
+                                                <ExperienceDialogPanel currentPanelAction={currentPanelAction} panelTitle={experiencePanelTitle} panelDesc={experiencePanelDesc}
+                                                    cancelButtonName='Cancel' actionButtonName={actionButtonName} experienceForm={experienceForm} experienceID={experienceID}
+                                                    isDeleteExpPanel={isDeletePanel}
+                                                    setDialogOpen={setIsDialogOpen} onCreateExperience={createExperienceInDatabase}
+                                                    onUpdateExperience={updateExperienceInDatabase} onDeleteExperience={deleteExperienceInDatabase} />
+                                            </AddPanel>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )}
@@ -365,11 +381,11 @@ export const ExperienceDialogPanel = ({
 
     return (
         <>
-            <AlertDialog.Title className='text-3xl font-bold mb-2 text-zinc-200 font-text'>
+            <AlertDialog.Title className='text-3xl font-bold mb-2 text-zinc-800 font-title'>
                 {panelTitle}
             </AlertDialog.Title>
 
-            <AlertDialog.Description className='text-sm font-text text-zinc-400'>
+            <AlertDialog.Description className='text-base font-type-bold text-zinc-800'>
                 {panelDesc}
             </AlertDialog.Description>
 
@@ -378,8 +394,8 @@ export const ExperienceDialogPanel = ({
             <InputField className='' placeholder='Company location' type='text' value={currentCompanyLocValue} OnInputChanged={handleChangeCompanyLoc} />
             <InputField className='' placeholder='Company website' type='text' value={currentCompanyWebsiteValue} OnInputChanged={handleChangeCompanyWebsite} />
 
-            <div className='flex flex-row items-center border-b-2 border-b-zinc-400 space-x-4'>
-                <h3 className="text-xl text-zinc-200 font-text">Positions</h3>
+            <div className='flex flex-row items-center border-b-3 border-dashed border-b-zinc-800 space-x-4'>
+                <h3 className="text-xl text-zinc-800 font-title">Positions</h3>
             </div>
 
             <div className='space-y-6'>
@@ -394,7 +410,7 @@ export const ExperienceDialogPanel = ({
                     <button
                         onClick={handleAddPosition}
                         title='Add position'
-                        className='flex text-zinc-400 rounded hover:text-zinc-200 duration-200 cursor-pointer transition'>
+                        className='flex text-zinc-800 rounded hover:text-zinc-700 duration-200 cursor-pointer transition'>
                         <CiSquarePlus size={30} />
                     </button>
 
@@ -402,24 +418,24 @@ export const ExperienceDialogPanel = ({
                         <button
                             onClick={handleRemovePosition}
                             title='Remove position'
-                            className='flex text-zinc-400 rounded hover:text-zinc-200 duration-200 cursor-pointer transition'>
+                            className='flex text-zinc-800 rounded hover:text-zinc-700 duration-200 cursor-pointer transition'>
                             <CiSquareMinus size={30} />
                         </button>
                     )}
                 </div>
             </div>
 
-            {warning && <div className="text-red-500 font-text">{warning}</div>}
+            {warning && <div className="text-red-500 font-title">{warning}</div>}
 
             <div style={{ display: "flex", gap: 25, justifyContent: "flex-end" }}>
                 <AlertDialog.Cancel asChild>
-                    <button className="font-text text-zinc-400 rounded hover:text-zinc-200 px-2 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 transition">
+                    <button className="font-title text-zinc-800 rounded hover:text-zinc-700 px-2 duration-200 cursor-pointer border-2 border-zinc-800 hover:border-zinc-700 transition">
                         {cancelButtonName}
                     </button>
                 </AlertDialog.Cancel>
                 <button
                     onClick={handlePressActionButton}
-                    className="font-text text-zinc-400 rounded hover:text-zinc-200 px-2 duration-200 cursor-pointer border-2 border-zinc-500 hover:border-zinc-300 transition">
+                    className="font-title text-zinc-800 rounded hover:text-zinc-700 px-2 duration-200 cursor-pointer border-2 border-zinc-800 hover:border-zinc-700 transition">
                     {actionButtonName}
                 </button>
             </div>
@@ -452,10 +468,10 @@ export const PositionItem = ({ index, positionNameValue, positionStartDateValue,
 
     return (
         <div className='space-y-2 border-b-2 border-b-zinc-600 pb-6'>
-            <InputField className='' placeholder='Position title' type='text' value={positionNameValue} OnInputChanged={(e) => editPositionValue({positionName: e.target.value})} />
-            <InputField className='' placeholder='Position start date (dd/mm/yyyy)' type='date' value={positionStartDateValue} OnInputChanged={(e) => editPositionValue({positionStartDate: e.target.value})} />
-            <InputField className='' placeholder='Position end date (dd/mm/yyyy)' type='date' value={positionEndDateValue} OnInputChanged={(e) => editPositionValue({positionEndDate: e.target.value})} />
-            <TextAreaField className='' placeholder='Position content' value={contentValue} OnInputChanged={(e) => editPositionValue({content: e.target.value})} />
+            <InputField className='' placeholder='Position title' type='text' value={positionNameValue} OnInputChanged={(e) => editPositionValue({ positionName: e.target.value })} />
+            <InputField className='' placeholder='Position start date (dd/mm/yyyy)' type='date' value={positionStartDateValue} OnInputChanged={(e) => editPositionValue({ positionStartDate: e.target.value })} />
+            <InputField className='' placeholder='Position end date (dd/mm/yyyy)' type='date' value={positionEndDateValue} OnInputChanged={(e) => editPositionValue({ positionEndDate: e.target.value })} />
+            <TextAreaField className='' placeholder='Position content' value={contentValue} OnInputChanged={(e) => editPositionValue({ content: e.target.value })} />
         </div>
     )
 }
