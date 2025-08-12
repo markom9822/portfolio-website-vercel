@@ -101,7 +101,7 @@ export const typescriptIcon = (
 
 export const viteIcon = (
   <a href="https://vite.dev/" target="_blank">
-    <svg viewBox="0 0 128 128" width="45" height="45">
+    <svg viewBox="0 0 128 128">
       <title>Vite</title>
       <defs className="__web-inspector-hide-shortcut__">
         <linearGradient id="a" x1="6" x2="235" y1="33" y2="344" gradientTransform="translate(0 .937) scale(.3122)" gradientUnits="userSpaceOnUse">
@@ -124,7 +124,7 @@ export const viteIcon = (
 
 export const tailwindCSSIcon = (
   <a href="https://tailwindcss.com/" target="_blank">
-    <svg viewBox="0 0 128 128" width="45" height="45">
+    <svg viewBox="0 0 128 128">
       <title>Tailwind CSS</title>
       <path d="M64.004 25.602c-17.067 0-27.73 8.53-32 25.597 6.398-8.531 13.867-11.73 22.398-9.597 4.871 1.214 8.352 4.746 12.207 8.66C72.883 56.629 80.145 64 96.004 64c17.066 0 27.73-8.531 32-25.602-6.399 8.536-13.867 11.735-22.399 9.602-4.87-1.215-8.347-4.746-12.207-8.66-6.27-6.367-13.53-13.738-29.394-13.738zM32.004 64c-17.066 0-27.73 8.531-32 25.602C6.402 81.066 13.87 77.867 22.402 80c4.871 1.215 8.352 4.746 12.207 8.66 6.274 6.367 13.536 13.738 29.395 13.738 17.066 0 27.73-8.53 32-25.597-6.399 8.531-13.867 11.73-22.399 9.597-4.87-1.214-8.347-4.746-12.207-8.66C55.128 71.371 47.868 64 32.004 64zm0 0" fill="#38bdf8">
       </path>
@@ -134,7 +134,7 @@ export const tailwindCSSIcon = (
 
 export const markdownIcon = (
   <a href="https://www.markdownguide.org/" target="_blank">
-    <svg viewBox="0 0 128 128" fill="currentColor" width="45" height="45">
+    <svg viewBox="0 0 128 128" fill="currentColor">
       <title>Markdown</title>
       <path d="M11.95 24.348c-5.836 0-10.618 4.867-10.618 10.681v57.942c0 5.814 4.782 10.681 10.617 10.681h104.102c5.835 0 10.617-4.867 10.617-10.681V35.03c0-5.814-4.783-10.681-10.617-10.681H14.898l-.002-.002H11.95zm-.007 9.543h104.108c.625 0 1.076.423 1.076 1.14v57.94c0 .717-.453 1.14-1.076 1.14H11.949c-.623 0-1.076-.423-1.076-1.14V35.029c0-.715.451-1.135 1.07-1.138z"></path>
       <path d="M20.721 84.1V43.9H32.42l11.697 14.78L55.81 43.9h11.696v40.2H55.81V61.044l-11.694 14.78-11.698-14.78V84.1H20.722zm73.104 0L76.28 64.591h11.697V43.9h11.698v20.69h11.698z">
@@ -146,7 +146,7 @@ export const markdownIcon = (
 
 export const electronIcon = (
   <a href="https://www.electronjs.org/" target="_blank">
-    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 256 256">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
       <title>Electron</title>
       <g fill="none" fill-rule="evenodd">
         <circle fill="#2B2E3A" cx="128" cy="128" r="128" />
@@ -164,7 +164,6 @@ export const electronIcon = (
 export const jotaiIcon = (
   <a href="https://jotai.org/" target="_blank">
     <img
-      style={{ width: 45, height: 45 }}
       src="https://cdn.candycode.com/jotai/jotai-mascot.png"
       title="Jotai">
     </img>
@@ -174,7 +173,7 @@ export const jotaiIcon = (
 
 export const codemirrorIcon = (
   <a href="https://codemirror.net/" target="_blank">
-    <svg xmlns="http://www.w3.org/2000/svg" height="45" viewBox="-30.5 36 655.1 578.3" width="45">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-30.5 36 655.1 578.3">
       <title>Codemirror</title>
       <path d="m292.4 53.2s8.7 18.6-3.6 39.2c-6.2 10.2-163.1 43.6-224.3 128.6-37.5 58.7-95 228.7 88.7 341.2 82.5 42.5 117.5 41.2 117.5 41.2s-55-38.7-20-65 86.2-38.7 100-75c16.2 12.5 42.5 38.7 67.5 36.2-2.5-16.2-8.7-22.5 11.2-25s30-2.5 30-2.5-18.7-15-40-16.2-61.2-42.5-60-60c26.2-15 60-40 80-32.5s40 20 43.7 31.2c0 7.5-3.7 20 12.5 10s12.5-16.2 18.7-30 7.5-16.2-6.2-27.5-46.2-37.5-72.5-30-81.2 28.7-108.7 2.5c11.2-25 28.7-65 20-92.5 16.2-12.5 35-26.2 37.5-48.7 18.7-2.5 58.7-13.7 51.2-33.7s-60.7-108.7-142-91.2" fill="#fff" />
       <path d="m551.9 257.4c13.7-36.2 36.2-97.5 15-100s-45 55-51.2 70-31.2 90-17.5 100 53.7-70 53.7-70" fill="#fff" />
@@ -199,7 +198,7 @@ export const codemirrorIcon = (
 
 export const expoIcon = (
   <a href="https://expo.dev/" target="_blank">
-    <svg viewBox="0 0 71 20" height="45" width="45" fill="none" role="img" className="icon-md w-[74px] text-default max-md-gutters:hidden">
+    <svg viewBox="0 0 71 20" fill="none" role="img" className="icon-md w-[74px] text-default max-md-gutters:hidden">
       <title>Expo</title>
       <path d="M9.258 6.342c.158-.23.331-.26.472-.26.14 0 .374.03.532.26 2.06 2.806 6.332 10.208 6.727 10.611.585.597 1.388.225 1.854-.452.46-.667.587-1.135.587-1.634 0-.34-6.653-12.614-7.324-13.636C11.462.248 11.252 0 10.15 0h-.825c-1.1 0-1.259.248-1.903 1.23C6.75 2.254.097 14.528.097 14.868c0 .5.127.967.587 1.634.466.677 1.269 1.05 1.854.452.395-.403 4.661-7.805 6.72-10.61zm14.941-5.237v15.344h9.35v-3.113h-6.125v-3.244h5.45V6.98h-5.45V4.218h6.125V1.105h-9.35zM46.25 16.449l-3.88-5.568 3.619-5.195h-3.662L40.54 8.23l-1.765-2.543h-3.706l3.618 5.217-3.857 5.546h3.661l2.027-2.915 2.027 2.915h3.705zm7.572-10.982c-1.482 0-2.637.614-3.378 1.732V5.686H47.37V20h3.073v-5.063c.74 1.117 1.896 1.731 3.378 1.731 2.768 0 4.97-2.52 4.97-5.611 0-3.091-2.202-5.59-4.97-5.59zm-.697 8.242c-1.504 0-2.681-1.14-2.681-2.652 0-1.49 1.177-2.653 2.68-2.653 1.483 0 2.681 1.184 2.681 2.653 0 1.49-1.198 2.652-2.68 2.652zm12.188-8.242c-3.16 0-5.558 2.411-5.558 5.612 0 3.2 2.397 5.59 5.557 5.59 3.139 0 5.558-2.39 5.558-5.59 0-3.2-2.42-5.612-5.558-5.612zm0 2.96c1.438 0 2.55 1.117 2.55 2.652 0 1.49-1.112 2.63-2.55 2.63-1.46 0-2.55-1.14-2.55-2.63 0-1.535 1.09-2.653 2.55-2.653z" fill="currentColor">
       </path></svg>
@@ -208,7 +207,7 @@ export const expoIcon = (
 
 export const gitIcon = (
   <a href="https://git-scm.com/" target="_blank">
-    <svg viewBox="0 0 128 128" width="45" height="45">
+    <svg viewBox="0 0 128 128" >
       <title>Git</title>
       <path fill="#F34F29" d="M124.737 58.378L69.621 3.264c-3.172-3.174-8.32-3.174-11.497 0L46.68 14.71l14.518 14.518c3.375-1.139 7.243-.375 9.932 2.314 2.703 2.706 3.461 6.607 2.294 9.993l13.992 13.993c3.385-1.167 7.292-.413 9.994 2.295 3.78 3.777 3.78 9.9 0 13.679a9.673 9.673 0 01-13.683 0 9.677 9.677 0 01-2.105-10.521L68.574 47.933l-.002 34.341a9.708 9.708 0 012.559 1.828c3.778 3.777 3.778 9.898 0 13.683-3.779 3.777-9.904 3.777-13.679 0-3.778-3.784-3.778-9.905 0-13.683a9.65 9.65 0 013.167-2.11V47.333a9.581 9.581 0 01-3.167-2.111c-2.862-2.86-3.551-7.06-2.083-10.576L41.056 20.333 3.264 58.123a8.133 8.133 0 000 11.5l55.117 55.114c3.174 3.174 8.32 3.174 11.499 0l54.858-54.858a8.135 8.135 0 00-.001-11.501z">
       </path>
@@ -263,7 +262,7 @@ export const googleIcon = (
 export const motionIcon = (
 
   <a href="https://motion.dev/" target="_blank">
-    <img title="Motion" width="45" height="45" src="https://user-images.githubusercontent.com/7850794/164965509-2a8dc49e-2ed7-4243-a2c9-481b03bbc31a.png">
+    <img title="Motion" src="https://user-images.githubusercontent.com/7850794/164965509-2a8dc49e-2ed7-4243-a2c9-481b03bbc31a.png">
     </img>
   </a>
 )
@@ -271,11 +270,11 @@ export const motionIcon = (
 export const ukFlagIcon = (
   <img
     src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/2560px-Flag_of_the_United_Kingdom.svg.png"
-    width="25" height="10"></img>
+    ></img>
 )
 
 export const canadaFlagIcon = (
   <img
     src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Canada_%28Pantone%29.svg/1200px-Flag_of_Canada_%28Pantone%29.svg.png"
-    width="25" height="10"></img>
+    ></img>
 )

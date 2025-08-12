@@ -45,7 +45,7 @@ export const ProjectsSection = ({ projects }: ProjectSectionProps) => {
             variants={containerVariant}>
 
             <motion.h2
-                className="text-4xl font-bold font-text"
+                className="text-xl sm:text-xl md:text-3xl lg:text-5xl font-bold font-text"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
 
@@ -53,14 +53,14 @@ export const ProjectsSection = ({ projects }: ProjectSectionProps) => {
             </motion.h2>
 
             <motion.p
-                className="text-lg text-zinc-800 font-text"
+                className="text-sm sm:text-sm md:text-lg lg:text-2xl text-zinc-800 font-text"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
                 Projects that I have built in my spare time or in work.
             </motion.p>
 
             <motion.div
-                className="mt-10 flex flex-col w-full"
+                className="flex flex-col w-full"
                 initial='hidden'
                 animate='show'
                 variants={containerVariant}>
@@ -103,10 +103,10 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, techU
     const formattedDate = new Date(startDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
 
     const tagText = isWork ? ("Work") : ("Personal");
-    const baseTagClass = "text-xs px-2 py-1 border-1 rounded-2xl font-text group-hover:translate-x-1 transition";
+    const baseTagClass = "text-xs sm:text-xs md:text-xs lg:text-sm px-2 py-1 border-1 rounded-2xl font-text group-hover:translate-x-1 transition";
     const colorTagClass = isWork
-        ? "border-blue-800 text-blue-600 group-hover:text-blue-400 group-hover:border-blue-600"
-        : "border-purple-800 text-purple-600 group-hover:text-purple-400 group-hover:border-purple-600";
+        ? "border-blue-800 text-blue-500 group-hover:text-blue-600 group-hover:border-blue-600"
+        : "border-purple-800 text-purple-500 group-hover:text-purple-600 group-hover:border-purple-600";
     const tagClass = `${baseTagClass} ${colorTagClass}`;
 
     return (
@@ -120,15 +120,15 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, techU
                 <div className="border-b-2 border-b-zinc-500 flex flex-row justify-between items-center w-full py-2">
 
                     <div className="flex flex-row items-center space-x-3">
-                        <div className="px-2.5 py-1 text-sm font-bold font-text border-2 border-zinc-400 group-hover:border-zinc-800 text-zinc-500 group-hover:text-zinc-900 rounded transition">{index + 1}</div>
-                        <h3 className="text-base font-semibold text-zinc-600 group-hover:text-zinc-900 group-hover:translate-x-1 transition font-text">{title}</h3>
+                        <div className="px-2.5 py-1 text-xs sm:text-xs md:text-sm lg:text-base font-bold font-text border-2 border-zinc-400 group-hover:border-zinc-800 text-zinc-500 group-hover:text-zinc-900 rounded transition">{index + 1}</div>
+                        <h3 className="text-lg sm:text-lg md:text-xl lg:text-2xl font-semibold text-zinc-600 group-hover:text-zinc-900 group-hover:translate-x-1 transition font-text">{title}</h3>
 
                         <div className={tagClass}>
                             <p>{tagText}</p>
                         </div>
                     </div>
 
-                    <div className="flex flex-row items-center space-x-3 text-xs">
+                    <div className="flex flex-row items-center space-x-3 text-sm sm:text-sm md:text-base lg:text-lg">
                         <p className="font-text p-1 text-zinc-700 group-hover:text-zinc-800 transition">Started: {formattedDate}</p>
                         <div
                             className="p-1 text-zinc-700 group-hover:text-zinc-800 transition">
@@ -184,7 +184,7 @@ export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed
             <div className="flex flex-row w-full" key="content">
 
                 <div className="w-2/3 p-1">
-                    <p className="text-sm text-zinc-900 mb-6 font-text w-full">
+                    <p className="text-sm sm:text-sm md:text-base lg:text-lg text-zinc-900 mb-6 font-text w-full">
                         {description.split('\n').map((line, index, arr) => (
                             <Fragment key={index}>
                                 {line}
@@ -209,11 +209,11 @@ export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed
 
             <div className="flex flex-col space-y-2 w-full" key="tech">
 
-                <h3 className="font-text text-xs text-zinc-800 w-full">TECH USED:</h3>
+                <h3 className="font-text text-sm sm:text-sm md:text-base lg:text-lg text-zinc-800 w-full">TECH USED:</h3>
 
-                <div className="w-2/3 flex flex-row flex-wrap space-x-1 space-y-2 mb-3 p-1">
+                <div className="w-2/3 flex flex-row items-center flex-wrap space-x-1 space-y-2 mb-3 p-1">
                     {techUsed.map((name, index) => (
-                        <div className="mx-4" key={index}>
+                        <div className="mx-4 w-8 h-8 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12" key={index}>
                             {getTechUsedFromName(name)?.icon}
                         </div>
                     ))}
@@ -224,7 +224,7 @@ export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed
                 href={projectLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-text w-full"
+                className="font-text w-full text-base sm:text-base md:text-lg lg:text-xl"
                 key="link"
                 style={{ color: '#9e75f0' }}
             >
