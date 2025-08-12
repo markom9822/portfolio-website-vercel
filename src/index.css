@@ -219,11 +219,7 @@ body {
   animation: marquee 20s linear infinite;
 }
 
-::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-}
-
 input[type="date"] {
-  color: rgb(124, 122, 122); /* Set your desired color */
+  color: rgb(71, 70, 70); /* Set your desired color */
 }
 
