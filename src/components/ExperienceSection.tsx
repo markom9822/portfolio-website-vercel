@@ -59,7 +59,7 @@ export const ExperienceSection = ({ experiences }: ExperienceSectionProps) => {
             </motion.p>
 
             <motion.div
-                className="mt-10 flex flex-col w-full space-y-6"
+                className="flex flex-col w-full space-y-6"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
 

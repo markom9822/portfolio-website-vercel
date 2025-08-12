@@ -47,7 +47,7 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
             className="space-y-7 w-full">
 
             <motion.h2
-                className="sm:text-xl md:text-3xl lg:text-5xl font-bold font-text"
+                className="text-xl sm:text-xl md:text-3xl lg:text-5xl font-bold font-text"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}
             >
@@ -61,7 +61,7 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
             >
 
                 <motion.p
-                    className="sm:text-sm md:text-lg lg:text-2xl text-zinc-800 pr-10 w-2/3 font-text"
+                    className="text-sm sm:text-sm md:text-lg lg:text-2xl text-zinc-800 pr-10 w-2/3 font-text"
                     variants={itemVariant}
                     animate={{ transition: { ease: "easeOut" } }}
                 >
@@ -86,7 +86,7 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
 
             </motion.div>
 
-            <motion.div className="my-8 bg-[url('/images/dash_line.svg')] bg-cover w-full lg:h-1 sm:h-0.5" />
+            <motion.div className="my-8 bg-[url('/images/dash_line.svg')] bg-cover w-full h-0.5 lg:h-1 sm:h-0.5" />
 
             <motion.div
                 className='w-full'
@@ -134,16 +134,18 @@ export const SkillPanel = ({ title, experience, maxExperienceLevel, tech }: Skil
             className="p-4"
         >
             <div className='flex flex-row space-x-3'>
-                {getTechUsedFromName(tech)?.icon}
-
+                <div className='w-10 h-10 sm:w-10 sm:h-10 md:w-15 md:h-15 lg:w-20 lg:h-20'>
+                    {getTechUsedFromName(tech)?.icon}
+                </div>
+                
                 <div className='flex flex-col w-full'>
-                    <div className='flex flex-row justify-between sm:text-base md:text-lg lg:text-2xl'>
+                    <div className='flex flex-row justify-between text-base sm:text-base md:text-lg lg:text-2xl'>
                         <h3 className="font-semibold text-zinc-800 mb-2 font-text">{title}</h3>
                         <h3 className="text-zinc-800 mb-2 font-text">{experienceText}</h3>
                     </div>
-                    <div className="h-2.5 relative">
-                        <div className="bg-emerald-900 h-2.5 rounded-sm relative z-10" style={{ width: experienceWidth }}></div>
-                        <div className="bg-emerald-300 h-2.5 rounded-sm absolute bottom-0 left-0 z-0" style={{ width: "100%" }}></div>
+                    <div className="h-2 sm:h-2 md:h-2.5 lg:h-3.5 relative">
+                        <div className="bg-emerald-900 h-2 sm:h-2 md:h-2.5 lg:h-3.5 rounded-sm relative z-10" style={{ width: experienceWidth }}></div>
+                        <div className="bg-emerald-300 h-2 sm:h-2 md:h-2.5 lg:h-3.5 rounded-sm absolute bottom-0 left-0 z-0" style={{ width: "100%" }}></div>
                     </div>
                 </div>
             </div>

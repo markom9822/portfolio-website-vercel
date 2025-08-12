@@ -242,7 +242,7 @@ export function App() {
 
         <div className='flex flex-col justify-start w-full'>
 
-          <nav className='flex flex-row w-full justify-center space-x-2 z-0'>
+          <nav className='flex flex-row w-full justify-center z-0'>
             {tabs.map(({ label, Icon }, index) => (
               <FolderTab key={index} label={label} activeTab={activeTab} handleTabPressed={handleTabButtonPressed} Icon={Icon} />
             ))}
@@ -264,7 +264,7 @@ export function App() {
               <div className='p-4 w-11/12'>
                 {handleContentsSection(activeTab)}
 
-                <div className="mt-15 mb-3 bg-[url('/images/dash_line.svg')] bg-cover w-full lg:h-1 sm:h-0.5"/> 
+                <div className="mt-15 mb-3 bg-[url('/images/dash_line.svg')] bg-cover w-full h-0.5 lg:h-1 sm:h-0.5"/> 
               </div>
             </div>
           </div>
