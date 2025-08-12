@@ -241,7 +241,7 @@ export const AdminAboutMe = () => {
 
                                 <div className='flex flex-row bg-emerald-200 p-4 rounded justify-center mx-4 my-1'>
 
-                                    <div className='absolute w-1/30 left-1/12 sm:left-1/12 md:left-1/15 lg:left-1/13 top-1/400 sm:-top-1/400 md:-top-1/180 lg:-top-1/140 z-10'>
+                                    <div className='absolute w-1/30 left-1/12 sm:left-1/12 md:left-1/15 lg:left-1/13 top-1/400 sm:-top-1/400 md:-top-1/180 lg:-top-1/140 z-0'>
                                         <img
                                             src={paperClip} />
                                     </div>
