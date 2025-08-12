@@ -151,12 +151,44 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "TypeFont Regular";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/fonts/typeFont-reg.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TypeFont Bold";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/fonts/typeFont-bold.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Helvetica Bold";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/fonts/helvetica-now-bold.woff2") format("woff2");
+  font-display: swap;
+}
+
 .font-martian {
   font-family: "Martian Mono", monospace;
 }
 
 .font-title {
-  font-family: "PTSerif-Bold", serif;
+  font-family: "Helvetica Bold", sans-serif;
+}
+
+.font-type-reg {
+  font-family: "TypeFont Regular", serif;
+}
+
+.font-type-bold {
+  font-family: "TypeFont Bold", serif;
 }
 
 .font-fancy {
