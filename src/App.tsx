@@ -265,9 +265,7 @@ export function App() {
               <div className='px-4 w-11/12'>
 
                 <PageHeader/>
-
                 {handleContentsSection(activeTab)}
-
                 <PageFooter/>
               </div>
             </div>
@@ -291,7 +289,7 @@ export function App() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#111",
+          backgroundColor: "#fff",
           zIndex: 9999,
         }}
       >

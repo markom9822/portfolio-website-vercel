@@ -153,8 +153,8 @@ export const SkillPanel = ({ title, experience, maxExperienceLevel, tech }: Skil
                         <h3 className="text-zinc-800 mb-2 font-type-bold">{experienceText}</h3>
                     </div>
                     <div className="h-2 sm:h-2 md:h-2.5 lg:h-3.5 relative">
-                        <div className="bg-emerald-900 h-2 sm:h-2 md:h-2.5 lg:h-3.5 rounded-sm relative z-10" style={{ width: experienceWidth }}></div>
-                        <div className="bg-emerald-300 h-2 sm:h-2 md:h-2.5 lg:h-3.5 rounded-sm absolute bottom-0 left-0 z-0" style={{ width: "100%" }}></div>
+                        <div className="bg-zinc-900 h-2 sm:h-2 md:h-2.5 lg:h-3.5 rounded-xs relative z-10" style={{ width: experienceWidth }}></div>
+                        <div className="bg-emerald-300 h-2 sm:h-2 md:h-2.5 lg:h-3.5 rounded-xs absolute bottom-0 left-0 z-0" style={{ width: "100%" }}></div>
                     </div>
                 </div>
             </div>
