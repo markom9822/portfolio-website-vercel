@@ -48,11 +48,11 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
             className="space-y-7 w-full">
 
             <motion.h2
-                className="text-xl sm:text-xl md:text-3xl lg:text-5xl font-bold font-text"
+                className="text-xl sm:text-xl md:text-3xl lg:text-5xl font-bold font-title"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}
             >
-                about me
+                About me
             </motion.h2>
 
             <motion.div
@@ -62,7 +62,7 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
             >
 
                 <motion.p
-                    className="text-sm sm:text-sm md:text-lg lg:text-2xl text-zinc-800 pr-10 w-2/3 font-text"
+                    className="text-sm sm:text-sm md:text-lg lg:text-2xl text-zinc-800 pr-10 w-2/3 font-type-bold"
                     variants={itemVariant}
                     animate={{ transition: { ease: "easeOut" } }}
                 >
@@ -83,7 +83,13 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
                     <motion.img 
                     src={profilePic} 
                     style={{ }}
-                    className=" relative w-full h-full object-contain opacity-90 " />
+                    className=" w-full object-cover shadow-2xl aspect-square rounded-md opacity-90 " />
+
+                    <motion.img 
+                    src={tape} 
+                    style={{ }}
+                    className="absolute w-full -top-1/16 sm:-top-1/8 md:-top-1/7 lg:-top-1/6 opacity-90" />
+
 
                 </motion.div>
 
@@ -96,8 +102,8 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}
             >
-                <h2 className="sm:text-2xl md:text-3xl lg:text-4xl font-bold font-text mb-6">
-                    skills
+                <h2 className="sm:text-xl md:text-2xl lg:text-5xl font-bold font-title mb-6">
+                    Skills
                 </h2>
 
                 <div
@@ -143,8 +149,8 @@ export const SkillPanel = ({ title, experience, maxExperienceLevel, tech }: Skil
                 
                 <div className='flex flex-col w-full'>
                     <div className='flex flex-row justify-between text-base sm:text-base md:text-lg lg:text-2xl'>
-                        <h3 className="font-semibold text-zinc-800 mb-2 font-text">{title}</h3>
-                        <h3 className="text-zinc-800 mb-2 font-text">{experienceText}</h3>
+                        <h3 className="font-semibold text-zinc-800 mb-2 font-type-bold">{title}</h3>
+                        <h3 className="text-zinc-800 mb-2 font-type-bold">{experienceText}</h3>
                     </div>
                     <div className="h-2 sm:h-2 md:h-2.5 lg:h-3.5 relative">
                         <div className="bg-emerald-900 h-2 sm:h-2 md:h-2.5 lg:h-3.5 rounded-sm relative z-10" style={{ width: experienceWidth }}></div>

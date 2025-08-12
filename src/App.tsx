@@ -25,6 +25,8 @@ import type { ExperienceDB } from './pages/AdminExperience';
 import { PageBinding } from './components/PageBindings';
 import { FolderTab } from './components/FolderTab';
 import paperClip from '/images/paperclip_less.png'
+import { PageFooter } from './components/PageFooter';
+import { PageHeader } from './components/PageHeader';
 
 export function App() {
 
@@ -250,21 +252,23 @@ export function App() {
 
           <div className="relative w-full flex min-h-screen justify-center items-start bg-[#e9e9e9] shadow-xl">
 
-            <div className='absolute left-28 -top-3'>
-              <img
-              width={50} 
-              height={50}
-              src={paperClip}/>
-            </div>
-
             <div className='flex w-full flex-row py-5 text-zinc-900 bg-emerald-200 rounded mb-4 mt-2 mx-4 shadow-md'>
 
               <PageBinding />
 
-              <div className='p-4 w-11/12'>
+              <div className='absolute w-1/30 left-1/12 sm:left-1/12 md:left-1/15 lg:left-1/18
+               top-1/400 sm:-top-1/400 md:-top-1/180 lg:-top-1/140 z-10'>
+                <img
+                  src={paperClip} />
+              </div>
+
+              <div className='px-4 w-11/12'>
+
+                <PageHeader/>
+
                 {handleContentsSection(activeTab)}
 
-                <div className="mt-15 mb-3 bg-[url('/images/dash_line.svg')] bg-cover w-full h-0.5 lg:h-1 sm:h-0.5"/> 
+                <PageFooter/>
               </div>
             </div>
           </div>
