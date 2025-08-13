@@ -7,13 +7,13 @@ export const PageHeader = ({ }: PageHeaderProps) => {
 
 
   return (
-    <div className="flex flex-col justify-center">
-      <div className="flex flex-row justify-between text-[0.45rem] sm:text-xs md:text-sm lg:text-base items-center text-zinc-600 font-type-reg">
-        <p>mark o m.</p>
+    <div className="flex flex-col justify-center w-full">
+      <div className="flex flex-row text-[0.45rem] sm:text-xs md:text-sm lg:text-base items-center text-zinc-600 font-type-reg w-full">
+        <p className="w-1/3 flex justify-start">mark o m.</p>
 
-        <p>Portfolio website</p>
+        <p className="w-1/3 flex justify-center">Portfolio website</p>
 
-        <p>started: July, 2025</p>
+        <p className="w-1/3 flex justify-end">started: July, 2025</p>
 
       </div>
 
