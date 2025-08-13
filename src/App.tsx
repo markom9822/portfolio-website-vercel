@@ -242,15 +242,15 @@ export function App() {
         ref={contentContainerRef}
         className='flex flex-col w-full items-start justify-center min-h-screen text-zinc-900 bg-white'>
 
-        <div className='flex flex-col justify-start w-full'>
+          <header className='w-full flex justify-center'>
+            <nav className='flex flex-row w-full justify-center z-0'>
+              {tabs.map(({ label, Icon }, index) => (
+                <FolderTab key={index} label={label} activeTab={activeTab} handleTabPressed={handleTabButtonPressed} Icon={Icon} />
+              ))}
+            </nav>
+          </header>
 
-          <nav className='flex flex-row w-full justify-center z-0'>
-            {tabs.map(({ label, Icon }, index) => (
-              <FolderTab key={index} label={label} activeTab={activeTab} handleTabPressed={handleTabButtonPressed} Icon={Icon} />
-            ))}
-          </nav>
-
-          <div className="relative w-full flex min-h-screen justify-center items-start bg-[#e9e9e9] shadow-xl">
+          <main className="relative w-full flex min-h-screen justify-center items-start bg-[#e9e9e9] shadow-xl">
 
             <div className='flex w-full flex-row py-5 text-zinc-900 bg-emerald-200 rounded mb-4 mt-2 mx-4 shadow-md'>
 
@@ -264,14 +264,12 @@ export function App() {
 
               <div className='px-4 w-11/12'>
 
-                <PageHeader/>
+                <PageHeader />
                 {handleContentsSection(activeTab)}
-                <PageFooter/>
+                <PageFooter />
               </div>
             </div>
-          </div>
-        </div>
-
+          </main>
       </div>
     )
   }
