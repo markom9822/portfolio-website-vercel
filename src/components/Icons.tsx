@@ -106,14 +106,14 @@ export const viteIcon = (
       <title>Vite</title>
       <defs className="__web-inspector-hide-shortcut__">
         <linearGradient id="a" x1="6" x2="235" y1="33" y2="344" gradientTransform="translate(0 .937) scale(.3122)" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="#41d1ff"></stop>
-          <stop offset="1" stop-color="#bd34fe"></stop>
+          <stop offset="0" stopColor="#41d1ff"></stop>
+          <stop offset="1" stopColor="#bd34fe"></stop>
         </linearGradient>
         <linearGradient id="b" x1="194.651" x2="236.076" y1="8.818" y2="292.989" gradientTransform="translate(0 .937) scale(.3122)" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="#ffea83">
+          <stop offset="0" stopColor="#ffea83">
           </stop>
-          <stop offset=".083" stop-color="#ffdd35"></stop>
-          <stop offset="1" stop-color="#ffa800">
+          <stop offset=".083" stopColor="#ffdd35"></stop>
+          <stop offset="1" stopColor="#ffa800">
           </stop>
         </linearGradient></defs>
       <path fill="url(#a)" d="M124.766 19.52 67.324 122.238c-1.187 2.121-4.234 2.133-5.437.024L3.305 19.532c-1.313-2.302.652-5.087 3.261-4.622L64.07 25.187a3.09 3.09 0 0 0 1.11 0l56.3-10.261c2.598-.473 4.575 2.289 3.286 4.594Zm0 0"></path>
