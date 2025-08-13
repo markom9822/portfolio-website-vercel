@@ -103,19 +103,19 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="group flex flex-row justify-between items-center p-2 py-4 w-full rounded">
-                <div className="border-b-3 border-dashed border-b-zinc-600 flex flex-row justify-between items-center w-full gap-x-2 pb-1 md:pb-2  bg-amber-100">
+                <div className="border-b-3 border-dashed border-b-zinc-600 flex flex-row justify-between items-center w-full gap-x-2 pb-1 md:pb-2">
 
-                    <div className="flex flex-row items-center w-4/6 bg-amber-300">
+                    <div className="flex flex-row items-center w-4/6">
                         <div className="w-1/10 flex">
                             <div className="px-1 md:px-2.5 py-1 text-[0.50rem] sm:text-xs md:text-sm lg:text-base font-bold font-title border-2 border-zinc-400 group-hover:border-zinc-800 text-zinc-500 group-hover:text-zinc-900 rounded transition">{index + 1}</div>
                         </div>
 
                         <h3 className="w-9/10 px-3 flex justify-start text-xs sm:text-lg md:text-xl lg:text-2xl font-semibold text-zinc-600 group-hover:text-zinc-900 group-hover:translate-x-1 transition font-type-bold ">{title}</h3>
                     </div>
-                    <div className="flex flex-row items-center text-[0.50rem] sm:text-sm md:text-base lg:text-lg w-2/6 bg-amber-400">
-                        <p className="bg-amber-500 w-2/3 flex justify-center font-type-bold  p-1 text-zinc-700 group-hover:text-zinc-800 transition">Published: {formattedDate}</p>
+                    <div className="flex flex-row items-center text-[0.50rem] sm:text-sm md:text-base lg:text-lg w-2/6">
+                        <p className=" w-2/3 flex justify-center font-type-bold  p-1 text-zinc-700 group-hover:text-zinc-800 transition">Published: {formattedDate}</p>
                         <div
-                            className="bg-amber-600 flex justify-center w-1/3 p-1 text-zinc-700 group-hover:text-zinc-800 transition">
+                            className="flex justify-center w-1/3 p-1 text-zinc-700 group-hover:text-zinc-800 transition">
                             {isOpen ? <FaChevronUp /> : <FaChevronDown />}
                         </div>
                     </div>

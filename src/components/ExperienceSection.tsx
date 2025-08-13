@@ -167,9 +167,9 @@ export const PositionPanel = ({ positionName, content, positionStartDate, positi
     return (
         <div className="flex flex-col space-y-3">
             <h3 className="text-sm sm:text-base md:text-lg lg:text-xl text-zinc-800 mb-2 font-title">{positionName}</h3>
-            <div className="flex flex-row space-x-2 md:space-x-4 text-[0.60rem] sm:text-xs md:text-sm lg:text-base font-type-bold">
+            <div className="flex flex-row space-x-2 md:space-x-4 text-[0.55rem] sm:text-xs md:text-sm lg:text-base font-type-bold">
                 <p className=" text-zinc-800">{formattedStartDate} - {formattedEndDate}</p>
-                <p className=" text-zinc-700">[ {durationText} ]</p>
+                <p className=" text-zinc-700">[{durationText}]</p>
             </div>
 
             <p className="text-[0.60rem] sm:text-xs md:text-sm lg:text-base text-zinc-700 mb-2 font-type-bold">

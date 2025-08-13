@@ -93,7 +93,7 @@ export const EducationPanel = ({ title, subtitle, content, imageName, startDate,
             <div className="flex flex-row justify-between">
                 <div className="flex flex-col mb-5 group-hover:translate-x-1 transition">
                     <h2 className="font-title text-lg sm:text-xl md:text-2xl lg:text-3xl text-zinc-700 mb-2 group-hover:text-zinc-800 transition">{title}</h2>
-                    <p className="font-type-bold text-[0.60rem] sm:text-xs md:text-sm lg:text-base text-zinc-700 group-hover:text-zinc-800 transition">{subtitle.toUpperCase()} [ {startYear} - {endYear} ]</p>
+                    <p className="font-type-bold text-[0.60rem] sm:text-xs md:text-sm lg:text-base text-zinc-700 group-hover:text-zinc-800 transition">{subtitle.toUpperCase()} [{startYear} - {endYear}]</p>
                 </div>
 
                 <div className="flex items-center opacity-60 group-hover:opacity-100 transition">

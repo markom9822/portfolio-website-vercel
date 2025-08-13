@@ -252,7 +252,7 @@ export function App() {
 
           <main className="relative w-full flex min-h-screen justify-center items-start bg-[#e9e9e9] shadow-xl">
 
-            <div className='flex w-full flex-row py-5 text-zinc-900 bg-emerald-200 rounded mb-4 mt-2 mx-4 shadow-md'>
+            <div className='flex w-full flex-row py-5 text-zinc-900 bg-emerald-200 rounded mb-4 mt-2 md:mx-4 shadow-md'>
 
               <PageBinding />
 
