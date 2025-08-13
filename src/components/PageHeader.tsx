@@ -8,7 +8,7 @@ export const PageHeader = ({ }: PageHeaderProps) => {
 
   return (
     <div className="flex flex-col justify-center">
-      <div className="flex flex-row justify-between text-xs sm:text-xs md:text-sm lg:text-base items-center text-zinc-600 font-type-reg">
+      <div className="flex flex-row justify-between text-[0.55rem] sm:text-xs md:text-sm lg:text-base items-center text-zinc-600 font-type-reg">
         <p>mark o m.</p>
 
         <p>Portfolio website</p>
