@@ -1,7 +1,6 @@
 import { Fragment, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { GoArrowUpRight } from "react-icons/go";
-import { githubIcon } from "./Icons";
 import { motion, stagger, AnimatePresence } from "motion/react"
 import type { ProjectDB } from "../pages/AdminProjects";
 import { getTechUsedFromName } from "../store/techUsedOptions";
