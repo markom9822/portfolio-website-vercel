@@ -6,6 +6,7 @@
 
 ## ✨ Features
 
+- Bespoke UI designed from scratch for desktop and mobile
 - Custom admin dashboard with CRUD system for managing all information displayed
 - Firebase Authentication for secure admin access
 - Real-time Firestore backend
