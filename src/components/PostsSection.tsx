@@ -114,10 +114,12 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
                     </div>
                     <div className="flex flex-row items-center text-[0.50rem] sm:text-sm md:text-base lg:text-lg w-2/6">
                         <p className=" w-2/3 flex justify-center font-type-bold  p-1 text-zinc-700 group-hover:text-zinc-800 transition">Published: {formattedDate}</p>
-                        <div
-                            className="flex justify-center w-1/3 p-1 text-zinc-700 group-hover:text-zinc-800 transition">
-                            {isOpen ? <FaChevronUp /> : <FaChevronDown />}
-                        </div>
+                        <motion.div
+                            animate={{ rotate: isOpen ? -180 : 0 }}
+                            transition={{ duration: 0.06, ease: "easeInOut" }}
+                            className="w-1/3 p-1 text-zinc-700 group-hover:text-zinc-800 transition flex items-center justify-center">
+                            <FaChevronDown />
+                        </motion.div>
                     </div>
                 </div>
             </button>
@@ -159,16 +161,24 @@ export const BlogPostInfoPanel = ({ description, blogLink, imageName }: BlogPost
 
     return (
         <motion.div
-            className="mt-4 w-full"
+            className=" w-full"
             initial="closed"
             animate="open"
             exit="closed"
             key="modal"
             variants={menuVariants}>
 
-            <div className="flex flex-row w-full" key="content">
+            <div className="flex flex-col w-full" key="content">
 
-                <p className="text-[0.60rem] sm:text-sm md:text-base lg:text-lg text-zinc-900 mb-6 font-type-bold w-2/3 p-1">
+                <div className="max-w-md flex items-center justify-start md:py-2">
+                    <img
+                        src={`/images/${imageName}`}
+                        alt="Post"
+                        loading="eager"
+                        className="rounded border-1 border-emerald-500" />
+                </div>
+
+                <p className="text-[0.60rem] sm:text-sm md:text-base lg:text-lg text-zinc-900 lg:mb-3 font-type-bold w-full p-1">
                     {description.split('\n').map((line, index, arr) => (
                         <Fragment key={index}>
                             {line}
@@ -180,14 +190,6 @@ export const BlogPostInfoPanel = ({ description, blogLink, imageName }: BlogPost
                         </Fragment>
                     ))}
                 </p>
-
-                <div className="w-1/3 flex items-center justify-center border-dashed border-l-2 border-l-zinc-500">
-                    <img
-                        src={`/images/${imageName}`}
-                        alt="Post"
-                        loading="eager"
-                        className="rounded w-70" />
-                </div>
             </div>
 
             <a

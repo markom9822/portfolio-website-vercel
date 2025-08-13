@@ -123,20 +123,22 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, techU
                         <div className="w-1/10 flex">
                             <div className="w-2/3 px-1 md:px-2.5 py-1 text-[0.50rem] text-center flex justify-center sm:text-xs md:text-sm lg:text-base font-bold font-title text-zinc-500 group-hover:text-zinc-900 rounded transition">{index + 1}</div>
                         </div>
-                        
+
                         <h3 className=" w-7/10 flex px-3 justify-start font-type-bold text-xs sm:text-lg md:text-xl lg:text-2xl font-semibold text-zinc-600 group-hover:text-zinc-900 group-hover:translate-x-1 transition">{title}</h3>
 
                         <div className={tagClass}>
-                            <p>{tagText}</p>
+                            <p className="flex justify-center items-center text-center">{tagText}</p>
                         </div>
                     </div>
 
                     <div className="flex flex-row items-center space-x-1 md:space-x-3 text-[0.50rem] sm:text-sm md:text-base lg:text-lg w-2/6">
                         <p className="w-2/3 flex font-type-bold p-1 text-zinc-700 group-hover:text-zinc-800 transition">Started: {formattedDate}</p>
-                        <div
+                        <motion.div
+                            animate={{ rotate: isOpen ? -180 : 0 }}
+                            transition={{ duration: 0.06, ease: "easeInOut" }}
                             className="w-1/3 p-1 text-zinc-700 group-hover:text-zinc-800 transition flex items-center justify-center">
-                            {isOpen ? <FaChevronUp /> : <FaChevronDown />}
-                        </div>
+                            <FaChevronDown />
+                        </motion.div>
                     </div>
                 </div>
             </button>
@@ -177,17 +179,24 @@ export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed
 
     return (
         <motion.div
-            className="mt-4 w-full"
+            className="w-full"
             initial="closed"
             animate="open"
             exit="closed"
             key="modal"
             variants={menuVariants}>
 
-            <div className="flex flex-row w-full" key="content">
+            <div className="flex flex-col w-full" key="content">
 
-                <div className="w-2/3 p-1">
-                    <p className="text-[0.60rem] sm:text-sm md:text-base lg:text-xl xl:text-2xl text-zinc-900 mb-6 font-type-bold w-full">
+                <div className="max-w-2xl flex items-center justify-start md:py-2">
+                    <img
+                        src={`/images/${imageName}`}
+                        alt="Project"
+                        className="rounded border-1 border-emerald-500" />
+                </div>
+
+                <div className="w-full p-1">
+                    <p className="text-[0.60rem] sm:text-sm md:text-base lg:text-xl xl:text-2xl text-zinc-900 lg:mb-3 font-type-bold w-full">
                         {description.split('\n').map((line, index, arr) => (
                             <Fragment key={index}>
                                 {line}
@@ -202,12 +211,7 @@ export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed
                     </p>
                 </div>
 
-                <div className="w-1/3 flex items-center justify-center border-l-2 border-dashed border-l-zinc-500">
-                    <img
-                        src={`/images/${imageName}`}
-                        alt="Project"
-                        className="rounded w-10/12" />
-                </div>
+
             </div>
 
             <div className="flex flex-col space-y-2 w-full" key="tech">
