@@ -50,7 +50,7 @@ export const PostsSection = ({ posts }: PostsSectionProps) => {
             </motion.h2>
 
             <motion.p
-                className="text-sm sm:text-sm md:text-lg lg:text-2xl text-zinc-800 font-type-bold"
+                className="text-xs sm:text-sm md:text-lg lg:text-2xl text-zinc-800 font-type-bold"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
                 Blog posts on topics that I have interest in.
@@ -103,16 +103,19 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="group flex flex-row justify-between items-center p-2 py-4 w-full rounded">
-                <div className="border-b-3 border-dashed border-b-zinc-600 flex flex-row justify-between items-center w-full py-2">
+                <div className="border-b-3 border-dashed border-b-zinc-600 flex flex-row justify-between items-center w-full gap-x-2 pb-1 md:pb-2">
 
-                    <div className="flex flex-row items-center space-x-6">
-                        <div className="px-2.5 py-1 text-xs sm:text-xs md:text-sm lg:text-base font-bold font-title border-2 border-zinc-400 group-hover:border-zinc-800 text-zinc-500 group-hover:text-zinc-900 rounded transition">{index + 1}</div>
-                        <h3 className="text-lg sm:text-lg md:text-xl lg:text-2xl font-semibold text-zinc-600 group-hover:text-zinc-900 group-hover:translate-x-1 transition font-type-bold ">{title}</h3>
+                    <div className="flex flex-row items-center w-4/6">
+                        <div className="w-1/10 flex">
+                            <div className="px-1 md:px-2.5 py-1 text-[0.50rem] sm:text-xs md:text-sm lg:text-base font-bold font-title border-2 border-zinc-400 group-hover:border-zinc-800 text-zinc-500 group-hover:text-zinc-900 rounded transition">{index + 1}</div>
+                        </div>
+
+                        <h3 className="w-9/10 px-3 flex justify-start text-xs sm:text-lg md:text-xl lg:text-2xl font-semibold text-zinc-600 group-hover:text-zinc-900 group-hover:translate-x-1 transition font-type-bold ">{title}</h3>
                     </div>
-                    <div className="flex flex-row items-center space-x-3 text-sm sm:text-sm md:text-base lg:text-lg">
-                        <p className="font-type-bold  p-1 text-zinc-700 group-hover:text-zinc-800 transition">Published: {formattedDate}</p>
+                    <div className="flex flex-row items-center text-[0.50rem] sm:text-sm md:text-base lg:text-lg w-2/6">
+                        <p className=" w-2/3 flex justify-center font-type-bold  p-1 text-zinc-700 group-hover:text-zinc-800 transition">Published: {formattedDate}</p>
                         <div
-                            className="p-1 text-zinc-700 group-hover:text-zinc-800 transition">
+                            className="flex justify-center w-1/3 p-1 text-zinc-700 group-hover:text-zinc-800 transition">
                             {isOpen ? <FaChevronUp /> : <FaChevronDown />}
                         </div>
                     </div>
@@ -155,7 +158,7 @@ export const BlogPostInfoPanel = ({ description, blogLink, imageName }: BlogPost
     };
 
     return (
-        <motion.div 
+        <motion.div
             className="mt-4 w-full"
             initial="closed"
             animate="open"
@@ -165,7 +168,7 @@ export const BlogPostInfoPanel = ({ description, blogLink, imageName }: BlogPost
 
             <div className="flex flex-row w-full" key="content">
 
-                <p className="text-sm sm:text-sm md:text-base lg:text-lg text-zinc-900 mb-6 font-type-bold w-2/3 p-1">
+                <p className="text-[0.60rem] sm:text-sm md:text-base lg:text-lg text-zinc-900 mb-6 font-type-bold w-2/3 p-1">
                     {description.split('\n').map((line, index, arr) => (
                         <Fragment key={index}>
                             {line}
@@ -191,7 +194,7 @@ export const BlogPostInfoPanel = ({ description, blogLink, imageName }: BlogPost
                 href={blogLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-type-bold  text-base sm:text-base md:text-lg lg:text-xl"
+                className="font-type-bold text-[0.60rem] sm:text-base md:text-lg lg:text-xl"
                 key="link"
                 style={{ color: '#9e75f0' }}
             >

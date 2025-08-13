@@ -25,15 +25,15 @@ export const FolderTab = ({ label, activeTab, handleTabPressed, Icon }: FolderTa
             <button
                 title={label}
                 onClick={() => handleTabPressed(label)}
-                className={`flex items-center justify-center md:space-x-3 px-2 py-1.5 w-20 sm:w-20 md:w-30 lg:w-50 h-12 
+                className={`flex items-center justify-center md:space-x-3 px-2 py-1.5 w-10 sm:w-20 md:w-30 lg:w-50 h-10 sm:h-12 
                     rounded-t-xl duration-200 cursor-pointer
                      ${activeTab === label
                     ? "text-zinc-900"
                     : "hover:bg-[#e9e9e9] text-zinc-600/80"
                     }`}
             >
-                {Icon && <Icon className="w-0 h-0 md:w-3 md:h-3 lg:h-4 lg:w-4"/>}
-                <span className="border-b-1 border-b-zinc-400 border-dashed">{label}</span>
+                {Icon && <Icon className="w-4 h-4 md:w-4 md:h-4 lg:h-4 lg:w-4"/>}
+                <span className=" hidden md:inline border-b-1 border-b-zinc-400 border-dashed">{label}</span>
             </button>
         </div>
     )

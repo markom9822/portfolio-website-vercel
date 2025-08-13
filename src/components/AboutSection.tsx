@@ -62,7 +62,7 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
             >
 
                 <motion.p
-                    className="text-sm sm:text-sm md:text-lg lg:text-2xl text-zinc-800 pr-10 w-2/3 font-type-bold"
+                    className="text-[0.60rem] sm:text-sm md:text-lg lg:text-2xl text-zinc-800 pr-10 w-2/3 font-type-bold"
                     variants={itemVariant}
                     animate={{ transition: { ease: "easeOut" } }}
                 >
@@ -102,7 +102,7 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}
             >
-                <h2 className="sm:text-xl md:text-2xl lg:text-5xl font-bold font-title mb-6">
+                <h2 className="text-lg sm:text-xl md:text-2xl lg:text-5xl font-bold font-title mb-6">
                     Skills
                 </h2>
 
@@ -112,7 +112,7 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
                         gridTemplateColumns: 'repeat(2, 1fr)',
                         gap: '10px',
                     }}
-                    className="justify-center"
+                    className="justify-center w-full"
                 >
                     {sortedSkills.map(({ title, experience, techUsed }, index) => (
 
@@ -139,16 +139,14 @@ export const SkillPanel = ({ title, experience, maxExperienceLevel, tech }: Skil
     const experienceWidth = `${Math.round((experience / maxExperienceLevel) * 100)}%`
 
     return (
-        <div
-            className="p-4"
-        >
-            <div className='flex flex-row space-x-3'>
-                <div className='w-10 h-10 sm:w-10 sm:h-10 md:w-15 md:h-15 lg:w-20 lg:h-20'>
+        <div className=" p-2 md:p-4 w-full">
+            <div className='flex flex-row space-x-1 md:space-x-3 w-full'>
+                <div className='w-7 h-7 sm:w-10 sm:h-10 md:w-15 md:h-15 lg:w-20 lg:h-20'>
                     {getTechUsedFromName(tech)?.icon}
                 </div>
                 
                 <div className='flex flex-col w-full'>
-                    <div className='flex flex-row justify-between text-base sm:text-base md:text-lg lg:text-2xl'>
+                    <div className='flex flex-row justify-between text-[0.60rem] sm:text-base md:text-lg lg:text-2xl'>
                         <h3 className="font-semibold text-zinc-800 mb-2 font-type-bold">{title}</h3>
                         <h3 className="text-zinc-800 mb-2 font-type-bold">{experienceText}</h3>
                     </div>

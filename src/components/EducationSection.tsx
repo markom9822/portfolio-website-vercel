@@ -50,14 +50,14 @@ export const EducationSection = ({ educations }: EducationSectionProps) => {
             </motion.h2>
 
             <motion.p
-                className="text-sm sm:text-sm md:text-lg lg:text-2xl text-zinc-800 font-type-bold"
+                className="text-xs sm:text-sm md:text-lg lg:text-2xl text-zinc-800 font-type-bold"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
                 My educational background.
             </motion.p>
 
             <motion.div
-                className="mt-10 flex flex-col w-full space-y-6"
+                className="flex flex-col w-full space-y-6"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
 
@@ -92,19 +92,19 @@ export const EducationPanel = ({ title, subtitle, content, imageName, startDate,
         >
             <div className="flex flex-row justify-between">
                 <div className="flex flex-col mb-5 group-hover:translate-x-1 transition">
-                    <h2 className="font-title text-xl sm:text-xl md:text-2xl lg:text-3xl text-zinc-700 mb-2 group-hover:text-zinc-800 transition">{title}</h2>
-                    <p className="font-type-bold text-xs sm:text-xs md:text-sm lg:text-base text-zinc-700 group-hover:text-zinc-800 transition">{subtitle.toUpperCase()} [ {startYear} - {endYear} ]</p>
+                    <h2 className="font-title text-lg sm:text-xl md:text-2xl lg:text-3xl text-zinc-700 mb-2 group-hover:text-zinc-800 transition">{title}</h2>
+                    <p className="font-type-bold text-[0.60rem] sm:text-xs md:text-sm lg:text-base text-zinc-700 group-hover:text-zinc-800 transition">{subtitle.toUpperCase()} [{startYear} - {endYear}]</p>
                 </div>
 
                 <div className="flex items-center opacity-60 group-hover:opacity-100 transition">
                     <img
                         src={`/images/${imageName}`}
-                        className='h-12 w-12 sm:w-12 sm:h-12 md:w-15 md:h-15 lg:h-18 lg:w-18' />
+                        className='h-8 w-8 sm:w-12 sm:h-12 md:w-15 md:h-15 lg:h-18 lg:w-18' />
                 </div>
 
             </div>
 
-            <p className="text-sm sm:text-sm md:text-base lg:text-lg text-zinc-700 font-type-bold ">
+            <p className="text-[0.60rem] sm:text-sm md:text-base lg:text-lg text-zinc-700 font-type-bold ">
                 {content.split('\n').map((line, index, arr) => (
                     <Fragment key={index}>
                         {line}

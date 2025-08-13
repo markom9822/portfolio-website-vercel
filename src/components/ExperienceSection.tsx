@@ -51,7 +51,7 @@ export const ExperienceSection = ({ experiences }: ExperienceSectionProps) => {
             </motion.h2>
 
             <motion.p
-                className="text-sm sm:text-sm md:text-lg lg:text-2xl text-zinc-800 font-type-bold w-full"
+                className="text-xs sm:text-sm md:text-lg lg:text-2xl text-zinc-800 font-type-bold w-full"
                 variants={itemVariant}
                 animate={{ transition: { ease: "easeOut" } }}>
 
@@ -113,13 +113,13 @@ export const ExperiencePanel = ({ companyName, companyIconName, companyLocation,
             className="group rounded shadow border-3 border-dashed border-zinc-600 transition hover:border-zinc-900 p-4 w-full">
             <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-col mb-4 group-hover:translate-x-1 transition space-y-1">
-                    <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl text-zinc-700 font-title mb-1 group-hover:text-zinc-900 transition">{companyName}</h2>
+                    <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-zinc-700 font-title mb-1 group-hover:text-zinc-900 transition">{companyName}</h2>
 
-                    {showTotalDuration && (<p className="font-type-bold text-xs sm:text-xs md:text-sm lg:text-base text-zinc-700 group-hover:text-zinc-900 transition">[ {durationText} ]</p>)}
+                    {showTotalDuration && (<p className="font-type-bold text-[0.60rem] sm:text-xs md:text-sm lg:text-base text-zinc-700 group-hover:text-zinc-900 transition">[ {durationText} ]</p>)}
 
-                    <div className="flex flex-row items-center space-x-3">
-                        <p className="font-type-bold text-xs sm:text-xs md:text-sm lg:text-base text-zinc-700 group-hover:text-zinc-900 transition">{companyLocation.toUpperCase()}</p>
-                        <div className="flex items-center opacity-40 group-hover:opacity-100 transition w-6 h-1 sm:w-6 sm:h-1 md:w-9 md:h-3 lg:w-11 lg:h-4">
+                    <div className="flex flex-row items-center space-x-2 md:space-x-3">
+                        <p className="font-type-bold text-[0.60rem] sm:text-xs md:text-sm lg:text-base text-zinc-700 group-hover:text-zinc-900 transition">{companyLocation.toUpperCase()}</p>
+                        <div className="flex items-center opacity-40 group-hover:opacity-100 transition w-4 h-0.5 sm:w-6 sm:h-1 md:w-9 md:h-3 lg:w-11 lg:h-4">
                             {getFlagFromName(country)?.icon}
                         </div>
                     </div>
@@ -128,7 +128,7 @@ export const ExperiencePanel = ({ companyName, companyIconName, companyLocation,
 
                 <div className="flex items-center opacity-60 group-hover:opacity-100 transition rounded">
                     <a href={companyWebsite} target="_blank">
-                        <img title={companyName} style={{ borderRadius: '5px' }} className="w-16 h-16 sm:w-16 sm:h-16 md:w-22 md:h-22 lg:w-28 lg:h-28" src={companyIconName}>
+                        <img title={companyName} style={{ borderRadius: '5px' }} className="w-8 h-8 sm:w-16 sm:h-16 md:w-22 md:h-22 lg:w-28 lg:h-28" src={companyIconName}>
                         </img>
                     </a>
                 </div>
@@ -166,13 +166,13 @@ export const PositionPanel = ({ positionName, content, positionStartDate, positi
 
     return (
         <div className="flex flex-col space-y-3">
-            <h3 className="text-base sm:text-base md:text-lg lg:text-xl text-zinc-800 mb-2 font-title">{positionName}</h3>
-            <div className="flex flex-row space-x-4 text-xs sm:text-xs md:text-sm lg:text-base font-type-bold">
+            <h3 className="text-sm sm:text-base md:text-lg lg:text-xl text-zinc-800 mb-2 font-title">{positionName}</h3>
+            <div className="flex flex-row space-x-2 md:space-x-4 text-[0.55rem] sm:text-xs md:text-sm lg:text-base font-type-bold">
                 <p className=" text-zinc-800">{formattedStartDate} - {formattedEndDate}</p>
-                <p className=" text-zinc-700">[ {durationText} ]</p>
+                <p className=" text-zinc-700">[{durationText}]</p>
             </div>
 
-            <p className="text-xs sm:text-xs md:text-sm lg:text-base text-zinc-700 mb-2 font-type-bold">
+            <p className="text-[0.60rem] sm:text-xs md:text-sm lg:text-base text-zinc-700 mb-2 font-type-bold">
                 {content.split('\n').map((line, index, arr) => (
                     <Fragment key={index}>
                         {line}
