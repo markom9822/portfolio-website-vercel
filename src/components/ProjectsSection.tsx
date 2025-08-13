@@ -1,10 +1,10 @@
 import { Fragment, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { GoArrowUpRight } from "react-icons/go";
-import { githubIcon } from "./Icons";
 import { motion, stagger, AnimatePresence } from "motion/react"
 import type { ProjectDB } from "../pages/AdminProjects";
 import { getTechUsedFromName } from "../store/techUsedOptions";
+import { PiGithubLogo } from "react-icons/pi";
 
 type ProjectSectionProps = {
     projects: ProjectDB[]
@@ -121,7 +121,7 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, techU
 
                     <div className="flex flex-row items-center w-4/6">
                         <div className="w-1/10 flex">
-                            <div className="w-2/3 px-1 md:px-2.5 py-1 text-[0.50rem] text-center flex justify-center sm:text-xs md:text-sm lg:text-base font-bold font-title border-2 border-zinc-400 group-hover:border-zinc-800 text-zinc-500 group-hover:text-zinc-900 rounded transition">{index + 1}</div>
+                            <div className="w-2/3 px-1 md:px-2.5 py-1 text-[0.50rem] text-center flex justify-center sm:text-xs md:text-sm lg:text-base font-bold font-title text-zinc-500 group-hover:text-zinc-900 rounded transition">{index + 1}</div>
                         </div>
                         
                         <h3 className=" w-7/10 flex px-3 justify-start font-type-bold text-xs sm:text-lg md:text-xl lg:text-2xl font-semibold text-zinc-600 group-hover:text-zinc-900 group-hover:translate-x-1 transition">{title}</h3>
@@ -236,13 +236,13 @@ export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed
                     {isWork ? (
                         <>
                             <p>Read More</p>
-                            <GoArrowUpRight size={25} />
+                            <GoArrowUpRight className="w-4 h-4 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8" />
                         </>
                     ) : (
                         <>
-                            {githubIcon}
+                            <PiGithubLogo className="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 lg:h-9 lg:w-9" />
                             <p>View on GitHub</p>
-                            <GoArrowUpRight size={25} />
+                            <GoArrowUpRight className="w-4 h-4 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8" />
                         </>
                     )}
                 </div>

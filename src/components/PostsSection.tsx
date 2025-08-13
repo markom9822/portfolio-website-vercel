@@ -107,7 +107,7 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
 
                     <div className="flex flex-row items-center w-4/6">
                         <div className="w-1/10 flex">
-                            <div className="px-1 md:px-2.5 py-1 text-[0.50rem] sm:text-xs md:text-sm lg:text-base font-bold font-title border-2 border-zinc-400 group-hover:border-zinc-800 text-zinc-500 group-hover:text-zinc-900 rounded transition">{index + 1}</div>
+                            <div className="w-2/3 px-1 md:px-2.5 py-1 text-[0.50rem] text-center flex justify-center sm:text-xs md:text-sm lg:text-base font-bold font-title text-zinc-500 group-hover:text-zinc-900 rounded transition">{index + 1}</div>
                         </div>
 
                         <h3 className="w-9/10 px-3 flex justify-start text-xs sm:text-lg md:text-xl lg:text-2xl font-semibold text-zinc-600 group-hover:text-zinc-900 group-hover:translate-x-1 transition font-type-bold ">{title}</h3>
@@ -200,7 +200,7 @@ export const BlogPostInfoPanel = ({ description, blogLink, imageName }: BlogPost
             >
                 <div className="flex flex-row space-x-1 items-center hover:text-purple-700 transition">
                     <p>Read more</p>
-                    <GoArrowUpRight size={25} />
+                    <GoArrowUpRight className="w-4 h-4 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8" />
                 </div>
             </a>
         </motion.div>

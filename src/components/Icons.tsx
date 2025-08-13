@@ -241,7 +241,7 @@ export const gitIcon = (
 
 export const figmaIcon = (
   <a href="https://www.figma.com/" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Figma-logo.svg/500px-Figma-logo.svg.png?20250625151003" title="Figma" width="30" height="30" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Figma-logo.svg/500px-Figma-logo.svg.png?20250625151003" title="Figma" className="w-5 h-7 sm:w-6 sm:h-8 md:w-8 md:h-10 lg:w-9 lg:h-12" />
   </a>
 )
 
@@ -265,7 +265,7 @@ export const pythonIcon = (
 
 export const fireBaseIcon = (
   <a href="https://firebase.google.com/" target="_blank">
-    <img src="https://brandlogos.net/wp-content/uploads/2025/03/firebase_icon-logo_brandlogos.net_tcvck-512x646.png" title="Firebase" width="35" height="35">
+    <img src="https://brandlogos.net/wp-content/uploads/2025/03/firebase_icon-logo_brandlogos.net_tcvck-512x646.png" title="Firebase" className="w-5 h-6 sm:w-7 sm:h-8 md:w-9 md:h-10 lg:w-11 lg:h-12">
     </img>
   </a>
 )
