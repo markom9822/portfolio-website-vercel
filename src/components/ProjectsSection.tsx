@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { FaChevronDown } from "react-icons/fa";
+import { BsChevronDown } from "react-icons/bs";
 import { GoArrowUpRight } from "react-icons/go";
 import { motion, stagger, AnimatePresence } from "motion/react"
 import type { ProjectDB } from "../pages/AdminProjects";
@@ -137,7 +137,7 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, techU
                             animate={{ rotate: isOpen ? -180 : 0 }}
                             transition={{ duration: 0.06, ease: "easeInOut" }}
                             className="w-1/3 p-1 text-zinc-700 group-hover:text-zinc-800 transition flex items-center justify-center">
-                            <FaChevronDown />
+                            <BsChevronDown />
                         </motion.div>
                     </div>
                 </div>
@@ -231,11 +231,10 @@ export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed
                 href={projectLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-type-bold  w-full text-xs sm:text-base md:text-lg lg:text-xl"
+                className="font-type-bold text-blue-700  w-full text-xs sm:text-base md:text-lg lg:text-xl"
                 key="link"
-                style={{ color: '#9e75f0' }}
             >
-                <div className="flex flex-row space-x-2 items-center hover:text-purple-700 transition my-1 w-full">
+                <div className="flex flex-row space-x-2 items-center hover:text-blue-500 transition my-1 w-full">
 
                     {isWork ? (
                         <>

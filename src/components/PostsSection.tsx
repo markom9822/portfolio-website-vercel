@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { FaChevronDown } from "react-icons/fa";
+import { BsChevronDown } from "react-icons/bs";
 import { GoArrowUpRight } from "react-icons/go";
 import { motion, stagger, AnimatePresence } from "motion/react"
 import type { PostDB } from "../pages/AdminPosts";
@@ -118,7 +118,7 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
                             animate={{ rotate: isOpen ? -180 : 0 }}
                             transition={{ duration: 0.06, ease: "easeInOut" }}
                             className="w-1/3 p-1 text-zinc-700 group-hover:text-zinc-800 transition flex items-center justify-center">
-                            <FaChevronDown />
+                            <BsChevronDown />
                         </motion.div>
                     </div>
                 </div>
@@ -196,11 +196,11 @@ export const BlogPostInfoPanel = ({ description, blogLink, imageName }: BlogPost
                 href={blogLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-type-bold text-[0.60rem] sm:text-base md:text-lg lg:text-xl"
+                className="font-type-bold text-blue-700 text-[0.60rem] sm:text-base md:text-lg lg:text-xl"
                 key="link"
-                style={{ color: '#9e75f0' }}
+                
             >
-                <div className="flex flex-row space-x-1 items-center hover:text-purple-700 transition">
+                <div className="flex flex-row space-x-1 items-center hover:text-blue-500 transition">
                     <p>Read more</p>
                     <GoArrowUpRight className="w-4 h-4 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8" />
                 </div>
