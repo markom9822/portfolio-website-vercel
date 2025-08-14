@@ -32,7 +32,7 @@ export const AdminSettings = () => {
                             <div className='flex items-center relative w-full'>
                                 <button
                                     onClick={() => navigate('/admin/dashboard')}
-                                    className='duration-200 cursor-pointer absolute left-0 flex font-title flex-row items-center space-x-2 text-zinc-800 hover:text-zinc-700'>
+                                    className='duration-200 cursor-pointer absolute left-0 flex font-text flex-row items-center space-x-2 text-zinc-800 hover:text-zinc-700'>
                                     <FaArrowLeft />
                                     <p>Dashboard</p>
                                 </button>

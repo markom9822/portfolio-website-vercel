@@ -228,7 +228,7 @@ export const AdminAboutMe = () => {
                             <div className='flex items-center relative w-full'>
                                 <button
                                     onClick={() => navigate('/admin/dashboard')}
-                                    className='duration-200 cursor-pointer absolute left-0 flex font-title flex-row items-center space-x-2 text-zinc-800 hover:text-zinc-700'>
+                                    className='duration-200 cursor-pointer absolute left-0 flex font-text flex-row items-center space-x-2 text-zinc-800 hover:text-zinc-700'>
                                     <FaArrowLeft />
                                     <p>Dashboard</p>
                                 </button>
@@ -256,7 +256,7 @@ export const AdminAboutMe = () => {
 
                                         {allSkills.length == 0 ? (<p className='text-center text-2xl text-zinc-800'>No Skills Yet</p>) : (
                                             <>
-                                                <h2 className='text-xl mt-4 px-3'>Skills</h2>
+                                                <h2 className='text-2xl mt-4 px-3 font-title'>Skills</h2>
 
                                                 {allSkills.map(({ id, title, experience, techUsed }, index) => (
 
@@ -421,9 +421,9 @@ type AdminAboutMeContentProps = {
 export const AdminAboutMeContent = ({ OnChangesSaved, contentValue, handleInputChanged }: AdminAboutMeContentProps) => {
 
     return (
-        <div className="flex flex-col space-y-2 font-title w-full">
+        <div className="flex flex-col space-y-2 font-text w-full">
 
-            <h2 className="text-xl font-title">About me header</h2>
+            <h2 className="text-2xl font-title">About me header</h2>
 
             <div className='w-full'>
                 <TextAreaField minHeight={200} className="" placeholder="About me text" value={contentValue} OnInputChanged={handleInputChanged} />

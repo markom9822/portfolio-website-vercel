@@ -82,8 +82,6 @@ export const AdminLogin = () => {
                         </button>
                     </div>
                 </div>
-
-
             </div>
         </div>
     )
