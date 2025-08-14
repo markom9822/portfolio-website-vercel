@@ -128,7 +128,9 @@ export const ExperiencePanel = ({ companyName, companyIconName, companyLocation,
 
                 <div className="flex items-center opacity-60 group-hover:opacity-100 transition rounded">
                     <a href={companyWebsite} target="_blank">
-                        <img title={companyName} style={{ borderRadius: '5px' }} className="w-8 h-8 sm:w-16 sm:h-16 md:w-22 md:h-22 lg:w-28 lg:h-28" src={companyIconName}>
+                        <img title={companyName} style={{ borderRadius: '5px' }} 
+                        className="w-8 h-8 sm:w-16 sm:h-16 md:w-22 md:h-22 lg:w-28 lg:h-28 shadow-[3px_4px_10px_rgba(0,0,0,0.3)]" 
+                        src={companyIconName}>
                         </img>
                     </a>
                 </div>

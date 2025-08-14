@@ -83,7 +83,7 @@ export const AboutSection = ({ aboutMeContent, skills }: AboutSectionProps) => {
                     <motion.img 
                     src={profilePic} 
                     style={{ }}
-                    className=" w-full object-cover shadow-2xl aspect-square rounded-md opacity-90 " />
+                    className=" w-full object-cover shadow-[2px_2px_6px_rgba(0,0,0,0.7)] aspect-square rounded-md opacity-90 " />
 
                     <motion.img 
                     src={tape} 
