@@ -110,7 +110,7 @@ export const ExperiencePanel = ({ companyName, companyIconName, companyLocation,
 
     return (
         <div
-            className="group rounded shadow border-3 border-dashed border-zinc-600 transition hover:border-zinc-900 p-4 w-full">
+            className="group rounded shadow border-1 md:border-3 border-dashed border-zinc-600 transition hover:border-zinc-900 p-4 w-full">
             <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-col mb-4 group-hover:translate-x-1 transition space-y-1">
                     <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-zinc-700 font-title mb-1 group-hover:text-zinc-900 transition">{companyName}</h2>

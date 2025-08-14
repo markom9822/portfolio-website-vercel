@@ -103,7 +103,7 @@ export const BlogPostPanel = ({ title, description, publishDate, blogLink, image
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="group flex flex-row justify-between items-center p-2 py-4 w-full rounded">
-                <div className="border-b-3 border-dashed border-b-zinc-600 flex flex-row justify-between items-center w-full gap-x-2 pb-1 md:pb-2">
+                <div className="border-b-1 md:border-b-3 border-dashed border-b-zinc-600 flex flex-row justify-between items-center w-full gap-x-2 pb-1 md:pb-2">
 
                     <div className="flex flex-row items-center w-4/6">
                         <div className="w-1/10 flex">

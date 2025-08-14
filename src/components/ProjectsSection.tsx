@@ -117,7 +117,7 @@ export const ProjectPanel = ({ title, description, projectLink, startDate, techU
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="group flex flex-row justify-between items-center py-4 w-full rounded">
-                <div className="border-b-3 border-dashed border-b-zinc-600 flex flex-row gap-x-2 pb-1 md:pb-2 justify-between items-center w-full">
+                <div className="border-b-1 md:border-b-3 border-dashed border-b-zinc-600 flex flex-row gap-x-2 pb-1 md:pb-2 justify-between items-center w-full">
 
                     <div className="flex flex-row items-center w-4/6">
                         <div className="w-1/10 flex">
@@ -218,7 +218,7 @@ export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed
 
                 <h3 className="font-type-bold text-[0.60rem] sm:text-sm md:text-base lg:text-lg text-zinc-800 w-full">TECH USED:</h3>
 
-                <div className="w-2/3 flex flex-row items-center flex-wrap gap-x-1 gap-y-3 mb-3 p-1">
+                <div className="w-full flex flex-row items-center flex-wrap gap-x-1 gap-y-3 mb-3 p-1">
                     {techUsed.map((name, index) => (
                         <div className="flex items-center align-middle justify-center mx-1 md:mx-4 w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12" key={index}>
                             {getTechUsedFromName(name)?.icon}

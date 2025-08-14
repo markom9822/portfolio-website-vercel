@@ -88,7 +88,7 @@ export const EducationPanel = ({ title, subtitle, content, imageName, startDate,
 
     return (
         <div
-            className="group rounded shadow border-3 border-dashed border-zinc-600 transition hover:border-zinc-700 p-4"
+            className="group rounded shadow border-1 md:border-3 border-dashed border-zinc-600 transition hover:border-zinc-700 p-4"
         >
             <div className="flex flex-row justify-between">
                 <div className="flex flex-col mb-5 group-hover:translate-x-1 transition">
