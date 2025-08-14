@@ -192,7 +192,7 @@ export const ProjectInfoPanel = ({ description, projectLink, imageName, techUsed
                     <img
                         src={`/images/${imageName}`}
                         alt="Project"
-                        className="rounded border-1 border-emerald-500" />
+                        className="rounded border-1 border-emerald-500 shadow-[2px_3px_8px_rgba(0,0,0,0.3)]" />
                 </div>
 
                 <div className="w-full p-1">

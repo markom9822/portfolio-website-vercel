@@ -175,7 +175,7 @@ export const BlogPostInfoPanel = ({ description, blogLink, imageName }: BlogPost
                         src={`/images/${imageName}`}
                         alt="Post"
                         loading="eager"
-                        className="rounded border-1 border-emerald-500" />
+                        className="rounded border-1 border-emerald-500 shadow-[2px_3px_8px_rgba(0,0,0,0.3)]" />
                 </div>
 
                 <p className="text-[0.60rem] sm:text-sm md:text-base lg:text-lg text-zinc-900 lg:mb-3 font-type-bold w-full p-1">
