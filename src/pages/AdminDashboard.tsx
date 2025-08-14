@@ -145,7 +145,7 @@ export const DashboardCard = ({ title, description, Icon, route, navigateFunctio
     return (
         <button
             className="p-4 w-full rounded duration-200 cursor-pointer border-dashed border-3
-             border-zinc-800 hover:border-zinc-600 transition bg-emerald-100"
+             border-zinc-800 hover:border-zinc-600 transition bg-emerald-100 hover:bg-emerald-50"
             onClick={() => navigateFunction(route)}>
 
             <div className='flex flex-col w-full items-center justify-center space-y-2'>

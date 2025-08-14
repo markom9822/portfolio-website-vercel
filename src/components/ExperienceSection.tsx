@@ -110,7 +110,7 @@ export const ExperiencePanel = ({ companyName, companyIconName, companyLocation,
 
     return (
         <div
-            className="group rounded shadow border-3 border-dashed border-zinc-600 transition hover:border-zinc-900 p-4 w-full">
+            className="group rounded shadow border-1 md:border-3 border-dashed border-zinc-600 transition hover:border-zinc-900 p-4 w-full">
             <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-col mb-4 group-hover:translate-x-1 transition space-y-1">
                     <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-zinc-700 font-title mb-1 group-hover:text-zinc-900 transition">{companyName}</h2>
@@ -128,7 +128,9 @@ export const ExperiencePanel = ({ companyName, companyIconName, companyLocation,
 
                 <div className="flex items-center opacity-60 group-hover:opacity-100 transition rounded">
                     <a href={companyWebsite} target="_blank">
-                        <img title={companyName} style={{ borderRadius: '5px' }} className="w-8 h-8 sm:w-16 sm:h-16 md:w-22 md:h-22 lg:w-28 lg:h-28" src={companyIconName}>
+                        <img title={companyName} style={{ borderRadius: '5px' }} 
+                        className="w-8 h-8 sm:w-16 sm:h-16 md:w-22 md:h-22 lg:w-28 lg:h-28 shadow-[3px_4px_10px_rgba(0,0,0,0.3)]" 
+                        src={companyIconName}>
                         </img>
                     </a>
                 </div>

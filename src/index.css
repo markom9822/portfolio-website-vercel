@@ -120,22 +120,6 @@
 }
 
 @font-face {
-  font-family: "Martian Mono";
-  font-style: normal;
-  font-weight: 500;
-  src: url("/fonts/martian-mono.woff2") format("woff2");
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PTSerif Bold";
-  font-style: normal;
-  font-weight: 500;
-  src: url("/fonts/pt-serif-bold.woff2") format("woff2");
-  font-display: swap;
-}
-
-@font-face {
   font-family: "JetBrains Mono";
   font-style: normal;
   font-weight: 500;
@@ -175,10 +159,6 @@
   font-display: swap;
 }
 
-.font-martian {
-  font-family: "Martian Mono", monospace;
-}
-
 .font-title {
   font-family: "Helvetica Bold", sans-serif;
 }
@@ -204,7 +184,7 @@ body {
 }
 
 ::selection {
-  background: #d1d5db;
+  background: #0fcf86;
   color: #000;
 }
 
