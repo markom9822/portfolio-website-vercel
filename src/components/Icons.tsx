@@ -248,7 +248,9 @@ export const figmaIcon = (
 
 export const pythonIcon = (
 
-  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0.21 -0.077 110 110" enableBackground="new 0.21 -0.077 110 110">
+  <a href="https://www.python.org/" target="_blank">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0.21 -0.077 110 110" enableBackground="new 0.21 -0.077 110 110">
+    <title>Python</title>
     <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="63.8159" y1="56.6829" x2="118.4934" y2="1.8225" gradientTransform="matrix(1 0 0 -1 -53.2974 66.4321)">
       <stop offset="0" style={{ stopColor: '#387EB8' }} />
       <stop offset="1" style={{ stopColor: '#366994' }} />
@@ -260,7 +262,7 @@ export const pythonIcon = (
     </linearGradient>
     <path fill="url(#SVGID_2_)" d="M55.397,109.923c25.959,0,26.282-10.271,26.282-12.156c0-3.148,0-12.594,0-12.594H54.897v-3.781 c0,0,28.032,0,37.375,0c8.009,0,17.938-4.954,17.938-26.25c0-23.322-10.538-27.281-15.656-27.281c-2.336,0-9.344,0-9.344,0 s0,10.216,0,13.125c0,5.491-2.631,15.656-15.406,15.656c-15.91,0-19.476,0-26.532,0c-3.892,0-14.906,1.896-14.906,14.406 c0,14.475,0,18.265,0,24.219C28.366,100.497,31.562,109.923,55.397,109.923z M70.148,101.454c-2.662,0-4.813-2.151-4.813-4.813 s2.15-4.813,4.813-4.813c2.661,0,4.813,2.151,4.813,4.813S72.809,101.454,70.148,101.454z" />
   </svg>
-
+  </a>
 )
 
 export const fireBaseIcon = (
