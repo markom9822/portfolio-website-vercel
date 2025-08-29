@@ -293,6 +293,12 @@ export const motionIcon = (
   </a>
 )
 
+export const githubActionsIcon = (
+  <a href="https://github.com/features/actions" target="_blank">
+    <img title="Github Actions" src="https://avatars.githubusercontent.com/u/54465427?v=4"></img>
+  </a>
+)
+
 export const ukFlagIcon = (
   <img
     src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/2560px-Flag_of_the_United_Kingdom.svg.png"
